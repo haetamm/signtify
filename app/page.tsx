@@ -1,65 +1,106 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Home() {
+  const [form, setForm] = useState({ username: "", password: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen flex items-center justify-center bg-background p-6">
+      <div className="flex w-full max-w-4xl rounded-3xl overflow-hidden md:shadow-2xl bg-white">
+        {/* Left Panel */}
+        <div className="w-2/5 relative hidden md:block bg-primary-gradient">
+          <div className="absolute inset-0 flex items-center justify-center p-6">
+            {/* Pencils decoration */}
+            <div className="flex gap-2">
+              <Image width="500" height="500" src="/img/folder.svg" alt="" />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Panel */}
+        <div className="flex-1 flex flex-col justify-center px-2 md:px-10 py-10">
+          {/* Logo */}
+          <div className="flex items-center gap-2 mb-6">
+            <Image
+              height="28"
+              width="28"
+              src="/img/logo.svg"
+              alt=""
+              className="rounded-md flex items-center justify-center font-black text-white text-sm"
+            />
+            <span className="text-gray-800 font-bold text-2xl tracking-tight">
+              Signtify
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h1 className="text-2xl font-extrabold text-gray-900 mb-6">
+            Keep Your Documents organized .
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+          {/* Form */}
+          <div className="flex flex-col gap-3">
+            <Input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={form.username}
+              onChange={handleChange}
+            />
+
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+            />
+          </div>
+
+          <Button size="lg" className="mt-5 w-full rounded-full h-11">
+            Sign in
+          </Button>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-5">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-xs text-gray-400">Or</span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+
+          {/* Social Buttons */}
+          <div className="flex justify-center gap-4">
+            <Button
+              variant="outline"
+              size="lg"
+              disabled
+              className="w-11 h-11 rounded-full h-11 "
             >
-              Templates
-            </a>{" "}
-            or the{" "}
+              <FcGoogle className="text-[44px]" />
+            </Button>
+          </div>
+
+          {/* Sign In Link */}
+          <p className="text-center text-sm text-gray-400 mt-6">
+            Forgot Password?{" "}
             <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="#"
+              className="text-gray-800 font-semibold hover:text-primary transition"
             >
-              Learning
-            </a>{" "}
-            center.
+              Here
+            </a>
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
