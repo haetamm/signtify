@@ -9,9 +9,9 @@ interface InputProps extends React.ComponentProps<"input"> {
 function Input({ className, type, variant = "default", ...props }: InputProps) {
   const variants = {
     default:
-      "w-full border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-primary focus:ring-2 focus:ring-yellow-100 transition",
+      "w-full rounded-full px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-yellow-100 transition",
     error:
-      "w-full border border-red-500 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-red-600 focus:ring-2 focus:ring-red-100 transition",
+      "w-full rounded-full px-5 py-3 text-sm outline-none focus:border-red-600 focus:ring-2 focus:ring-red-100 transition",
   };
 
   return (

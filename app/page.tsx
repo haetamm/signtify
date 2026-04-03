@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+import { GrGoogle } from "react-icons/gr";
 
 export default function Home() {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-6">
-      <div className="flex w-full max-w-4xl rounded-3xl overflow-hidden md:shadow-2xl bg-white">
+      <div className="flex w-full max-w-4xl rounded-3xl overflow-hidden md:shadow-2xl md:bg-secondary">
         {/* Left Panel */}
         <div className="w-2/5 relative hidden md:block bg-primary-gradient">
           <div className="absolute inset-0 flex items-center justify-center p-6">
@@ -37,13 +37,13 @@ export default function Home() {
               alt=""
               className="rounded-md flex items-center justify-center font-black text-white text-sm"
             />
-            <span className="text-gray-800 font-bold text-2xl tracking-tight">
+            <span className="text-foreground font-bold text-2xl tracking-tight">
               Signtify
             </span>
           </div>
 
           {/* Heading */}
-          <h1 className="text-2xl font-extrabold text-gray-900 mb-6">
+          <h1 className="text-2xl font-extrabold text-foreground mb-6">
             Keep Your Documents organized .
           </h1>
 
@@ -52,6 +52,7 @@ export default function Home() {
             <Input
               type="text"
               name="username"
+              className="border text-secondary-foreground"
               placeholder="Username"
               value={form.username}
               onChange={handleChange}
@@ -60,6 +61,7 @@ export default function Home() {
             <Input
               type="password"
               name="password"
+              className="border text-secondary-foreground"
               placeholder="Password"
               value={form.password}
               onChange={handleChange}
@@ -80,12 +82,12 @@ export default function Home() {
           {/* Social Buttons */}
           <div className="flex justify-center gap-4">
             <Button
-              variant="outline"
+              variant="tertiary"
               size="lg"
               disabled
               className="w-11 h-11 rounded-full h-11 "
             >
-              <FcGoogle className="text-[44px]" />
+              <GrGoogle className="text-[44px]" />
             </Button>
           </div>
 
@@ -94,7 +96,7 @@ export default function Home() {
             Forgot Password?{" "}
             <a
               href="#"
-              className="text-gray-800 font-semibold hover:text-primary transition"
+              className="text-foreground font-semibold hover:text-primary transition"
             >
               Here
             </a>
