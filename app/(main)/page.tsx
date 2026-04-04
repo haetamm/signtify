@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { urlPage } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 import { GrGoogle } from "react-icons/gr";
@@ -11,6 +12,10 @@ export default function Home() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    window.location.href = urlPage.DASHBOARD;
   };
 
   return (
@@ -68,7 +73,11 @@ export default function Home() {
             />
           </div>
 
-          <Button size="lg" className="mt-5 w-full rounded-full h-11">
+          <Button
+            onClick={handleSubmit}
+            size="lg"
+            className="mt-5 w-full rounded-full h-11"
+          >
             Sign in
           </Button>
 
