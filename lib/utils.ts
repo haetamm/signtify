@@ -6,10 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const urlPage = {
+  LOGIN: "/",
   DASHBOARD: "/dashboard",
   DOCUMENT: "/document",
   SETTING: "/setting",
   NOTIFICATION: "/notification",
+  FORGOT_PASSWORD: "/forgot-password",
 };
 
 export const isActivePath = (pathname: string, href: string) =>

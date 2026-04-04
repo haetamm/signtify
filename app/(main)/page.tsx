@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { urlPage } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { GrGoogle } from "react-icons/gr";
 
@@ -19,7 +20,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-6">
+    <div className="min-h-screen flex items-start md:items-center justify-center bg-background p-6">
       <div className="flex w-full max-w-4xl rounded-3xl overflow-hidden md:shadow-2xl md:bg-secondary">
         {/* Left Panel */}
         <div className="w-2/5 relative hidden md:block bg-primary-gradient">
@@ -32,7 +33,7 @@ export default function Home() {
         </div>
 
         {/* Right Panel */}
-        <div className="flex-1 flex flex-col justify-center px-2 md:px-10 py-10">
+        <div className="flex-1 flex flex-col justify-start px-2 md:px-10 py-10">
           {/* Logo */}
           <div className="flex items-center gap-2 mb-6">
             <Image
@@ -49,7 +50,7 @@ export default function Home() {
 
           {/* Heading */}
           <h1 className="text-2xl font-extrabold text-foreground mb-6">
-            Keep Your Documents organized .
+            Keep Your Documents Organized .
           </h1>
 
           {/* Form */}
@@ -103,12 +104,12 @@ export default function Home() {
           {/* Sign In Link */}
           <p className="text-center text-sm text-gray-400 mt-6">
             Forgot Password?{" "}
-            <a
-              href="#"
-              className="text-foreground font-semibold hover:text-primary transition"
+            <Link
+              href={urlPage.FORGOT_PASSWORD}
+              className="text-foreground text-xs font-semibold hover:text-primary transition"
             >
               Here
-            </a>
+            </Link>
           </p>
         </div>
       </div>
