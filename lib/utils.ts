@@ -12,6 +12,7 @@ export const urlPage = {
   SETTING: "/setting",
   NOTIFICATION: "/notification",
   FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
 };
 
 export const isActivePath = (pathname: string, href: string) =>

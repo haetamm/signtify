@@ -1,6 +1,5 @@
 "use client";
 
-import AuthFooterLink from "@/components/molecules/AuthFooterLink";
 import AuthLeftPanel from "@/components/organisms/AuthLeftPanel";
 import AuthRightPanel from "@/components/organisms/AuthRightPanel";
 import GuestLayout from "@/components/templates/GuestLayout";
@@ -10,8 +9,8 @@ import { urlPage } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function ForgotPassword() {
-  const [form, setForm] = useState({ email: "" });
+export default function ResetPassword() {
+  const [form, setForm] = useState({ password: "", passwordConfirmation: "" });
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,26 +18,34 @@ export default function ForgotPassword() {
   };
 
   const handleSubmit = () => {
-    window.location.href = urlPage.RESET_PASSWORD;
-    router.push(urlPage.RESET_PASSWORD);
+    router.push(urlPage.LOGIN);
   };
 
   return (
     <GuestLayout cardClassName="md:min-h-[539px] lg:min-h-[507px]">
-      <AuthLeftPanel imageSrc="/img/forgot.svg" />
+      <AuthLeftPanel imageSrc="/img/reset.svg" />
 
       <AuthRightPanel
-        heading="Recover Access, Stay Organized."
-        headingClassName="md:-mb-3"
+        heading="Reset Your Password, Stay Organized ."
+        headingClassName="md:mb-0"
         centeredContent
       >
         <div className="flex flex-col gap-3">
           <Input
-            type="email"
-            name="email"
+            type="password"
+            name="password"
             className="border text-secondary-foreground"
-            placeholder="Email"
-            value={form.email}
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
+
+          <Input
+            type="password"
+            name="passwordConfirmation"
+            className="border text-secondary-foreground"
+            placeholder="Password Confirmation"
+            value={form.passwordConfirmation}
             onChange={handleChange}
           />
         </div>
@@ -48,14 +55,8 @@ export default function ForgotPassword() {
           size="lg"
           className="mt-5 w-full rounded-full h-11"
         >
-          Reset Password
+          Change Password
         </Button>
-
-        <AuthFooterLink
-          label="Have an account already?"
-          linkText="Here"
-          href={urlPage.LOGIN}
-        />
       </AuthRightPanel>
     </GuestLayout>
   );

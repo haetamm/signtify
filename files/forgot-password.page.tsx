@@ -1,30 +1,27 @@
 "use client";
 
-import AuthFooterLink from "@/components/molecules/AuthFooterLink";
+import { useState } from "react";
+import AuthTemplate from "@/components/templates/AuthTemplate";
 import AuthLeftPanel from "@/components/organisms/AuthLeftPanel";
 import AuthRightPanel from "@/components/organisms/AuthRightPanel";
-import GuestLayout from "@/components/templates/GuestLayout";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { urlPage } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import AuthInput from "@/components/atoms/AuthInput";
+import AuthButton from "@/components/atoms/AuthButton";
+import AuthFooterLink from "@/components/molecules/AuthFooterLink";
+import { urlPage } from "@/constants/urlPage";
 
 export default function ForgotPassword() {
   const [form, setForm] = useState({ email: "" });
-  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    window.location.href = urlPage.RESET_PASSWORD;
-    router.push(urlPage.RESET_PASSWORD);
+    window.location.href = urlPage.LOGIN;
   };
 
   return (
-    <GuestLayout cardClassName="md:min-h-[539px] lg:min-h-[507px]">
+    <AuthTemplate cardClassName="md:min-h-[539px] lg:min-h-[507px]">
       <AuthLeftPanel imageSrc="/img/forgot.svg" />
 
       <AuthRightPanel
@@ -33,23 +30,18 @@ export default function ForgotPassword() {
         centeredContent
       >
         <div className="flex flex-col gap-3">
-          <Input
+          <AuthInput
             type="email"
             name="email"
-            className="border text-secondary-foreground"
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
           />
         </div>
 
-        <Button
-          onClick={handleSubmit}
-          size="lg"
-          className="mt-5 w-full rounded-full h-11"
-        >
+        <AuthButton onClick={handleSubmit} className="mt-5">
           Reset Password
-        </Button>
+        </AuthButton>
 
         <AuthFooterLink
           label="Have an account already?"
@@ -57,6 +49,6 @@ export default function ForgotPassword() {
           href={urlPage.LOGIN}
         />
       </AuthRightPanel>
-    </GuestLayout>
+    </AuthTemplate>
   );
 }
