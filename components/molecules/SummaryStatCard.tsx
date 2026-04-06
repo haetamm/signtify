@@ -57,7 +57,7 @@ export default function SummaryStatCard({
 
         <Separator />
 
-        <div className="pb-4 lg:pb-0">
+        <div className="pb-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-gray-600">Progress</span>
             <span className="text-sm font-medium">{progressPercent}%</span>

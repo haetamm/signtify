@@ -1,10 +1,8 @@
 import { urlPage } from "@/lib/utils";
 import Link from "next/link";
-import { Suspense } from "react";
 import { IoIosFolderOpen } from "react-icons/io";
 import { IoNotifications, IoSettings } from "react-icons/io5";
 import { RiDashboardFill } from "react-icons/ri";
-import { NavbarClient } from "./NavbarClient";
 
 export const navItems = {
   left: [
@@ -21,19 +19,7 @@ export const navItems = {
   ],
 };
 
-export default function Navbar() {
-  return (
-    <div className="bg-primary">
-      <div className="flex items-end justify-between w-full">
-        <Suspense fallback={<NavbarFallback />}>
-          <NavbarClient />
-        </Suspense>
-      </div>
-    </div>
-  );
-}
-
-function NavbarFallback() {
+export default function NavbarFallback() {
   return (
     <div className="flex items-end justify-between w-full">
       <div className="flex items-end">
