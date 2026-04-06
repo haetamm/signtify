@@ -4,9 +4,11 @@ interface QuickActionCardProps {
   needMySignature: number;
 }
 
-export default function QuickActionCard({ needMySignature }: QuickActionCardProps) {
+export default function QuickActionCard({
+  needMySignature,
+}: QuickActionCardProps) {
   return (
-    <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-5 text-white shadow-sm">
+    <div className="bg-primary-gradient rounded-2xl p-5 text-white shadow-sm">
       <h3 className="font-semibold mb-2">Aksi Cepat</h3>
       <p className="text-sm opacity-90 mb-4">
         {needMySignature} dokumen perlu tanda tangan Anda

@@ -5,7 +5,6 @@ interface AuthRightPanelProps {
   heading: string;
   headingClassName?: string;
   children: React.ReactNode;
-  /** Wraps children in a vertically centered flex container (useful for shorter forms) */
   centeredContent?: boolean;
 }
 

@@ -1,0 +1,247 @@
+import { DashboardData, Notification } from "./interface";
+
+export const dashboardData: DashboardData = {
+  summary: {
+    totalMyDocuments: 12,
+    draft: 2,
+    waitingSignature: 1,
+    inProgress: 4,
+    completed: 4,
+    rejected: 1,
+    needMySignature: 3,
+    overdue: 2,
+  },
+  urgent: [
+    {
+      id: "doc-uuid-001",
+      title: "Kontrak Kerjasama PT Maju Bersama",
+      fileName: "kontrak_pt_maju.pdf",
+      documentStatus: "IN_PROGRESS",
+      urgentType: "NEED_MY_SIGNATURE",
+      ownerName: "budi.santoso",
+      pendingContributors: null,
+      deadline: "2025-04-07T23:59:00",
+      isOverdue: false,
+    },
+    {
+      id: "doc-uuid-002",
+      title: "MOU Vendor Logistik 2025",
+      fileName: "mou_vendor_logistik.pdf",
+      documentStatus: "WAITING_SIGNATURE",
+      urgentType: "WAITING_OTHERS",
+      ownerName: "john.doe",
+      pendingContributors: 2,
+      deadline: "2025-04-06T23:59:00",
+      isOverdue: true,
+    },
+  ],
+  myActiveDocuments: [
+    {
+      id: "doc-uuid-003",
+      title: "Perjanjian Sewa Gedung 2025",
+      fileName: "perjanjian_sewa.pdf",
+      fileSize: 204800,
+      status: "IN_PROGRESS",
+      folderName: "Kontrak 2025",
+      totalContributors: 3,
+      signedContributors: 1,
+      pendingContributors: 2,
+      deadline: "2025-04-20T23:59:00",
+      isOverdue: false,
+      updatedAt: "2025-04-03T08:30:00",
+    },
+    {
+      id: "doc-uuid-004",
+      title: "Surat Penunjukan Vendor IT",
+      fileName: "surat_penunjukan_it.pdf",
+      fileSize: 153600,
+      status: "WAITING_SIGNATURE",
+      folderName: null,
+      totalContributors: 2,
+      signedContributors: 0,
+      pendingContributors: 2,
+      deadline: "2025-04-15T23:59:00",
+      isOverdue: false,
+      updatedAt: "2025-04-02T14:00:00",
+    },
+  ],
+  recentActivity: [
+    {
+      documentId: "doc-uuid-003",
+      documentTitle: "Perjanjian Sewa Gedung 2025",
+      activityType: "CONTRIBUTOR_SIGNED",
+      description: "siti.rahma menandatangani dokumen",
+      triggeredBy: "siti.rahma",
+      createdAt: "2025-04-03T08:30:00",
+    },
+    {
+      documentId: "doc-uuid-005",
+      documentTitle: "Kontrak Freelance Desainer",
+      activityType: "CONTRIBUTOR_REJECTED",
+      description:
+        "andi.wijaya menolak dokumen: Data pihak kedua kurang lengkap",
+      triggeredBy: "andi.wijaya",
+      createdAt: "2025-04-02T16:45:00",
+    },
+    {
+      documentId: "doc-uuid-004",
+      documentTitle: "Surat Penunjukan Vendor IT",
+      activityType: "STATUS_CHANGED",
+      description: "Status dokumen berubah menjadi WAITING_SIGNATURE",
+      triggeredBy: "john.doe",
+      createdAt: "2025-04-02T14:00:00",
+    },
+  ],
+};
+
+export const notifications: Notification[] = [
+  {
+    id: "notif-uuid-001",
+    title: "Permintaan Tanda Tangan",
+    message:
+      "Budi Santoso meminta Anda untuk menandatangani dokumen 'Kontrak Kerjasama PT Maju Bersama'",
+    type: "DOCUMENT_SIGN_REQUEST",
+    referenceId: "doc-uuid-001",
+    isRead: false,
+    createdAt: "2025-04-03T10:30:00",
+  },
+  {
+    id: "notif-uuid-002",
+    title: "Dokumen Ditandatangani",
+    message:
+      "Siti Rahma telah menandatangani dokumen 'Perjanjian Sewa Gedung 2025'",
+    type: "DOCUMENT_SIGNED",
+    referenceId: "doc-uuid-003",
+    isRead: false,
+    createdAt: "2025-04-03T09:15:00",
+  },
+  {
+    id: "notif-uuid-003",
+    title: "Dokumen Ditolak",
+    message:
+      "Andi Wijaya menolak dokumen 'Kontrak Freelance Desainer' dengan alasan: Data pihak kedua kurang lengkap",
+    type: "DOCUMENT_REJECTED",
+    referenceId: "doc-uuid-005",
+    isRead: true,
+    createdAt: "2025-04-02T16:45:00",
+  },
+  {
+    id: "notif-uuid-004",
+    title: "Pengingat Deadline",
+    message:
+      "Dokumen 'MOU Vendor Logistik 2025' akan melewati deadline dalam 2 hari",
+    type: "DEADLINE_REMINDER",
+    referenceId: "doc-uuid-002",
+    isRead: true,
+    createdAt: "2025-04-02T08:00:00",
+  },
+  {
+    id: "notif-uuid-005",
+    title: "Permintaan Tanda Tangan",
+    message:
+      "Dewi Kusuma meminta Anda untuk menandatangani dokumen 'Addendum Kontrak Proyek Infrastruktur'",
+    type: "DOCUMENT_SIGN_REQUEST",
+    referenceId: "doc-uuid-006",
+    isRead: false,
+    createdAt: "2025-04-01T14:20:00",
+  },
+  {
+    id: "notif-uuid-006",
+    title: "Dokumen Ditandatangani",
+    message:
+      "Reza Pratama telah menandatangani dokumen 'Kontrak Distribusi Q2 2025'",
+    type: "DOCUMENT_SIGNED",
+    referenceId: "doc-uuid-007",
+    isRead: false,
+    createdAt: "2025-04-01T11:05:00",
+  },
+  {
+    id: "notif-uuid-007",
+    title: "Pengingat Deadline",
+    message: "Dokumen 'Perjanjian Konsultan IT' akan melewati deadline besok",
+    type: "DEADLINE_REMINDER",
+    referenceId: "doc-uuid-008",
+    isRead: false,
+    createdAt: "2025-03-31T17:00:00",
+  },
+  {
+    id: "notif-uuid-008",
+    title: "Dokumen Ditolak",
+    message:
+      "Hana Pertiwi menolak dokumen 'Kontrak Maintenance Gedung' dengan alasan: Nominal tidak sesuai kesepakatan",
+    type: "DOCUMENT_REJECTED",
+    referenceId: "doc-uuid-009",
+    isRead: true,
+    createdAt: "2025-03-31T13:30:00",
+  },
+  {
+    id: "notif-uuid-009",
+    title: "Permintaan Tanda Tangan",
+    message:
+      "Fajar Nugroho meminta Anda untuk menandatangani dokumen 'NDA Proyek Sistem ERP'",
+    type: "DOCUMENT_SIGN_REQUEST",
+    referenceId: "doc-uuid-010",
+    isRead: true,
+    createdAt: "2025-03-30T10:00:00",
+  },
+  {
+    id: "notif-uuid-010",
+    title: "Dokumen Ditandatangani",
+    message:
+      "Maya Sari telah menandatangani dokumen 'Kontrak Pengadaan Barang 2025'",
+    type: "DOCUMENT_SIGNED",
+    referenceId: "doc-uuid-011",
+    isRead: true,
+    createdAt: "2025-03-29T15:45:00",
+  },
+  {
+    id: "notif-uuid-011",
+    title: "Pengingat Deadline",
+    message:
+      "Dokumen 'Perjanjian Kemitraan Strategis' akan melewati deadline dalam 3 hari",
+    type: "DEADLINE_REMINDER",
+    referenceId: "doc-uuid-012",
+    isRead: false,
+    createdAt: "2025-03-29T09:00:00",
+  },
+  {
+    id: "notif-uuid-012",
+    title: "Dokumen Ditolak",
+    message:
+      "Irwan Hakim menolak dokumen 'Kontrak Jasa Keamanan' dengan alasan: Klausul penalti tidak wajar",
+    type: "DOCUMENT_REJECTED",
+    referenceId: "doc-uuid-013",
+    isRead: true,
+    createdAt: "2025-03-28T14:10:00",
+  },
+  {
+    id: "notif-uuid-013",
+    title: "Permintaan Tanda Tangan",
+    message:
+      "Laras Wulandari meminta Anda untuk menandatangani dokumen 'Kontrak Agensi Pemasaran Digital'",
+    type: "DOCUMENT_SIGN_REQUEST",
+    referenceId: "doc-uuid-014",
+    isRead: false,
+    createdAt: "2025-03-27T11:30:00",
+  },
+  {
+    id: "notif-uuid-014",
+    title: "Dokumen Ditandatangani",
+    message:
+      "Tono Budiman telah menandatangani dokumen 'MOU Riset dan Pengembangan 2025'",
+    type: "DOCUMENT_SIGNED",
+    referenceId: "doc-uuid-015",
+    isRead: true,
+    createdAt: "2025-03-26T16:20:00",
+  },
+  {
+    id: "notif-uuid-015",
+    title: "Pengingat Deadline",
+    message:
+      "Dokumen 'Kontrak Langganan SaaS Tahunan' akan melewati deadline dalam 1 hari",
+    type: "DEADLINE_REMINDER",
+    referenceId: "doc-uuid-016",
+    isRead: false,
+    createdAt: "2025-03-25T08:30:00",
+  },
+];

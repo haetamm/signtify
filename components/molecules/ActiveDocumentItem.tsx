@@ -1,6 +1,6 @@
 import SignatureProgress from "@/components/atoms/SignatureProgress";
 import StatusBadge from "@/components/atoms/StatusBadge";
-import { formatDate, formatFileSize } from "@/lib/utils";
+import { formatDate, formatFileSize } from "@/lib/util/helper";
 import { FiActivity, FiAlertCircle, FiClock, FiUsers } from "react-icons/fi";
 
 interface ActiveDoc {

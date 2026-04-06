@@ -1,4 +1,4 @@
-import { isActivePath } from "@/lib/utils";
+import { isActivePath } from "@/lib/util/helper";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -45,7 +45,7 @@ export default function NavButton({
         className={`flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-2.5 rounded-xl text-xs md:text-sm transition-all
             ${
               active
-                ? "bg-primary text-primary-foreground"
+                ? "bg-primary-gradient text-primary-foreground"
                 : "hover:bg-primary-foreground/10"
             }`}
       >

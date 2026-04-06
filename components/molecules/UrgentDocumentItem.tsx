@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/util/helper";
 import { FiAlertCircle, FiClock, FiUser, FiUsers } from "react-icons/fi";
 
 interface UrgentDoc {

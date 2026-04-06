@@ -51,3 +51,29 @@ export interface DashboardData {
   myActiveDocuments: ActiveDocument[];
   recentActivity: Activity[];
 }
+
+export interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: string;
+  referenceId: string;
+  isRead: boolean;
+  createdAt: string;
+}
+
+export interface PaginationResponse {
+  totalPages: number;
+  totalElements: number;
+  page: number;
+  size: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
+export interface ApiResponse {
+  code: number;
+  status: string;
+  data: Notification[];
+  paginationResponse: PaginationResponse;
+}

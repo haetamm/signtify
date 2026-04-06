@@ -3,15 +3,15 @@ import DashboardRightColumn from "@/components/organisms/DashboardRightColumn";
 import RecentActivityPanel from "@/components/organisms/RecentActivityPanel";
 import SummaryGrid from "@/components/organisms/SummaryGrid";
 import UrgentDocumentsPanel from "@/components/organisms/UrgentDocumentsPanel";
-import { dashboardData } from "@/lib/resource";
+import { dashboardData } from "@/lib/util/resource";
 import React from "react";
 
 const Dashboard: React.FC = () => {
   const { summary, urgent, myActiveDocuments, recentActivity } = dashboardData;
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-background p-4 md:p-6 ">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8 py-2">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold ">Dashboard Dokumen</h1>

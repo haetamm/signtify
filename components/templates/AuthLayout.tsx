@@ -19,7 +19,7 @@ export default function AuthLayout({
         </div>
 
         <div className="bg-primary flex-1 overflow-hidden">
-          <div className="p-4 md:p-6 bg-background text-foreground rounded-t-lg h-full overflow-y-auto">
+          <div className="bg-background text-foreground rounded-t-lg h-full overflow-y-auto no-scrollbar">
             {children}
           </div>
         </div>

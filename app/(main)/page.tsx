@@ -7,7 +7,7 @@ import AuthRightPanel from "@/components/organisms/AuthRightPanel";
 import GuestLayout from "@/components/templates/GuestLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { urlPage } from "@/lib/utils";
+import { urlPage } from "@/lib/util/helper";
 import { useState } from "react";
 import { GrGoogle } from "react-icons/gr";
 

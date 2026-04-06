@@ -1,5 +1,5 @@
 import ActivityIcon from "@/components/atoms/ActivityIcon";
-import { formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/util/helper";
 import { FiClock, FiFileText, FiUser } from "react-icons/fi";
 
 interface Activity {

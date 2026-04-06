@@ -1,6 +1,5 @@
 interface GuestLayoutProps {
   children: React.ReactNode;
-  /** Extra classes applied to the inner card (e.g. min-height overrides) */
   cardClassName?: string;
 }
 

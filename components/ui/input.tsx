@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/util/helper";
 
 interface InputProps extends React.ComponentProps<"input"> {
   variant?: "default" | "error";
