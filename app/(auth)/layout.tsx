@@ -1,7 +1,6 @@
 import AuthLayout from "@/components/templates/AuthLayout";
 import type { Metadata } from "next";
 import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
-import "../globals.css";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -26,7 +25,7 @@ export default function Auth({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} ${geistMono.variable} h-full dark antialiased`}
+      className={`${plusJakarta.variable} ${geistMono.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <AuthLayout>{children}</AuthLayout>

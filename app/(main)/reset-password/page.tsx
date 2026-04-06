@@ -35,7 +35,7 @@ export default function ResetPassword() {
             type="password"
             name="password"
             className="border text-secondary-foreground"
-            placeholder="Password"
+            placeholder="New Password"
             value={form.password}
             onChange={handleChange}
           />
@@ -44,7 +44,7 @@ export default function ResetPassword() {
             type="password"
             name="passwordConfirmation"
             className="border text-secondary-foreground"
-            placeholder="Password Confirmation"
+            placeholder="Confirm Password"
             value={form.passwordConfirmation}
             onChange={handleChange}
           />

@@ -52,7 +52,7 @@ export default function ForgotPassword() {
         </Button>
 
         <AuthFooterLink
-          label="Have an account already?"
+          label="Back to login?"
           linkText="Here"
           href={urlPage.LOGIN}
         />

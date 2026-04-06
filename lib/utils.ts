@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { ActivityStyleInfo, StatusBadgeInfo } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -17,3 +18,76 @@ export const urlPage = {
 
 export const isActivePath = (pathname: string, href: string) =>
   pathname.startsWith(href);
+
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+export const formatFileSize = (bytes: number): string => {
+  if (bytes === 0) return "0 Bytes";
+  const k = 1024;
+  const sizes = ["Bytes", "KB", "MB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
+};
+
+export const getStatusBadgeInfo = (status: string): StatusBadgeInfo => {
+  const statusMap: Record<string, StatusBadgeInfo> = {
+    IN_PROGRESS: {
+      label: "Proses",
+      color: "bg-blue-100 text-blue-700",
+      iconName: "FiClock",
+    },
+    WAITING_SIGNATURE: {
+      label: "Menunggu TTD",
+      color: "bg-amber-100 text-amber-700",
+      iconName: "MdOutlinePendingActions",
+    },
+    DRAFT: {
+      label: "Draft",
+      color: "bg-gray-100 text-gray-600",
+      iconName: "FiFileText",
+    },
+    COMPLETED: {
+      label: "Selesai",
+      color: "bg-green-100 text-green-700",
+      iconName: "FiCheckCircle",
+    },
+    REJECTED: {
+      label: "Ditolak",
+      color: "bg-red-100 text-red-700",
+      iconName: "FiXCircle",
+    },
+  };
+  return statusMap[status] || statusMap.IN_PROGRESS;
+};
+
+export const getActivityStyleInfo = (
+  activityType: string,
+): ActivityStyleInfo => {
+  const styleMap: Record<string, ActivityStyleInfo> = {
+    CONTRIBUTOR_SIGNED: {
+      iconName: "FiCheckCircle",
+      bgColor: "bg-green-50",
+    },
+    CONTRIBUTOR_REJECTED: {
+      iconName: "FiXCircle",
+      bgColor: "bg-red-50",
+    },
+    STATUS_CHANGED: {
+      iconName: "FiTrendingUp",
+      bgColor: "bg-blue-50",
+    },
+  };
+  return (
+    styleMap[activityType] || {
+      iconName: "FiFileText",
+      bgColor: "bg-gray-50",
+    }
+  );
+};
