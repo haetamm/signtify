@@ -1,9 +1,9 @@
 "use client";
 
+import { navItems } from "@/lib/util/helper";
 import NavButton from "../atoms/NavButton";
-import { navItems } from "./NavbarFallback";
 
-export function NavbarClient() {
+export function Navbar() {
   return (
     <>
       <div className="flex items-end gap-1 md:gap-3">

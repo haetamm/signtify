@@ -1,25 +1,7 @@
-import { urlPage } from "@/lib/util/helper";
+import { navItems } from "@/lib/util/helper";
 import Link from "next/link";
-import { IoIosFolderOpen } from "react-icons/io";
-import { IoNotifications, IoSettings } from "react-icons/io5";
-import { RiDashboardFill } from "react-icons/ri";
 
-export const navItems = {
-  left: [
-    { label: "Dashboard", icon: <RiDashboardFill />, href: urlPage.DASHBOARD },
-    { label: "Document", icon: <IoIosFolderOpen />, href: urlPage.DOCUMENT },
-  ],
-  right: [
-    {
-      label: "Notifications",
-      icon: <IoNotifications />,
-      href: urlPage.NOTIFICATION,
-    },
-    { label: "Settings", icon: <IoSettings />, href: urlPage.SETTING },
-  ],
-};
-
-export default function NavbarFallback() {
+export default function NavbarSkeleton() {
   return (
     <div className="flex items-end justify-between w-full">
       <div className="flex items-end">

@@ -1,4 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
+import { FiShield, FiUser, FiUsers } from "react-icons/fi";
+import { IoIosFolderOpen } from "react-icons/io";
+import { IoNotifications, IoSettings } from "react-icons/io5";
+import { RiDashboardFill } from "react-icons/ri";
 import { twMerge } from "tailwind-merge";
 import { ActivityStyleInfo, StatusBadgeInfo } from "./types";
 
@@ -14,6 +18,27 @@ export const urlPage = {
   NOTIFICATION: "/notification",
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",
+};
+
+export const sidebarItems = [
+  { label: "Profile", href: "/setting/profile", icon: FiUser },
+  { label: "Users", href: "/setting/user", icon: FiUsers },
+  { label: "Roles", href: "/setting/role", icon: FiShield },
+];
+
+export const navItems = {
+  left: [
+    { label: "Dashboard", icon: <RiDashboardFill />, href: urlPage.DASHBOARD },
+    { label: "Document", icon: <IoIosFolderOpen />, href: urlPage.DOCUMENT },
+  ],
+  right: [
+    {
+      label: "Notifications",
+      icon: <IoNotifications />,
+      href: urlPage.NOTIFICATION,
+    },
+    { label: "Settings", icon: <IoSettings />, href: urlPage.SETTING },
+  ],
 };
 
 export const isActivePath = (pathname: string, href: string) =>

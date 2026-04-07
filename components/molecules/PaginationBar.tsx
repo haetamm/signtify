@@ -64,7 +64,7 @@ export default function PaginationBar({
               <PaginationLink
                 onClick={() => onPageChange(pageNum)}
                 isActive={currentPage === pageNum}
-                className="cursor-pointer"
+                className="cursor-pointer "
               >
                 {pageNum}
               </PaginationLink>
