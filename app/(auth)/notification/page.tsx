@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 
 type FilterOption = "all" | "unread" | "read";
 
-const PAGE_SIZE = 7;
 const TOTAL = notificationsData.length;
+const DEFAULT_PAGE_SIZE = 5;
 
 const fetchNotifications = async (
   page: number,
@@ -44,16 +44,18 @@ export default function NotificationsPage() {
   const [pagination, setPagination] = useState<PaginationResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [filter, setFilter] = useState<FilterOption>("all");
+  const pageSizeOption = [5, 10];
 
   useEffect(() => {
-    loadNotifications(currentPage);
-  }, [currentPage]);
+    loadNotifications(currentPage, pageSize);
+  }, [currentPage, pageSize]);
 
-  const loadNotifications = async (page: number) => {
+  const loadNotifications = async (page: number, size: number) => {
     setLoading(true);
     try {
-      const response = await fetchNotifications(page, PAGE_SIZE);
+      const response = await fetchNotifications(page, size);
       if (response.code === 200) {
         setNotifications(response.data);
         setPagination(response.paginationResponse);
@@ -77,6 +79,11 @@ export default function NotificationsPage() {
     }
   };
 
+  const handlePageSizeChange = (newSize: number) => {
+    setPageSize(newSize);
+    setCurrentPage(1); // reset ke halaman pertama
+  };
+
   const filtered = notifications.filter((n) => {
     if (filter === "unread") return !n.isRead;
     if (filter === "read") return n.isRead;
@@ -84,8 +91,8 @@ export default function NotificationsPage() {
   });
 
   return (
-    <div className="h-[calc(100vh-130px)] bg-background md:px-6">
-      <div className="max-w-7xl mx-auto px-0 sm:px-3 lg:px-8 ">
+    <div className="h-full bg-background md:px-6">
+      <div className="max-w-7xl mx-auto px-0 sm:px-3 lg:px-8">
         <FilterTabGroup active={filter} onChange={setFilter} />
         <NotificationList
           notifications={filtered}
@@ -97,8 +104,10 @@ export default function NotificationsPage() {
           <PaginationBar
             pagination={pagination}
             currentPage={currentPage}
-            pageSize={PAGE_SIZE}
+            pageSize={pageSize}
             onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+            pageSizeOption={pageSizeOption}
           />
         )}
       </div>

@@ -92,3 +92,31 @@ export interface DetailResponse {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  phone: string;
+  address: string;
+  gender: string;
+  email: string;
+  isEnable: boolean;
+}
+
+export interface UserListResponse {
+  code: number;
+  status: string;
+  data: User[];
+  paginationResponse: PaginationResponse;
+}
+
+export interface UserFilterParams {
+  name?: string;
+  phone?: string;
+  gender?: string;
+  email?: string;
+  isEnable?: boolean | "";
+  page: number;
+  size: number;
+  sortBy?: string;
+}

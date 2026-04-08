@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Pagination,
   PaginationContent,
@@ -6,6 +8,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { PaginationResponse } from "@/lib/util/interface";
 
 interface PaginationBarProps {
@@ -13,6 +22,8 @@ interface PaginationBarProps {
   currentPage: number;
   pageSize: number;
   onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+  pageSizeOption: number[];
 }
 
 export default function PaginationBar({
@@ -20,6 +31,8 @@ export default function PaginationBar({
   currentPage,
   pageSize,
   onPageChange,
+  onPageSizeChange,
+  pageSizeOption,
 }: PaginationBarProps) {
   const { totalPages, totalElements, hasPrevious, hasNext } = pagination;
 
@@ -33,19 +46,58 @@ export default function PaginationBar({
     return Array.from({ length: count }, (_, i) => start + i);
   };
 
-  return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t bg-background px-4 py-3 mt-6 pb-6  mx-4 md:mx-0">
-      <p className="text-sm text-gray-700 order-2 sm:order-1">
-        Menampilkan{" "}
-        <span className="font-medium">{(currentPage - 1) * pageSize + 1}</span>{" "}
-        ke{" "}
-        <span className="font-medium">
-          {Math.min(currentPage * pageSize, totalElements)}
-        </span>{" "}
-        dari <span className="font-medium">{totalElements}</span> hasil
-      </p>
+  const startItem = totalElements === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+  const endItem = Math.min(currentPage * pageSize, totalElements);
 
-      <Pagination className="order-1 sm:order-2 w-auto mx-0 ">
+  return (
+    <div className="flex flex-col md:flex-row items-center justify-between gap-3 border-t bg-background  py-3 mt-6 pb-6 mx-4 md:mx-0">
+      <div className="justify-center sm:justify-start sm:flex items-center space-y-3 sm:space-y-0 gap-3 order-2 md:order-1">
+        {/* Page size selector */}
+        <div className="flex justify-center items-center">
+          <Select
+            value={String(pageSize)}
+            onValueChange={(val) => {
+              onPageSizeChange(Number(val));
+              onPageChange(1); // reset ke halaman pertama
+            }}
+          >
+            <SelectTrigger className="h-8 w-16 text-xs">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {pageSizeOption.map((size) => (
+                <SelectItem key={size} value={String(size)} className="text-xs">
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Kiri: info + page size selector */}
+        <div className="space-y-2 sm:flex items-center justify-center gap-3 ">
+          <div className="text-sm text-muted-foreground whitespace-nowrap">
+            {totalElements === 0 ? (
+              "Tidak ada data"
+            ) : (
+              <>
+                Menampilkan{" "}
+                <span className="font-medium text-foreground">{startItem}</span>
+                {" – "}
+                <span className="font-medium text-foreground">{endItem}</span>
+                {" dari "}
+                <span className="font-medium text-foreground">
+                  {totalElements}
+                </span>{" "}
+                data
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Kanan: pagination links */}
+      <Pagination className="order-1 md:order-2 w-auto mx-0">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious

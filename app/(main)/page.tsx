@@ -58,7 +58,7 @@ export default function Login() {
           Sign in
         </Button>
 
-        <OrDivider />
+        <OrDivider title="Or" />
 
         <div className="flex justify-center gap-4">
           <Button

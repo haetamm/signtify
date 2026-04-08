@@ -15,7 +15,7 @@ export function Sidebar() {
 
   // Desktop sidebar
   return (
-    <aside className="w-56 min-w-56 h-full bg-background border-r border-border hidden lg:flex flex-col py-4 px-3 gap-1">
+    <aside className="w-38 xl:w-56 h-full bg-background border-r border-border hidden lg:flex flex-col py-4 px-3 gap-1">
       <div className="px-3 py-2 mb-2 border-b border-border">
         <span className="text-base font-medium text-foreground">Setting</span>
       </div>
