@@ -12,9 +12,9 @@ export default function FilterTabGroup({
   onChange,
 }: FilterTabGroupProps) {
   return (
-    <div className="sticky top-0 z-10 bg-background pt-2 pb-4  px-3 md:px-5">
+    <div className="sticky top-0 z-10 bg-background py-4 md:pt-6 px-3 lg:px-0">
       <Tabs value={active} onValueChange={(v) => onChange(v as FilterOption)}>
-        <TabsList className="bg-transparent border-b w-full justify-between sm:justify-start rounded-none h-auto p-0 gap-2">
+        <TabsList className="bg-transparent border-b w-full justify-between sm:justify-start rounded-none h-full p-0 gap-2">
           {(["all", "unread", "read"] as const).map((option) => (
             <TabsTrigger
               key={option}

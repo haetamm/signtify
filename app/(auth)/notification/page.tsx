@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 type FilterOption = "all" | "unread" | "read";
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 7;
 const TOTAL = notificationsData.length;
 
 const fetchNotifications = async (
@@ -84,8 +84,8 @@ export default function NotificationsPage() {
   });
 
   return (
-    <div className="h-[calc(100vh-130px)] bg-background  mt-6">
-      <div className="max-w-7xl mx-auto lg:px-8 py-0 ">
+    <div className="h-[calc(100vh-130px)] bg-background md:px-6">
+      <div className="max-w-7xl mx-auto px-0 sm:px-3 lg:px-8 ">
         <FilterTabGroup active={filter} onChange={setFilter} />
         <NotificationList
           notifications={filtered}

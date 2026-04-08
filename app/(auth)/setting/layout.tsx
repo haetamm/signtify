@@ -9,7 +9,7 @@ export default function SettingLayout({
 }) {
   return (
     <div className="flex h-full justify-center">
-      <div className="flex w-full max-w-7xl h-full">
+      <div className="flex w-full max-w-7xl h-full md:px-6">
         <Suspense fallback={<SidebarSkeleton />}>
           <Sidebar />
         </Suspense>

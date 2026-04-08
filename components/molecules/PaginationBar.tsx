@@ -34,7 +34,7 @@ export default function PaginationBar({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t bg-background px-4 py-3 mt-6 pb-6  mx-4 md:mx-6">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t bg-background px-4 py-3 mt-6 pb-6  mx-4 md:mx-0">
       <p className="text-sm text-gray-700 order-2 sm:order-1">
         Menampilkan{" "}
         <span className="font-medium">{(currentPage - 1) * pageSize + 1}</span>{" "}
@@ -64,7 +64,7 @@ export default function PaginationBar({
               <PaginationLink
                 onClick={() => onPageChange(pageNum)}
                 isActive={currentPage === pageNum}
-                className="cursor-pointer "
+                className="cursor-pointer text-primary"
               >
                 {pageNum}
               </PaginationLink>

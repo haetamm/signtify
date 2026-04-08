@@ -245,3 +245,20 @@ export const notifications: Notification[] = [
     createdAt: "2025-03-25T08:30:00",
   },
 ];
+
+export const profileData = {
+  name: "Budi Santoso",
+  phone: "+6281234567890",
+  address: "Jl. Sudirman No. 45, Jakarta Pusat, DKI Jakarta 10220",
+  birthPlace: "Jakarta",
+  birthDate: "1990-08-17",
+  religion: "Islam",
+  gender: "Laki-laki",
+  username: "budi.santoso",
+  avatar: null,
+  email: "budi.santoso@email.com",
+  profile_id: "PRF-20240001",
+  roles: ["ROLE_USER", "ROLE_ADMIN"],
+  createdAt: "2024-01-15T08:30:00Z",
+  updatedAt: "2025-04-08T10:45:00Z",
+};

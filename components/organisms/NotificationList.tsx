@@ -33,7 +33,7 @@ export default function NotificationList({
 
   if (notifications.length === 0) {
     return (
-      <div className="text-center py-12 bg-card rounded-xl shadow-sm">
+      <div className="text-center py-12 bg-card rounded-xl shadow-sm mx-4">
         <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <IoDocumentText className="w-8 h-8 text-gray-400" />
         </div>
@@ -44,7 +44,7 @@ export default function NotificationList({
   }
 
   return (
-    <div className="space-y-3  px-4 md:px-6">
+    <div className="space-y-3  px-4 md:px-2">
       {notifications.map((notification) => (
         <NotificationItem
           key={notification.id}

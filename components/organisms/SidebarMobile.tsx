@@ -2,6 +2,7 @@
 
 import { cn, sidebarItems } from "@/lib/util/helper";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiChevronRight, FiLogOut, FiUser } from "react-icons/fi";
@@ -28,9 +29,13 @@ export default function SidebarMobile() {
       {/* Konten */}
       <div className="flex-1 px-4 py-3 space-y-6">
         <div className="flex items-center gap-4 p-3 bg-white dark:bg-gray-900 rounded-2xl shadow-sm">
-          <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-            <FiUser size={24} className="text-primary" />
-          </div>
+          <Avatar className="w-12 h-12">
+            <AvatarImage src="/images/avatar.png" alt="User" />
+            <AvatarFallback>
+              {" "}
+              <FiUser size={24} className="text-primary" />
+            </AvatarFallback>
+          </Avatar>
           <div>
             <p className="font-semibold text-gray-900 dark:text-white">
               User Name
@@ -82,7 +87,7 @@ export default function SidebarMobile() {
           })}
         </div>
 
-        {/* Danger Zone / Logout terpisah */}
+        {/* Logout */}
         <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm">
           <Button
             variant="destructive"

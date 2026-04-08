@@ -77,3 +77,18 @@ export interface ApiResponse {
   data: Notification[];
   paginationResponse: PaginationResponse;
 }
+
+export interface DetailResponse {
+  name: string;
+  phone: string;
+  address: string;
+  birthPlace: string;
+  birthDate: string;
+  religion: string;
+  gender: string;
+  username: string;
+  email: string;
+  profile_id: string;
+  createdAt: string;
+  updatedAt: string;
+}
