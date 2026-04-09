@@ -34,7 +34,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({
   return (
     <>
       {/* Personal Info Card */}
-      <div className="bg-card rounded-xl md:flex md:gap-4 pt-3">
+      <div className=" md:flex md:gap-4 pt-3">
         {/* Avatar + Identity (mobile) */}
         <div className="flex md:flex-col items-center gap-x-4 pb-6 px-3 border-b md:border-b-0">
           <Avatar className="w-30 h-30 md:w-50 md:h-50 border-4 border-background shadow-sm">
@@ -82,7 +82,7 @@ const PersonalInfoCard: React.FC<PersonalInfoCardProps> = ({
       </div>
 
       {/* Address */}
-      <div className="flex bg-card items-start gap-3 dark:rounded-xl px-4 py-4 md:px-6 border-t">
+      <div className="flex  items-start gap-3 px-4 py-4 md:px-6 border-t">
         <IconBox size="sm" className="mt-0.5">
           <FaMapMarkerAlt className="w-4 h-4" />
         </IconBox>

@@ -16,9 +16,9 @@ export default function SidebarMobile() {
   };
 
   return (
-    <div className="flex lg:hidden w-full flex-col h-[calc(100vh-85px)] bg-gray-50 dark:bg-gray-950">
+    <div className="flex lg:hidden w-full flex-col h-[calc(100vh-85px)] bg-gray-50 dark:bg-background">
       {/* Header */}
-      <div className="sticky top-0 z-10 bg-gray-50/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 px-4 py-4">
+      <div className="sticky top-0 z-10 bg-gray-50/80 dark:bg-background/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 px-4 py-4">
         <div className="flex items-center justify-center">
           <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
             Settings
@@ -28,7 +28,7 @@ export default function SidebarMobile() {
 
       {/* Konten */}
       <div className="flex-1 px-4 py-3 space-y-6">
-        <div className="flex items-center gap-4 p-3 bg-white dark:bg-gray-900 rounded-2xl shadow-sm">
+        <div className="flex items-center gap-4 p-3 bg-white dark:bg-card rounded-2xl shadow-sm">
           <Avatar className="w-12 h-12">
             <AvatarImage src="/images/avatar.png" alt="User" />
             <AvatarFallback>
@@ -46,7 +46,7 @@ export default function SidebarMobile() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-white dark:bg-card rounded-2xl overflow-hidden shadow-sm">
           {sidebarItems.map(({ label, href, icon: Icon }, index) => {
             const isActive = pathname === href || pathname.startsWith(href);
             return (

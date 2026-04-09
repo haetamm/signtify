@@ -9,7 +9,7 @@ interface SecurityCardProps {
 
 const SecurityCard: React.FC<SecurityCardProps> = ({ onChangePassword }) => {
   return (
-    <div className="bg-card py-2 dark:rounded-xl border-t mt-6 dark:mt-0 dark:border-none px-4 py-4 md:px-6 flex items-center justify-between gap-5">
+    <div className=" py-2  border-t mt-6 dark:mt-0  px-4 py-4 md:px-6 flex items-center justify-between gap-5">
       <div className="flex items-center gap-3.5">
         <IconBox>
           <FaShieldAlt className="w-4 h-4" />

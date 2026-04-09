@@ -135,3 +135,7 @@ export const getInitials = (name: string) =>
     .slice(0, 2)
     .join("")
     .toUpperCase();
+
+export const handleBack = () => {
+  window.history.back();
+};

@@ -10,12 +10,10 @@ import ProfilePageHeader from "@/components/molecules/ProfilePageHeader";
 import AccountInfoCard from "@/components/organisms/AccountInfoCard";
 import PersonalInfoCard from "@/components/organisms/PersonalInfoCard";
 import SecurityCard from "@/components/organisms/SecurityCard";
+import { handleBack } from "@/lib/util/helper";
+import { Pencil } from "lucide-react";
 
 const ProfilePage: React.FC = () => {
-  const handleBack = () => {
-    window.history.back();
-  };
-
   const handleEdit = () => {
     console.log("Edit profile clicked");
   };
@@ -30,7 +28,14 @@ const ProfilePage: React.FC = () => {
         {/* CONTENT */}
         <main className="px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-2 dark:gap-3">
           {/* HEADER */}
-          <ProfilePageHeader onBack={handleBack} onEdit={handleEdit} />
+          <ProfilePageHeader
+            title="Profile Saya"
+            onBack={handleBack}
+            onAction={handleEdit}
+          >
+            <Pencil className="w-3.5 h-3.5" />
+            Edit Profile
+          </ProfilePageHeader>
 
           {/* Personal Information + Address */}
           <PersonalInfoCard

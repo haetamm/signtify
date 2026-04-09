@@ -53,7 +53,7 @@ const UserFilterBar: React.FC<UserFilterBarProps> = ({
   ].filter(Boolean).length;
 
   return (
-    <div className="bg-card rounded-2xl border border-gray-100 dark:border-none shadow-sm">
+    <div className="bg-card  md:sticky z-0 top-0 z-10 rounded-2xl border border-gray-100 dark:border-none shadow-sm">
       <div className="p-3">
         <div className="sm:flex space-y-2 sm:space-y-0 items-center gap-2">
           <SearchInputGroup filters={filters} onChange={onChange} />

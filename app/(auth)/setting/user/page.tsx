@@ -1,9 +1,11 @@
 "use client";
 
 import PaginationBar from "@/components/molecules/PaginationBar";
+import ProfilePageHeader from "@/components/molecules/ProfilePageHeader";
 import UserFilterBar from "@/components/molecules/UserFilterBar";
 import UserCardList from "@/components/organisms/UserCardList";
 import UserTable from "@/components/organisms/UserTable";
+import { handleBack } from "@/lib/util/helper";
 import {
   PaginationResponse,
   User,
@@ -11,6 +13,7 @@ import {
 } from "@/lib/util/interface";
 import { usersData } from "@/lib/util/resource";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 
 // ─── helper: filter + sort + paginate dari mock data ──────────────────────────
 function applyFiltersAndPaginate(
@@ -115,9 +118,23 @@ export default function UserListPage() {
     setFilters((prev) => ({ ...prev, size, page: 1 }));
   }, []);
 
+  const handleAdd = () => {
+    console.log("tambah user");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="w-full mx-auto px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-4">
+        <div className="sm:hidden  sticky z-0 top-0 z-12 bg-background ">
+          <ProfilePageHeader
+            title="User Management"
+            onBack={handleBack}
+            onAction={handleAdd}
+          >
+            <FaPlus className="w-3.5 h-3.5" />
+            Tambah User
+          </ProfilePageHeader>
+        </div>
         {/* Filter bar */}
         <UserFilterBar
           filters={filters}
@@ -126,8 +143,10 @@ export default function UserListPage() {
         />
 
         {/* Table */}
-        <UserTable users={users} isLoading={isLoading} />
-        <UserCardList users={users} isLoading={isLoading} />
+        <div className="sm:px-2">
+          <UserTable users={users} isLoading={isLoading} />
+          <UserCardList users={users} isLoading={isLoading} />
+        </div>
 
         {/* Pagination */}
         <PaginationBar

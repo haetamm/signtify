@@ -1,5 +1,6 @@
 import { UserFilterParams } from "@/lib/util/interface";
-import { FiSearch } from "react-icons/fi";
+import { FaPlus } from "react-icons/fa6";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 interface SearchInputGroupProps {
@@ -12,9 +13,9 @@ const SearchInputGroup: React.FC<SearchInputGroupProps> = ({
   onChange,
 }) => (
   <div className="flex-1 flex flex-col sm:flex-row gap-2">
-    <div className="hidden sm:flex flex-shrink-0 w-10 h-10 rounded-full bg-primary items-center justify-center shadow-md">
-      <FiSearch className="w-4 h-4 text-white" />
-    </div>
+    <Button className="hidden sm:flex w-10 h-10 shadow-md">
+      <FaPlus className="w-4 h-4 text-white" />
+    </Button>
     <Input
       placeholder="Nama"
       value={filters.name ?? ""}

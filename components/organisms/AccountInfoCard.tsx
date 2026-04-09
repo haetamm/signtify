@@ -16,7 +16,7 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({
   updatedAt,
 }) => {
   return (
-    <div className="bg-card py-2 rounded-xl">
+    <div className=" py-2 rounded-xl">
       <div className="px-4 py-4 md:px-6 border-b">
         <span className="font-bold tracking-[0.1em] uppercase">
           Informasi Akun

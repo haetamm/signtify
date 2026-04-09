@@ -46,7 +46,7 @@ export default function ForgotPassword() {
         <Button
           onClick={handleSubmit}
           size="lg"
-          className="mt-5 w-full rounded-full h-11 "
+          className="mt-5 w-full rounded-full h-11 bg-primary-gradient"
         >
           Reset Password
         </Button>
