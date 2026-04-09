@@ -6,7 +6,7 @@ interface PillOption {
 }
 
 interface PillSelectorProps {
-  label: string;
+  label?: string;
   options: PillOption[];
   value: string;
   onChange: (value: string) => void;
@@ -19,9 +19,11 @@ const PillSelector: React.FC<PillSelectorProps> = ({
   onChange,
 }) => (
   <div>
-    <Label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">
-      {label}
-    </Label>
+    {label && (
+      <Label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5">
+        {label}
+      </Label>
+    )}
     <div className="flex gap-1.5 bg-gray-100 dark:bg-primary/10 rounded-xl p-1">
       {options.map((option) => (
         <button

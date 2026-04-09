@@ -3,24 +3,13 @@
 import FilterToggleButton from "@/components/atoms/FilterToggleButton";
 import ActiveFilterChips from "@/components/molecules/ActiveFilterChips";
 import PillSelector from "@/components/molecules/PillSelector";
-import SearchInputGroup from "@/components/molecules/SearchInputGroup";
 import SortSelect from "@/components/molecules/SortSelect";
+import UserSearchInputGroup from "@/components/molecules/UserSearchInputGroup";
+import { GENDER_OPTIONS, STATUS_OPTIONS } from "@/lib/util/constans";
 import { UserFilterParams } from "@/lib/util/interface";
 import { useState } from "react";
 import { FiX } from "react-icons/fi";
 import { Button } from "../ui/button";
-
-const GENDER_OPTIONS = [
-  { value: "", label: "Semua" },
-  { value: "Laki-laki", label: "Pria" },
-  { value: "Perempuan", label: "Wanita" },
-];
-
-const STATUS_OPTIONS = [
-  { value: "", label: "Semua" },
-  { value: "true", label: "Aktif" },
-  { value: "false", label: "Nonaktif" },
-];
 
 interface UserFilterBarProps {
   filters: UserFilterParams;
@@ -56,7 +45,7 @@ const UserFilterBar: React.FC<UserFilterBarProps> = ({
     <div className="bg-card  md:sticky z-0 top-0 z-10 rounded-2xl border border-gray-100 dark:border-none shadow-sm">
       <div className="p-3">
         <div className="sm:flex space-y-2 sm:space-y-0 items-center gap-2">
-          <SearchInputGroup filters={filters} onChange={onChange} />
+          <UserSearchInputGroup filters={filters} onChange={onChange} />
           <FilterToggleButton
             isOpen={isAdvancedOpen}
             activeCount={activeFilterCount}

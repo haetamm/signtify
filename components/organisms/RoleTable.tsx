@@ -7,27 +7,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { User } from "@/lib/util/interface";
+import { Role } from "@/lib/util/interface";
 import React from "react";
-import { FiMail, FiMapPin, FiPhone, FiUser } from "react-icons/fi";
+import { FiShield } from "react-icons/fi";
 import { Button } from "../ui/button";
 
-interface UserTableProps {
-  users: User[];
+interface RoleTableProps {
+  roles: Role[];
   isLoading?: boolean;
 }
 
-const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
+const RoleTable: React.FC<RoleTableProps> = ({ roles, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="hidden lg:block rounded-xl border overflow-hidden">
+      <div className="rounded-xl border overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="bg-white dark:bg-card">
               <TableHead className="w-10">#</TableHead>
-              <TableHead>Pengguna</TableHead>
-              <TableHead>Kontak</TableHead>
-              <TableHead className="hidden md:table-cell">Alamat</TableHead>
+              <TableHead>Nama</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
@@ -35,7 +33,7 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
           <TableBody>
             {Array.from({ length: 5 }).map((_, i) => (
               <TableRow key={i}>
-                {Array.from({ length: 6 }).map((_, j) => (
+                {Array.from({ length: 4 }).map((_, j) => (
                   <TableCell key={j}>
                     <div className="h-4 bg-muted animate-pulse rounded" />
                   </TableCell>
@@ -48,16 +46,14 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
     );
   }
 
-  if (users.length === 0) {
+  if (roles.length === 0) {
     return (
-      <div className="hidden lg:block rounded-xl border overflow-hidden">
+      <div className="rounded-xl border overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="bg-white dark:bg-card">
               <TableHead className="w-10">#</TableHead>
-              <TableHead>Pengguna</TableHead>
-              <TableHead>Kontak</TableHead>
-              <TableHead className="hidden md:table-cell">Alamat</TableHead>
+              <TableHead>Nama</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
@@ -65,10 +61,10 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
           <TableBody>
             <TableRow>
               <TableCell
-                colSpan={6}
+                colSpan={4}
                 className="h-40 text-center text-muted-foreground text-sm"
               >
-                Tidak ada data pengguna yang ditemukan.
+                Tidak ada data role yang ditemukan.
               </TableCell>
             </TableRow>
           </TableBody>
@@ -78,27 +74,15 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
   }
 
   return (
-    <div className="hidden lg:block rounded-xl border overflow-hidden">
+    <div className="rounded-xl border overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow className="bg-white dark:bg-card">
             <TableHead className="w-10 text-center">#</TableHead>
             <TableHead>
               <span className="flex items-center gap-1.5">
-                <FiUser className="w-3.5 h-3.5" />
-                Pengguna
-              </span>
-            </TableHead>
-            <TableHead>
-              <span className="flex items-center gap-1.5">
-                <FiMail className="w-3.5 h-3.5" />
-                Kontak
-              </span>
-            </TableHead>
-            <TableHead className="hidden md:table-cell">
-              <span className="flex items-center gap-1.5">
-                <FiMapPin className="w-3.5 h-3.5" />
-                Alamat
+                <FiShield className="w-3.5 h-3.5" />
+                Nama
               </span>
             </TableHead>
             <TableHead>Status</TableHead>
@@ -106,9 +90,9 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.map((user, index) => (
+          {roles.map((role, index) => (
             <TableRow
-              key={user.id}
+              key={role.id}
               className="hover:bg-muted transition-colors"
             >
               {/* Nomor */}
@@ -116,44 +100,22 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
                 {index + 1}
               </TableCell>
 
-              {/* Pengguna: nama + gender */}
+              {/* Role: nama */}
               <TableCell>
-                <div className="font-medium text-sm">{user.name}</div>
-                <div className="text-xs text-muted-foreground mt-0.5">
-                  {user.gender}
-                </div>
-              </TableCell>
-
-              {/* Kontak: email + phone */}
-              <TableCell>
-                <div className="flex items-center gap-1.5 text-sm">
-                  <FiMail className="w-3 h-3 text-muted-foreground flex-shrink-0" />
-                  <span className="truncate max-w-[180px]">{user.email}</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
-                  <FiPhone className="w-3 h-3 flex-shrink-0" />
-                  {user.phone}
-                </div>
-              </TableCell>
-
-              {/* Alamat */}
-              <TableCell className="hidden md:table-cell whitespace-normal">
-                <span className="text-xs text-muted-foreground  line-clamp-2 max-w-[220px]">
-                  {user.address}
-                </span>
+                <div className="font-medium text-sm">{role.name}</div>
               </TableCell>
 
               {/* Status */}
               <TableCell>
                 <Badge
-                  variant={user.isEnable ? "default" : "secondary"}
+                  variant={role.isActive ? "default" : "secondary"}
                   className={
-                    user.isEnable
+                    role.isActive
                       ? "bg-green-100 text-green-700 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-400"
                       : "bg-red-100 text-red-600 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400"
                   }
                 >
-                  {user.isEnable ? "Aktif" : "Nonaktif"}
+                  {role.isActive ? "Aktif" : "Nonaktif"}
                 </Badge>
               </TableCell>
 
@@ -174,4 +136,4 @@ const UserTable: React.FC<UserTableProps> = ({ users, isLoading }) => {
   );
 };
 
-export default UserTable;
+export default RoleTable;

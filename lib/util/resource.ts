@@ -1,4 +1,10 @@
-import { DashboardData, Notification, User } from "./interface";
+import {
+  DashboardData,
+  Notification,
+  Permission,
+  Role,
+  User,
+} from "./interface";
 
 export const dashboardData: DashboardData = {
   summary: {
@@ -443,5 +449,256 @@ export const usersData: User[] = [
     gender: "Perempuan",
     email: "annisa.putri@email.com",
     isEnable: true,
+  },
+];
+
+export const permissionData: Permission[] = [
+  {
+    id: "dc484e40-b668-40e4-99c1-fe0beade33b4",
+    url: "/api/role",
+    action: "CREATE",
+  },
+  {
+    id: "8cf0b7d2-7364-4cd6-8b7d-7d273e3a258b",
+    url: "/api/role",
+    action: "READ",
+  },
+  {
+    id: "ad136b0a-0a64-4c3c-900e-29a3705b4b71",
+    url: "/api/role",
+    action: "UPDATE",
+  },
+  {
+    id: "2c18d72b-ca17-4bee-b5f2-f71abed3aae1",
+    url: "/api/role",
+    action: "DELETE",
+  },
+  {
+    id: "3ad6fe14-7a48-42d2-81a4-b9d7a2666ce7",
+    url: "/api/role",
+    action: "APPROVE",
+  },
+  {
+    id: "efab624d-4541-4a75-85e4-7ae6d8b5810d",
+    url: "/api/user",
+    action: "CREATE",
+  },
+  {
+    id: "cf185645-2c5a-4117-8b54-fb2f48ec54e4",
+    url: "/api/user",
+    action: "READ",
+  },
+  {
+    id: "70256c29-5a36-4895-95b8-7c72518638a5",
+    url: "/api/user",
+    action: "UPDATE",
+  },
+  {
+    id: "bdb30030-7b2d-4cf0-ac2b-f5701e9da93b",
+    url: "/api/user",
+    action: "DELETE",
+  },
+  {
+    id: "108f7bcc-21cb-4175-af05-2cf14a48dbdf",
+    url: "/api/user",
+    action: "APPROVE",
+  },
+  {
+    id: "f2167e46-58da-470f-9da6-436b95c14419",
+    url: "/api/profile",
+    action: "CREATE",
+  },
+  {
+    id: "6f6722c5-a629-481a-8a0d-1d783c599ee8",
+    url: "/api/profile",
+    action: "READ",
+  },
+  {
+    id: "cf2f1b3e-7bd5-47cf-9e2d-e358b4134128",
+    url: "/api/profile",
+    action: "UPDATE",
+  },
+  {
+    id: "b30ddada-f16c-4a6a-89e2-f1938f4f5c35",
+    url: "/api/profile",
+    action: "DELETE",
+  },
+  {
+    id: "3569df24-38c1-49b8-948a-12d6524f34df",
+    url: "/api/profile",
+    action: "APPROVE",
+  },
+  {
+    id: "bc2df6af-2f2b-46ea-a3db-4f242f1faf6c",
+    url: "/api/folder",
+    action: "CREATE",
+  },
+  {
+    id: "0347f3d7-6224-4818-af65-484bb5a75ddb",
+    url: "/api/folder",
+    action: "READ",
+  },
+  {
+    id: "4873e956-ea2c-46ad-a616-64bfd10517df",
+    url: "/api/folder",
+    action: "UPDATE",
+  },
+  {
+    id: "71683a55-e559-4fbd-a105-dd55b3719424",
+    url: "/api/folder",
+    action: "DELETE",
+  },
+  {
+    id: "1b4b345b-ef29-44e9-8cd2-29f12f4382bf",
+    url: "/api/folder",
+    action: "APPROVE",
+  },
+  {
+    id: "e4c4aaec-fab9-4035-b22f-ac501a3f7d0a",
+    url: "/api/document",
+    action: "CREATE",
+  },
+  {
+    id: "0f4dddf0-011b-4c73-a7de-325914130e34",
+    url: "/api/document",
+    action: "READ",
+  },
+  {
+    id: "2691e9be-0878-482a-b44d-2d05ea4014d3",
+    url: "/api/document",
+    action: "UPDATE",
+  },
+  {
+    id: "d136b1fd-b36c-4697-a659-2c8664da62d1",
+    url: "/api/document",
+    action: "DELETE",
+  },
+  {
+    id: "1766b95d-27a8-404d-99f3-d67164e18905",
+    url: "/api/document",
+    action: "APPROVE",
+  },
+  {
+    id: "ba22d03e-3487-4bd6-8727-e7281636c4ba",
+    url: "/api/auth",
+    action: "CREATE",
+  },
+  {
+    id: "14ea1851-8673-4be5-9e69-4331965e3f49",
+    url: "/api/auth",
+    action: "READ",
+  },
+  {
+    id: "c44ddea8-017b-4aa0-a4ed-1a78760e7def",
+    url: "/api/auth",
+    action: "UPDATE",
+  },
+  {
+    id: "5592c774-973a-4f3c-a08b-b78d84f05ba8",
+    url: "/api/auth",
+    action: "DELETE",
+  },
+  {
+    id: "97da916a-812f-4ed7-8884-fb70de800447",
+    url: "/api/auth",
+    action: "APPROVE",
+  },
+  {
+    id: "4453c79e-e535-40a1-8ec8-466c9de44510",
+    url: "/api/notification",
+    action: "CREATE",
+  },
+  {
+    id: "b2a43593-6d8a-49d7-96a3-51e5a092c881",
+    url: "/api/notification",
+    action: "READ",
+  },
+  {
+    id: "f833b35c-49ee-45e8-9bd2-cf849f433d55",
+    url: "/api/notification",
+    action: "UPDATE",
+  },
+  {
+    id: "f5dc9510-b04e-40d7-a0c3-5569c9b88a81",
+    url: "/api/notification",
+    action: "DELETE",
+  },
+  {
+    id: "1350df99-180d-48de-9e98-a5fade6afaa4",
+    url: "/api/notification",
+    action: "APPROVE",
+  },
+  {
+    id: "1c13b288-40ff-4b98-8d76-f26089fafb33",
+    url: "/api/dashboard",
+    action: "CREATE",
+  },
+  {
+    id: "c7d5d4ce-775c-4d90-b134-13f009de9949",
+    url: "/api/dashboard",
+    action: "READ",
+  },
+  {
+    id: "87da3cad-d833-4ed7-a1c0-76b58c386667",
+    url: "/api/dashboard",
+    action: "UPDATE",
+  },
+  {
+    id: "c66d9e04-8799-414c-a08d-f13945e3c5be",
+    url: "/api/dashboard",
+    action: "DELETE",
+  },
+  {
+    id: "43a0361a-61d8-4850-afe5-ed84a180d4ae",
+    url: "/api/dashboard",
+    action: "APPROVE",
+  },
+  {
+    id: "d5d63390-37ef-4ead-8b45-d2f712ac56fe",
+    url: "/api/permission",
+    action: "CREATE",
+  },
+  {
+    id: "c4c31547-fe2c-4ce4-901c-0f31e5cdc9a8",
+    url: "/api/permission",
+    action: "READ",
+  },
+  {
+    id: "17e68f36-89ea-464f-b3b5-ef8f99f5e419",
+    url: "/api/permission",
+    action: "UPDATE",
+  },
+  {
+    id: "4e4adb8e-47f2-4029-9112-ca48bccfb987",
+    url: "/api/permission",
+    action: "DELETE",
+  },
+  {
+    id: "094d9667-9ea5-4389-8b06-603f2c09c0db",
+    url: "/api/permission",
+    action: "APPROVE",
+  },
+];
+
+export const roleData: Role[] = [
+  {
+    id: "eeb96805-9250-475a-aea4-3acce948ebf6",
+    name: "SUPER_ADMIN",
+    isActive: true,
+  },
+  {
+    id: "601e7e00-431d-4cd0-85de-a8d4059d8852",
+    name: "MANAGER",
+    isActive: true,
+  },
+  {
+    id: "8bd14ae7-ff1b-4f91-b93f-e7f50c593cfb",
+    name: "STAFF",
+    isActive: true,
+  },
+  {
+    id: "654e0164-e73d-40e1-a886-7a4748a52eb1",
+    name: "DIREKTUR",
+    isActive: true,
   },
 ];

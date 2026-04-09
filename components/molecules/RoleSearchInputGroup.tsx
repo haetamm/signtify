@@ -3,12 +3,12 @@ import { FaPlus } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
-interface SearchInputGroupProps {
+interface RoleSearchInputGroupProps {
   filters: Pick<UserFilterParams, "name" | "email" | "phone">;
   onChange: (filters: Partial<UserFilterParams>) => void;
 }
 
-const SearchInputGroup: React.FC<SearchInputGroupProps> = ({
+const RoleSearchInputGroup: React.FC<RoleSearchInputGroupProps> = ({
   filters,
   onChange,
 }) => (
@@ -22,19 +22,7 @@ const SearchInputGroup: React.FC<SearchInputGroupProps> = ({
       onChange={(e) => onChange({ name: e.target.value, page: 1 })}
       className="bg-gray-50 dark:bg-primary/10 border dark:border-0 rounded-xl"
     />
-    <Input
-      placeholder="Email"
-      value={filters.email ?? ""}
-      onChange={(e) => onChange({ email: e.target.value, page: 1 })}
-      className="bg-gray-50 dark:bg-primary/10 border dark:border-0 rounded-xl"
-    />
-    <Input
-      placeholder="Nomor Telepon"
-      value={filters.phone ?? ""}
-      onChange={(e) => onChange({ phone: e.target.value, page: 1 })}
-      className="bg-gray-50 dark:bg-primary/10 border dark:border-0 rounded-xl"
-    />
   </div>
 );
 
-export default SearchInputGroup;
+export default RoleSearchInputGroup;

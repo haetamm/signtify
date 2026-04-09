@@ -3,10 +3,7 @@
 import { profileData } from "@/lib/util/resource";
 import React from "react";
 
-// Molecules
-
-// Organisms
-import ProfilePageHeader from "@/components/molecules/ProfilePageHeader";
+import PageHeader from "@/components/molecules/PageHeader";
 import AccountInfoCard from "@/components/organisms/AccountInfoCard";
 import PersonalInfoCard from "@/components/organisms/PersonalInfoCard";
 import SecurityCard from "@/components/organisms/SecurityCard";
@@ -28,14 +25,14 @@ const ProfilePage: React.FC = () => {
         {/* CONTENT */}
         <main className="px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-2 dark:gap-3">
           {/* HEADER */}
-          <ProfilePageHeader
+          <PageHeader
             title="Profile Saya"
             onBack={handleBack}
             onAction={handleEdit}
           >
             <Pencil className="w-3.5 h-3.5" />
             Edit Profile
-          </ProfilePageHeader>
+          </PageHeader>
 
           {/* Personal Information + Address */}
           <PersonalInfoCard

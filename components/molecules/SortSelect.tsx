@@ -16,14 +16,21 @@ const SORT_OPTIONS = [
 
 interface SortSelectProps {
   value: string;
+  isLabel?: boolean;
   onChange: (value: string) => void;
 }
 
-const SortSelect: React.FC<SortSelectProps> = ({ value, onChange }) => (
+const SortSelect: React.FC<SortSelectProps> = ({
+  value,
+  isLabel = true,
+  onChange,
+}) => (
   <div>
-    <Label className="block text-xs font-medium text-gray-500 mb-1.5">
-      Urutkan
-    </Label>
+    {isLabel && (
+      <Label className="block text-xs font-medium text-gray-500 mb-1.5">
+        Urutkan
+      </Label>
+    )}
     <Select
       value={value || "none"}
       onValueChange={(val) => onChange(val === "none" ? "" : val)}

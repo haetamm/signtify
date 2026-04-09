@@ -120,3 +120,29 @@ export interface UserFilterParams {
   size: number;
   sortBy?: string;
 }
+
+export interface Permission {
+  id: string;
+  url: string;
+  action: string;
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  isActive: boolean;
+}
+
+export interface RoleDetail {
+  id: string;
+  name: string;
+  permissions: Permission[];
+}
+
+export interface RoleFilterParams {
+  name?: string;
+  isActive?: boolean | "";
+  page: number;
+  size: number;
+  sortBy?: string;
+}
