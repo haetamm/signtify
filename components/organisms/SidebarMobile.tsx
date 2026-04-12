@@ -1,12 +1,13 @@
 "use client";
 
-import { cn, sidebarItems } from "@/lib/util/helper";
+import { cn, settingNavItems } from "@/lib/util/helper";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiChevronRight, FiLogOut, FiUser } from "react-icons/fi";
 import { Button } from "../ui/button";
+import { iconMap } from "./Sidebar";
 
 export default function SidebarMobile() {
   const pathname = usePathname();
@@ -46,9 +47,11 @@ export default function SidebarMobile() {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-card rounded-2xl overflow-hidden shadow-sm">
-          {sidebarItems.map(({ label, href, icon: Icon }, index) => {
+        <div className="bg-white dark:bg-card rounded-2xl overflow-hidden shadow-sm ">
+          {settingNavItems.map(({ label, href, icon }, index) => {
             const isActive = pathname === href || pathname.startsWith(href);
+            const Icon = iconMap[icon];
+
             return (
               <Link
                 key={href}
@@ -56,7 +59,7 @@ export default function SidebarMobile() {
                 className={cn(
                   "flex items-center justify-between px-4 py-3.5 transition-colors",
                   "hover:bg-gray-50 dark:hover:bg-gray-800/50 active:bg-gray-100 dark:active:bg-gray-800",
-                  index !== sidebarItems.length - 1 &&
+                  index !== settingNavItems.length - 1 &&
                     "border-b border-gray-100 dark:border-gray-800",
                   isActive && "bg-primary/5",
                 )}
@@ -99,7 +102,6 @@ export default function SidebarMobile() {
           </Button>
         </div>
 
-        {/* App Version (opsional) */}
         <div className="text-center pt-4">
           <p className="text-xs text-gray-400 dark:text-gray-600">
             Version 1.0.0

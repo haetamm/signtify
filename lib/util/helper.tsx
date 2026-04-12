@@ -1,10 +1,15 @@
 import { clsx, type ClassValue } from "clsx";
-import { FiShield, FiUser, FiUsers } from "react-icons/fi";
 import { IoIosFolderOpen } from "react-icons/io";
 import { IoNotifications, IoSettings } from "react-icons/io5";
 import { RiDashboardFill } from "react-icons/ri";
 import { twMerge } from "tailwind-merge";
-import { ActivityStyleInfo, StatusBadgeInfo } from "./types";
+import {
+  CONTRIBUTOR_STATUS_COLOR,
+  FALLBACK_COLOR,
+  PERMISSION_COLOR,
+} from "./constans";
+import { NavItem } from "./interface";
+import { ActivityStyleInfo, Contributor, StatusBadgeInfo } from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,10 +25,16 @@ export const urlPage = {
   RESET_PASSWORD: "/reset-password",
 };
 
-export const sidebarItems = [
-  { label: "Profile", href: "/setting/profile", icon: FiUser },
-  { label: "Users", href: "/setting/user", icon: FiUsers },
-  { label: "Roles", href: "/setting/role", icon: FiShield },
+export const settingNavItems: NavItem[] = [
+  { label: "Profile", href: "/setting/profile", icon: "user" },
+  { label: "Users", href: "/setting/user", icon: "users" },
+  { label: "Roles", href: "/setting/role", icon: "role" },
+];
+
+export const documentNavItems: NavItem[] = [
+  { label: "Public", href: "/document", icon: "public" },
+  { label: "Devision", href: "/document/role", icon: "department" },
+  { label: "Trash", href: "/document/trash", icon: "trash" },
 ];
 
 export const navItems = {
@@ -139,3 +150,27 @@ export const getInitials = (name: string) =>
 export const handleBack = () => {
   window.history.back();
 };
+
+export const formatBytes = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
+
+export const formatShortDate = (iso: string) => {
+  return new Date(iso).toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+export function resolveAvatarColor(contributor: Contributor): string {
+  if (contributor.status) {
+    return CONTRIBUTOR_STATUS_COLOR[contributor.status] ?? FALLBACK_COLOR;
+  }
+  if (contributor.permissionType) {
+    return PERMISSION_COLOR[contributor.permissionType] ?? FALLBACK_COLOR;
+  }
+  return FALLBACK_COLOR;
+}

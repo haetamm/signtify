@@ -2,14 +2,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import React from "react";
 
-interface ProfilePageHeaderProps {
+interface PageHeaderProps {
   title: string;
   children: React.ReactNode;
   onBack?: () => void;
   onAction?: () => void;
 }
 
-const ProfilePageHeader: React.FC<ProfilePageHeaderProps> = ({
+const PageHeader: React.FC<PageHeaderProps> = ({
   title,
   children,
   onBack,
@@ -46,4 +46,4 @@ const ProfilePageHeader: React.FC<ProfilePageHeaderProps> = ({
   );
 };
 
-export default ProfilePageHeader;
+export default PageHeader;

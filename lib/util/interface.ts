@@ -1,3 +1,10 @@
+import { IconKey } from "@/components/organisms/Sidebar";
+
+export interface NavItem {
+  label: string;
+  href: string;
+  icon: IconKey;
+}
 export interface UrgentDocument {
   id: string;
   title: string;

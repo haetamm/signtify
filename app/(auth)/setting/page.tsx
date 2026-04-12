@@ -48,8 +48,6 @@ export default function Setting() {
                 Gunakan sidebar di sebelah kiri untuk mengakses dan mengelola
                 berbagai pengaturan
               </p>
-
-              {/* Arrow hint with chip style */}
             </div>
           </div>
 
