@@ -33,7 +33,7 @@ export const settingNavItems: NavItem[] = [
 
 export const documentNavItems: NavItem[] = [
   { label: "Public", href: "/document", icon: "public" },
-  { label: "Devision", href: "/document/role", icon: "department" },
+  { label: "Devision", href: "/document/devision", icon: "department" },
   { label: "Trash", href: "/document/trash", icon: "trash" },
 ];
 

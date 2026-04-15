@@ -56,13 +56,13 @@ export default function Document() {
             {folderOpen &&
               (layout === "grid" ? (
                 <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 md:gap-3">
-                  {folders.map((f) => (
+                  {folders.slice(0, 2).map((f) => (
                     <ItemCard key={f.id} title={f.name} variant="folder" />
                   ))}
                 </div>
               ) : (
                 <div className="overflow-hidden divide-y divide-slate-100">
-                  {folders.map((f) => (
+                  {folders.slice(0, 2).map((f) => (
                     <FolderRowList key={f.id} folder={f} />
                   ))}
                 </div>
@@ -89,13 +89,13 @@ export default function Document() {
             {docOpen &&
               (layout === "grid" ? (
                 <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-                  {docs.map((d) => (
+                  {docs.slice(0, 1).map((d) => (
                     <ItemCard key={d.id} title={d.title} variant="doc" />
                   ))}
                 </div>
               ) : (
                 <div className="overflow-hidden divide-y divide-slate-100">
-                  {docs.map((d) => (
+                  {docs.slice(0, 1).map((d) => (
                     <DocRowList key={d.id} doc={d} />
                   ))}
                 </div>

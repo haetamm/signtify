@@ -1,9 +1,10 @@
 import { LayoutToggle } from "@/components/atoms/LayoutToggle";
 import { SearchInput } from "@/components/atoms/SearchInput";
 import { Button } from "@/components/ui/button";
-import { useUIStore } from "@/lib/store/useUIStore";
+import { useSidebarOpen, useUIStore } from "@/lib/store/useUIStore";
 import { LucideAlignVerticalJustifyCenter } from "lucide-react";
 import { HiOutlineChevronRight, HiPlus } from "react-icons/hi2";
+import { IoMdClose } from "react-icons/io";
 
 type Layout = "grid" | "list";
 
@@ -25,6 +26,7 @@ export function DocumentToolbar({
   onAdd,
 }: DocumentToolbarProps) {
   const toggleSidebar = useUIStore((s) => s.toggleSidebar);
+  const isOpen = useSidebarOpen();
 
   return (
     <div className="bg-background border-b sticky top-0 pt-2 z-100">
@@ -39,10 +41,11 @@ export function DocumentToolbar({
             onClick={toggleSidebar}
           >
             <HiPlus className="w-4 h-4 hidden lg:block" />
-            <LucideAlignVerticalJustifyCenter
-              onClick={toggleSidebar}
-              className="lg:hidden w-4 h-4"
-            />
+            {isOpen ? (
+              <IoMdClose className="lg:hidden w-4 h-4" />
+            ) : (
+              <LucideAlignVerticalJustifyCenter className="lg:hidden w-4 h-4" />
+            )}
           </Button>
           <HiOutlineChevronRight className="w-3.5 h-3.5 shrink-0 text-slate-300 hidden sm:block" />
           <span className="font-medium truncate hidden sm:block">

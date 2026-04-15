@@ -3,7 +3,7 @@ import { cn } from "@/lib/util/helper";
 
 export function SidebarDocSkeleton() {
   return (
-    <div className="fixed top-22 left-6 h-[calc(100vh-108px)] w-45 rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 lg:hidden z-[200] overflow-hidden">
+    <div className="fixed top-22 left-3.5 h-[calc(100vh-109px)] right-3.5 w-45 rounded-xl bg-background/95 backdrop-blur-xl border border-white/10 lg:hidden z-[200] overflow-hidden">
       <div className="px-5 pt-8 pb-6"></div>
 
       {/* Nav items */}

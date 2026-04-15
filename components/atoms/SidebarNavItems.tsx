@@ -19,7 +19,7 @@ export function SidebarNavItem({
   onClick,
 }: SidebarNavItemProps) {
   const pathname = usePathname();
-  const isActive = pathname === href || pathname.startsWith(href + "/");
+  const isActive = pathname === href;
   const Icon = iconMap[icon];
 
   return (
@@ -27,15 +27,15 @@ export function SidebarNavItem({
       href={href}
       onClick={onClick}
       className={cn(
-        "group relative flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200",
+        "group relative flex items-center gap-4 px-4 py-3.5 rounded-lg transition-all duration-200 text-foreground",
         isActive
           ? "bg-gradient-to-r from-primary/20 to-primary/10 text-primary shadow-lg shadow-primary/5"
-          : "text-white/70 hover:bg-white/5 hover:text-white",
+          : "",
       )}
     >
       {/* Active indicator bar */}
       {isActive && (
-        <div className="absolute left-0 w-1 h-8 bg-primary rounded-r-full" />
+        <div className="absolute left-0 w-1 h-8 bg-primary rounded-r-lg" />
       )}
 
       <Icon
@@ -57,7 +57,7 @@ export function SidebarNavItem({
       </span>
 
       {isActive && (
-        <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+        <div className="w-1.5 h-1.5 rounded-lg bg-primary animate-pulse" />
       )}
     </Link>
   );

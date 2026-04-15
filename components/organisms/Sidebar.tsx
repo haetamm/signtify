@@ -45,7 +45,7 @@ export function Sidebar({ navItems, isLogout = true }: SidebarProps) {
 
       <nav className="flex flex-col gap-3 flex-1">
         {navItems.map(({ label, href, icon }) => {
-          const isActive = pathname === href || pathname.startsWith(href);
+          const isActive = pathname === href;
           const Icon = iconMap[icon];
 
           return (
