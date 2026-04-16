@@ -28,7 +28,7 @@ export function SidebarDoc() {
       <div
         onClick={closeSidebar}
         className={cn(
-          "fixed inset-0 top-22 left-3.5 right-3.5 h-[calc(100vh-109px)] rounded-xl",
+          "fixed inset-0 top-22 md:top-[136px] left-3.5 md:left-6 right-3.5 md:right-5 h-[calc(100vh-109px)] md:h-[calc(100vh-155px)] rounded-b-xl md:rounded-b-2xl",
           "bg-gradient-to-b from-black/50 to-black/70 backdrop-blur-sm",
           "transition-all duration-300 lg:hidden z-[100]",
           isOpen
@@ -40,7 +40,7 @@ export function SidebarDoc() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed top-22 left-3.5 h-[calc(100vh-109px)] rounded-l-xl w-45",
+          "fixed top-22 left-3.5 md:left-6 h-[calc(100vh-109px)] rounded-l-xl w-45",
           "lg:hidden z-[200]",
           "bg-gradient-to-b from-background to-background/95 backdrop-blur-xl",
           "border-r border-white/10 shadow-2xl shadow-black/20",

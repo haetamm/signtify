@@ -91,7 +91,7 @@ export default function NotificationsPage() {
   });
 
   return (
-    <div className="h-full bg-background md:px-6">
+    <div className="min-h-full bg-background md:px-6">
       <div className="max-w-7xl mx-auto px-0 sm:px-3 lg:px-8">
         <FilterTabGroup active={filter} onChange={setFilter} />
         <NotificationList

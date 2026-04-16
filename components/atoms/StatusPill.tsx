@@ -6,7 +6,7 @@ const STATUS_MAP: Record<string, { label: string; dot: string; text: string }> =
       text: "text-amber-600",
     },
     SIGNED: {
-      label: "Ditandatangani",
+      label: "Selesai",
       dot: "bg-emerald-400",
       text: "text-emerald-600",
     },

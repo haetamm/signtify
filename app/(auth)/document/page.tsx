@@ -28,7 +28,7 @@ export default function Document() {
   );
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className=" bg-background font-sans">
       <DocumentToolbar
         search={search}
         layout={layout}

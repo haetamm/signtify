@@ -16,7 +16,6 @@ const SecurityCard: React.FC<SecurityCardProps> = ({ onChangePassword }) => {
         </IconBox>
         <div>
           <div className="font-semibold text-sm">Keamanan Akun</div>
-          <small className="mt-0.5">Password aktif · Akun aman</small>
         </div>
       </div>
       <Button

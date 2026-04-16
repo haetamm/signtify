@@ -29,7 +29,7 @@ export function DocumentToolbar({
   const isOpen = useSidebarOpen();
 
   return (
-    <div className="bg-background border-b sticky top-0 pt-2 z-100">
+    <div className="bg-background border-b sticky top-0 pt-2 z-[550]">
       <div className="max-w-6xl mx-auto px-4 h-12 flex items-center gap-3">
         {/* Breadcrumb */}
         <div className="flex items-center gap-1 text-sm text-card-text flex-1 shrink-0">
