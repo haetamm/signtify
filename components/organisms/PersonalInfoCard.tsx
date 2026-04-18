@@ -4,7 +4,7 @@ import InfoValue from "@/components/atoms/InfoValue";
 import InfoField from "@/components/molecules/InfoField";
 import ProfileIdentity from "@/components/molecules/ProfileIdentity";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { calculateAge, formatDate, getInitials } from "@/lib/util/helper";
+import { calculateAge, formatDate, getInitials } from "@/lib/utils/helper";
 import React from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 

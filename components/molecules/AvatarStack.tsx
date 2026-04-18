@@ -5,8 +5,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { getInitials, resolveAvatarColor } from "@/lib/util/helper";
-import { Contributor } from "@/lib/util/types";
+import { getInitials, resolveAvatarColor } from "@/lib/utils/helper";
+import { Contributor } from "@/lib/utils/types";
 
 export default function AvatarStack({
   contributors,

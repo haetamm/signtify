@@ -1,7 +1,7 @@
 "use client";
 
-import { useSidebarOpen, useUIStore } from "@/lib/store/useUIStore";
-import { cn, documentNavItems } from "@/lib/util/helper";
+import { useSidebarOpen, useUIStore } from "@/lib/stores/useUIStore";
+import { cn, documentNavItems } from "@/lib/utils/helper";
 import { useEffect } from "react";
 import { SidebarNavItem } from "../atoms/SidebarNavItems";
 

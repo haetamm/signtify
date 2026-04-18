@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/util/helper";
+import { cn } from "@/lib/utils/helper";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { iconMap } from "../organisms/Sidebar";

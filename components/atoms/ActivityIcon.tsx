@@ -1,4 +1,4 @@
-import { getActivityStyleInfo } from "@/lib/util/helper";
+import { getActivityStyleInfo } from "@/lib/utils/helper";
 import {
   FiCheckCircle,
   FiFileText,

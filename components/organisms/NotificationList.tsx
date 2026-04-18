@@ -1,4 +1,4 @@
-import { Notification } from "@/lib/util/interface";
+import { Notification } from "@/lib/utils/interface";
 import { IoDocumentText } from "react-icons/io5";
 import NotificationItem from "../molecules/NotificationItem";
 

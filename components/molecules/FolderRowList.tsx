@@ -1,5 +1,5 @@
-import { formatShortDate } from "@/lib/util/helper";
-import { documentData } from "@/lib/util/resource";
+import { formatShortDate } from "@/lib/utils/helper";
+import { documentData } from "@/lib/utils/resource";
 import { FaFolderOpen } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import { HiOutlineGlobeAlt, HiOutlineLockClosed } from "react-icons/hi2";

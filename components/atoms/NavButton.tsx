@@ -1,4 +1,4 @@
-import { isActivePath } from "@/lib/util/helper";
+import { isActivePath } from "@/lib/utils/helper";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 

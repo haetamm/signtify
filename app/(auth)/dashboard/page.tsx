@@ -3,7 +3,7 @@ import DashboardRightColumn from "@/components/organisms/DashboardRightColumn";
 import RecentActivityPanel from "@/components/organisms/RecentActivityPanel";
 import SummaryGrid from "@/components/organisms/SummaryGrid";
 import UrgentDocumentsPanel from "@/components/organisms/UrgentDocumentsPanel";
-import { dashboardData } from "@/lib/util/resource";
+import { dashboardData } from "@/lib/utils/resource";
 import React from "react";
 
 const Dashboard: React.FC = () => {

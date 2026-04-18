@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { getInitials } from "@/lib/util/helper";
-import { User } from "@/lib/util/interface";
+import { getInitials } from "@/lib/utils/helper";
+import { User } from "@/lib/utils/interface";
 import React from "react";
 import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import ContactItem from "../atoms/ContactItem";

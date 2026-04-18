@@ -2,7 +2,7 @@ import { Sidebar } from "@/components/organisms/Sidebar";
 import { SidebarDoc } from "@/components/organisms/SidebarDoc";
 import { SidebarDocSkeleton } from "@/components/organisms/SidebarDocSkeleton";
 import { SidebarSkeleton } from "@/components/organisms/SidebarSkeleton";
-import { documentNavItems } from "@/lib/util/helper";
+import { documentNavItems } from "@/lib/utils/helper";
 import { Suspense } from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {

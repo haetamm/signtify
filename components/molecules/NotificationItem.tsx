@@ -1,6 +1,6 @@
 import NotificationIcon from "@/components/atoms/NotificationIcon";
-import { formatDate } from "@/lib/util/helper";
-import { Notification } from "@/lib/util/interface";
+import { formatDate } from "@/lib/utils/helper";
+import { Notification } from "@/lib/utils/interface";
 
 interface NotificationItemProps {
   notification: Notification;

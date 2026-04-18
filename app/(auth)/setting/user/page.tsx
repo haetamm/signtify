@@ -5,13 +5,13 @@ import PaginationBar from "@/components/molecules/PaginationBar";
 import UserFilterBar from "@/components/molecules/UserFilterBar";
 import UserCardList from "@/components/organisms/UserCardList";
 import UserTable from "@/components/organisms/UserTable";
-import { handleBack } from "@/lib/util/helper";
+import { handleBack } from "@/lib/utils/helper";
 import {
   PaginationResponse,
   User,
   UserFilterParams,
-} from "@/lib/util/interface";
-import { usersData } from "@/lib/util/resource";
+} from "@/lib/utils/interface";
+import { usersData } from "@/lib/utils/resource";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 

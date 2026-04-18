@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { User } from "@/lib/util/interface";
+import { User } from "@/lib/utils/interface";
 import React from "react";
 import { FiMail, FiMapPin, FiPhone, FiUser } from "react-icons/fi";
 import { Button } from "../ui/button";

@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/util/helper";
+import { cn } from "@/lib/utils/helper";
 
 export function SidebarDocSkeleton() {
   return (

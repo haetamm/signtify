@@ -1,5 +1,5 @@
 import FilterChip from "@/components/atoms/FilterChip";
-import { UserFilterParams } from "@/lib/util/interface";
+import { UserFilterParams } from "@/lib/utils/interface";
 
 interface ActiveFilterChipsProps {
   filters: UserFilterParams;

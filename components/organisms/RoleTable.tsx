@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Role } from "@/lib/util/interface";
+import { Role } from "@/lib/utils/interface";
 import React from "react";
 import { FiShield } from "react-icons/fi";
 import { Button } from "../ui/button";

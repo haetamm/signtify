@@ -1,5 +1,5 @@
 import InfoField from "@/components/molecules/InfoField";
-import { formatDate } from "@/lib/util/helper";
+import { formatDate } from "@/lib/utils/helper";
 import React from "react";
 
 interface AccountInfoCardProps {

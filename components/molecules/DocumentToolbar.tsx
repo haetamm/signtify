@@ -1,7 +1,7 @@
 import { LayoutToggle } from "@/components/atoms/LayoutToggle";
 import { SearchInput } from "@/components/atoms/SearchInput";
 import { Button } from "@/components/ui/button";
-import { useSidebarOpen, useUIStore } from "@/lib/store/useUIStore";
+import { useSidebarOpen, useUIStore } from "@/lib/stores/useUIStore";
 import { LucideAlignVerticalJustifyCenter } from "lucide-react";
 import { HiOutlineChevronRight, HiPlus } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";

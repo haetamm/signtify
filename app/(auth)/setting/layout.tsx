@@ -1,6 +1,6 @@
 import { Sidebar } from "@/components/organisms/Sidebar";
 import { SidebarSkeleton } from "@/components/organisms/SidebarSkeleton";
-import { settingNavItems } from "@/lib/util/helper";
+import { settingNavItems } from "@/lib/utils/helper";
 import { Suspense } from "react";
 
 export default function SettingLayout({

@@ -7,8 +7,8 @@ import {
   ApiResponse,
   Notification,
   PaginationResponse,
-} from "@/lib/util/interface";
-import { notifications as notificationsData } from "@/lib/util/resource";
+} from "@/lib/utils/interface";
+import { notifications as notificationsData } from "@/lib/utils/resource";
 import { useEffect, useState } from "react";
 
 type FilterOption = "all" | "unread" | "read";

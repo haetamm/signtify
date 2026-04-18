@@ -8,6 +8,18 @@
   background: #c08552;
 }
 
+.bg-error {
+  background: repeating-linear-gradient(
+    145deg,
+    rgba(185, 28, 28, 0.15),
+    rgba(185, 28, 28, 0.15) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+  backdrop-filter: blur(20px);
+  background-color: transparent;
+}
+
 .no-scrollbar {
   /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none; /* IE and Edge */

@@ -3,7 +3,7 @@ import { DocRowList } from "@/components/molecules/DocRowList";
 import { DocumentToolbar } from "@/components/molecules/DocumentToolbar";
 import { FolderRowList } from "@/components/molecules/FolderRowList";
 import { ItemCard } from "@/components/molecules/ItemCard";
-import { documentData } from "@/lib/util/resource";
+import { documentData } from "@/lib/utils/resource";
 import { useState } from "react";
 import {
   HiOutlineChevronDown,

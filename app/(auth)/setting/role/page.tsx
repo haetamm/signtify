@@ -4,13 +4,13 @@ import PageHeader from "@/components/molecules/PageHeader";
 import PaginationBar from "@/components/molecules/PaginationBar";
 import RoleFilterBar from "@/components/molecules/RoleFilterBar";
 import RoleTable from "@/components/organisms/RoleTable";
-import { handleBack } from "@/lib/util/helper";
+import { handleBack } from "@/lib/utils/helper";
 import {
   PaginationResponse,
   Role,
   RoleFilterParams,
-} from "@/lib/util/interface";
-import { roleData } from "@/lib/util/resource";
+} from "@/lib/utils/interface";
+import { roleData } from "@/lib/utils/resource";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 

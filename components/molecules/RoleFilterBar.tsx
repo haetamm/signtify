@@ -1,8 +1,8 @@
 "use client";
 
 import SortSelect from "@/components/molecules/SortSelect";
-import { STATUS_OPTIONS } from "@/lib/util/constans";
-import { RoleFilterParams } from "@/lib/util/interface";
+import { STATUS_OPTIONS } from "@/lib/utils/constans";
+import { RoleFilterParams } from "@/lib/utils/interface";
 import { FiX } from "react-icons/fi";
 import { Button } from "../ui/button";
 import PillSelector from "./PillSelector";

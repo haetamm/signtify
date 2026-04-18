@@ -5,6 +5,7 @@ export interface NavItem {
   href: string;
   icon: IconKey;
 }
+
 export interface UrgentDocument {
   id: string;
   title: string;

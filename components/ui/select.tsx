@@ -3,7 +3,7 @@
 import { Select as SelectPrimitive } from "radix-ui";
 import * as React from "react";
 
-import { cn } from "@/lib/util/helper";
+import { cn } from "@/lib/utils/helper";
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 function Select({

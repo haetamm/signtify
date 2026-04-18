@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@/lib/util/helper";
-import { NavItem } from "@/lib/util/interface";
+import { cn } from "@/lib/utils/helper";
+import { NavItem } from "@/lib/utils/interface";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUsersGear, FaUsersLine } from "react-icons/fa6";

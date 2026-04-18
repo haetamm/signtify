@@ -1,4 +1,4 @@
-import { cn } from "@/lib/util/helper";
+import { cn } from "@/lib/utils/helper";
 import React from "react";
 
 interface InfoLabelProps {

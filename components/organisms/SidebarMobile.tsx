@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, settingNavItems } from "@/lib/util/helper";
+import { cn, settingNavItems } from "@/lib/utils/helper";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";

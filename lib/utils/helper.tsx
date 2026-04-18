@@ -9,7 +9,12 @@ import {
   PERMISSION_COLOR,
 } from "./constans";
 import { NavItem } from "./interface";
-import { ActivityStyleInfo, Contributor, StatusBadgeInfo } from "./types";
+import {
+  ActivityStyleInfo,
+  Contributor,
+  SetErrorFn,
+  StatusBadgeInfo,
+} from "./types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -173,4 +178,25 @@ export function resolveAvatarColor(contributor: Contributor): string {
     return PERMISSION_COLOR[contributor.permissionType] ?? FALLBACK_COLOR;
   }
   return FALLBACK_COLOR;
+}
+
+export function handleFormError<T extends Record<string, unknown>>(
+  error: unknown,
+  setError: SetErrorFn<T>,
+  setServerError: (msg: string) => void,
+) {
+  if (typeof error === "object" && error !== null) {
+    Object.entries(error).forEach(([field, message]) => {
+      if (field === "general") {
+        setServerError(message as string);
+      } else {
+        setError(field as keyof T, {
+          type: "server",
+          message: message as string,
+        });
+      }
+    });
+  } else {
+    setServerError("Permintaan gagal, coba lagi");
+  }
 }

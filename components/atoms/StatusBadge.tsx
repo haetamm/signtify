@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { getStatusBadgeInfo } from "@/lib/util/helper";
+import { getStatusBadgeInfo } from "@/lib/utils/helper";
 import { FiCheckCircle, FiClock, FiFileText, FiXCircle } from "react-icons/fi";
 import { MdOutlinePendingActions } from "react-icons/md";
 

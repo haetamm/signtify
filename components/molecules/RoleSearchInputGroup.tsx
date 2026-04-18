@@ -1,4 +1,4 @@
-import { UserFilterParams } from "@/lib/util/interface";
+import { UserFilterParams } from "@/lib/utils/interface";
 import { FaPlus } from "react-icons/fa6";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";

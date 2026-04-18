@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PaginationResponse } from "@/lib/util/interface";
+import { PaginationResponse } from "@/lib/utils/interface";
 
 interface PaginationBarProps {
   pagination: PaginationResponse;

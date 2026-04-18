@@ -17,3 +17,19 @@ export type Contributor = {
 };
 
 export type Layout = "grid" | "list";
+
+export type ErrorResponse = {
+  code: number;
+  status: string;
+  messages?:
+    | string
+    | {
+        path: string;
+        message: string;
+      }[];
+};
+
+export type SetErrorFn<T> = (
+  name: keyof T,
+  error: { type: string; message?: string },
+) => void;

@@ -1,6 +1,6 @@
 import InfoLabel from "@/components/atoms/InfoLabel";
 import InfoValue from "@/components/atoms/InfoValue";
-import { cn } from "@/lib/util/helper";
+import { cn } from "@/lib/utils/helper";
 import React from "react";
 
 interface InfoFieldProps {

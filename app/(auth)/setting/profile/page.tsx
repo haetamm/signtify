@@ -1,13 +1,13 @@
 "use client";
 
-import { profileData } from "@/lib/util/resource";
+import { profileData } from "@/lib/utils/resource";
 import React from "react";
 
 import PageHeader from "@/components/molecules/PageHeader";
 import AccountInfoCard from "@/components/organisms/AccountInfoCard";
 import PersonalInfoCard from "@/components/organisms/PersonalInfoCard";
 import SecurityCard from "@/components/organisms/SecurityCard";
-import { handleBack } from "@/lib/util/helper";
+import { handleBack } from "@/lib/utils/helper";
 import { Pencil } from "lucide-react";
 
 const ProfilePage: React.FC = () => {

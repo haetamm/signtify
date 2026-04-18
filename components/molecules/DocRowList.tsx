@@ -1,5 +1,5 @@
-import { formatBytes, formatShortDate } from "@/lib/util/helper";
-import { documentData } from "@/lib/util/resource";
+import { formatBytes, formatShortDate } from "@/lib/utils/helper";
+import { documentData } from "@/lib/utils/resource";
 import { FaFilePdf } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 import {
