@@ -58,8 +58,8 @@ axiosClient.interceptors.response.use(
 
         // Panggil internal refresh route
         const res = await refreshAccessToken(storedRefreshToken);
-        const newAccessToken = res.data.token;
-        const newRefreshToken = res.data.refreshToken;
+        const newAccessToken = res.token;
+        const newRefreshToken = res.refreshToken;
 
         // Simpan token baru
         sessionStorage.setItem("accessToken", newAccessToken);
