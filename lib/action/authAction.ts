@@ -1,4 +1,9 @@
-import { forgotPassword, loginUser, resetPassword } from "@/lib/api/authApi";
+import {
+  forgotPassword,
+  loginUser,
+  logoutUser,
+  resetPassword,
+} from "@/lib/api/authApi";
 import { useAuthStore } from "../stores/useAuthStore";
 import {
   ForgotPassPayload,
@@ -33,7 +38,7 @@ export async function resetPass(
   return response;
 }
 
-export function logout() {
+export async function logout() {
   useAuthStore.getState().logout();
-  // await axiosClient.post("/auth/logout").catch(() => {});
+  return await logoutUser();
 }

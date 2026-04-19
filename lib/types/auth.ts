@@ -33,6 +33,10 @@ export interface AuthResponse extends BaseResponse {
   };
 }
 
+export interface LogoutResponse extends BaseResponse {
+  data: string;
+}
+
 export interface AuthUser {
   username: string;
 }

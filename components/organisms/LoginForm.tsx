@@ -7,10 +7,12 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { showSuccessToast } from "@/lib/hooks/useHandleToast";
 import { LoginFormValues, loginSchema } from "@/lib/schemas/authSchema";
-import { handleFormError, urlPage } from "@/lib/utils/helper";
+import { urlPage } from "@/lib/utils/constans";
+import { handleFormError } from "@/lib/utils/helper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FiLoader } from "react-icons/fi";
 import { GrGoogle } from "react-icons/gr";
 import ErrorAllert from "../atoms/ErrorAllert";
 
@@ -51,7 +53,7 @@ export default function LoginForm() {
             {...register("username")}
           />
           {errors.username && (
-            <p className="text-xs text-red-500 px-1">
+            <p className="text-xs px-3 text-red-500 px-1">
               {errors.username.message}
             </p>
           )}
@@ -65,7 +67,7 @@ export default function LoginForm() {
             {...register("password")}
           />
           {errors.password && (
-            <p className="text-xs text-red-500 px-1">
+            <p className="text-xs px-3 text-red-500 px-1">
               {errors.password.message}
             </p>
           )}
@@ -80,7 +82,10 @@ export default function LoginForm() {
         disabled={isSubmitting}
         className="mt-5 w-full rounded-full h-11 bg-primary-gradient"
       >
-        {isSubmitting ? "Loading..." : "Sign in"}
+        {isSubmitting && (
+          <FiLoader className="animate-spin h-4 w-4 mr-0.5 inline"></FiLoader>
+        )}
+        Sign in
       </Button>
 
       <OrDivider title="Or" />

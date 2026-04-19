@@ -1,3 +1,13 @@
+export const urlPage = {
+  LOGIN: "/",
+  DASHBOARD: "/dashboard",
+  DOCUMENT: "/document",
+  SETTING: "/setting",
+  NOTIFICATION: "/notification",
+  FORGOT_PASSWORD: "/forgot-password",
+  RESET_PASSWORD: "/reset-password",
+};
+
 export const GENDER_OPTIONS = [
   { value: "", label: "Semua" },
   { value: "Laki-laki", label: "Pria" },

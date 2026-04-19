@@ -3,6 +3,7 @@ import {
   ForgotPassPayload,
   ForgotPassResponse,
   LoginPayload,
+  LogoutResponse,
   ResetPassPayload,
   ResetPassResponse,
 } from "../types/auth";
@@ -10,7 +11,7 @@ import { ErrorResponse } from "../utils/types";
 
 type FieldErrors = Record<string, string>;
 
-function postJSON(url: string, body: unknown): Promise<Response> {
+function postJSON(url: string, body?: unknown): Promise<Response> {
   return fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -72,4 +73,11 @@ export async function resetPassword(
   const data: ErrorResponse | ResetPassResponse = await res.json();
   if (!res.ok) parseErrors(data, "Reset password gagal, coba lagi");
   return (data as ResetPassResponse).data;
+}
+
+export async function logoutUser(): Promise<string> {
+  const res = await postJSON(`/api/auth/logout`);
+  const data: ErrorResponse | LogoutResponse = await res.json();
+  if (!res.ok) parseErrors(data, "Logout gagal, coba lagi");
+  return (data as LogoutResponse).data;
 }

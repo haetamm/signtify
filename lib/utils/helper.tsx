@@ -7,6 +7,7 @@ import {
   CONTRIBUTOR_STATUS_COLOR,
   FALLBACK_COLOR,
   PERMISSION_COLOR,
+  urlPage,
 } from "./constans";
 import { NavItem } from "./interface";
 import {
@@ -19,16 +20,6 @@ import {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-export const urlPage = {
-  LOGIN: "/",
-  DASHBOARD: "/dashboard",
-  DOCUMENT: "/document",
-  SETTING: "/setting",
-  NOTIFICATION: "/notification",
-  FORGOT_PASSWORD: "/forgot-password",
-  RESET_PASSWORD: "/reset-password",
-};
 
 export const settingNavItems: NavItem[] = [
   { label: "Profile", href: "/setting/profile", icon: "user" },

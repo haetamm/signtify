@@ -3,6 +3,7 @@
 import { cn, settingNavItems } from "@/lib/utils/helper";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/lib/hooks/useAuth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiChevronRight, FiLogOut, FiUser } from "react-icons/fi";
@@ -11,10 +12,7 @@ import { iconMap } from "./Sidebar";
 
 export default function SidebarMobile() {
   const pathname = usePathname();
-
-  const handleLogout = () => {
-    console.log("logout");
-  };
+  const { logout } = useAuth();
 
   return (
     <div className="flex lg:hidden w-full flex-col h-[calc(100vh-85px)] bg-gray-50 dark:bg-background">
@@ -94,7 +92,7 @@ export default function SidebarMobile() {
         <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-sm">
           <Button
             variant="destructive"
-            onClick={handleLogout}
+            onClick={logout}
             className="h-11 items-center justify-center w-full "
           >
             <FiLogOut size={18} />

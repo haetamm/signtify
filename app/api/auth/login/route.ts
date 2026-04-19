@@ -37,7 +37,26 @@ export async function POST(request: NextRequest) {
   try {
     const backendRes = await backendFetch("/api/auth/login", parsed.data);
     const data: AuthResponse = await backendRes.json();
-    return NextResponse.json(data, { status: backendRes.status });
+
+    const response = NextResponse.json(data, { status: backendRes.status });
+
+    // Simpan token di cookie setelah login berhasil
+    if (backendRes.ok) {
+      response.cookies.set("token", data.data.token, {
+        httpOnly: true, // tidak bisa diakses JS browser (aman dari XSS)
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+      response.cookies.set("isAuthenticated", "true", {
+        httpOnly: false, // boleh dibaca JS karena hanya flag UI
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+    }
+
+    return response;
   } catch (error) {
     console.error("[route/login] Failed to reach backend:", error);
     return errorResponse(503, "Service Unavailable", "Backend unreachable");

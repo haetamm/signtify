@@ -1,13 +1,13 @@
 "use client";
 
-import { useSidebarOpen, useUIStore } from "@/lib/stores/useUIStore";
+import { useSidebarOpen, useSidebarStore } from "@/lib/stores/useSidebarStore";
 import { cn, documentNavItems } from "@/lib/utils/helper";
 import { useEffect } from "react";
 import { SidebarNavItem } from "../atoms/SidebarNavItems";
 
 export function SidebarDoc() {
   const isOpen = useSidebarOpen();
-  const closeSidebar = useUIStore((s) => s.closeSidebar);
+  const closeSidebar = useSidebarStore((s) => s.close);
 
   // Tutup sidebar saat route berubah (mobile)
   useEffect(() => {

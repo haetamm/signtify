@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/lib/hooks/useAuth";
 import { cn } from "@/lib/utils/helper";
 import { NavItem } from "@/lib/utils/interface";
 import Link from "next/link";
@@ -27,10 +28,7 @@ interface SidebarProps {
 
 export function Sidebar({ navItems, isLogout = true }: SidebarProps) {
   const pathname = usePathname();
-
-  const handleLogout = () => {
-    console.log("logout");
-  };
+  const { logout } = useAuth();
 
   // Desktop sidebar
   return (
@@ -69,7 +67,7 @@ export function Sidebar({ navItems, isLogout = true }: SidebarProps) {
       {isLogout && (
         <Button
           variant="outline"
-          onClick={handleLogout}
+          onClick={logout}
           className="items-center text-base justify-start px-3 gap-3 h-9 hover:bg-primary/10 text-muted-foreground hover:text-foreground"
         >
           <FiLogOut size={16} />

@@ -6,10 +6,12 @@ import {
   ForgotPassFormValues,
   forgotPassSchema,
 } from "@/lib/schemas/authSchema";
-import { handleFormError, urlPage } from "@/lib/utils/helper";
+import { urlPage } from "@/lib/utils/constans";
+import { handleFormError } from "@/lib/utils/helper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FiLoader } from "react-icons/fi";
 import ErrorAllert from "../atoms/ErrorAllert";
 import AuthFooterLink from "../molecules/AuthFooterLink";
 import { Button } from "../ui/button";
@@ -64,7 +66,10 @@ export default function ForgotPassForm() {
           size="lg"
           className="mt-5 w-full rounded-full h-11 bg-primary-gradient"
         >
-          {isSubmitting ? "Loading..." : "Reset Password"}
+          {isSubmitting && (
+            <FiLoader className="animate-spin h-4 w-4 mr-0.5 inline"></FiLoader>
+          )}
+          Reset Password
         </Button>
 
         <AuthFooterLink

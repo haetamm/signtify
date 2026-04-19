@@ -3,11 +3,13 @@
 import { resetPass } from "@/lib/action/authAction";
 import { showSuccessToast } from "@/lib/hooks/useHandleToast";
 import { ResetPassFormValues, resetPassSchema } from "@/lib/schemas/authSchema";
-import { handleFormError, urlPage } from "@/lib/utils/helper";
+import { urlPage } from "@/lib/utils/constans";
+import { handleFormError } from "@/lib/utils/helper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FiLoader } from "react-icons/fi";
 import { IoWarning } from "react-icons/io5";
 import ErrorAllert from "../atoms/ErrorAllert";
 import { Button } from "../ui/button";
@@ -89,7 +91,10 @@ export default function ResetPassForm() {
         size="lg"
         className="mt-5 w-full rounded-full h-11 bg-primary-gradient"
       >
-        {isSubmitting ? "Loading" : "Change Password"}
+        {isSubmitting && (
+          <FiLoader className="animate-spin h-4 w-4 mr-0.5 inline"></FiLoader>
+        )}
+        Change Password
       </Button>
     </form>
   );
