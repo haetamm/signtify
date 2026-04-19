@@ -1,9 +1,9 @@
 "use client";
 
-import { cn, settingNavItems } from "@/lib/utils/helper";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/hooks/useAuth";
+import { cn } from "@/lib/utils/helper";
+import { settingNavItems } from "@/lib/utils/link";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiChevronRight, FiLogOut, FiUser } from "react-icons/fi";

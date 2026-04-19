@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (!process.env.BACKEND_API_URL) {
-    console.error("[route/login] BACKEND_API_URL is not set");
+    console.error("[route/auth/login] BACKEND_API_URL is not set");
     return errorResponse(500, "Internal Server Error");
   }
 
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error("[route/login] Failed to reach backend:", error);
+    console.error("[route/auth/login] Failed to reach backend:", error);
     return errorResponse(503, "Service Unavailable", "Backend unreachable");
   }
 }

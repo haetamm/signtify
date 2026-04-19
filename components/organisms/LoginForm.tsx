@@ -5,7 +5,6 @@ import AuthFooterLink from "@/components/molecules/AuthFooterLink";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/hooks/useAuth";
-import { showSuccessToast } from "@/lib/hooks/useHandleToast";
 import { LoginFormValues, loginSchema } from "@/lib/schemas/authSchema";
 import { urlPage } from "@/lib/utils/constans";
 import { handleFormError } from "@/lib/utils/helper";
@@ -34,8 +33,6 @@ export default function LoginForm() {
     setServerError(null);
     try {
       await login(values);
-      showSuccessToast("Selamat jumpa lagi", "");
-      window.location.assign(urlPage.DASHBOARD);
     } catch (error) {
       console.log(error);
       handleFormError<LoginFormValues>(error, setError, setServerError);

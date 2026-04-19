@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (!process.env.BACKEND_API_URL) {
-    console.error("[route/forgot-password] BACKEND_API_URL is not set");
+    console.error("[route/auth/forgot-password] BACKEND_API_URL is not set");
     return errorResponse(500, "Internal Server Error");
   }
 
@@ -42,7 +42,10 @@ export async function POST(request: NextRequest) {
     const data: AuthResponse = await backendRes.json();
     return NextResponse.json(data, { status: backendRes.status });
   } catch (error) {
-    console.error("[route/forgot-password] Failed to reach backend:", error);
+    console.error(
+      "[route/auth/forgot-password] Failed to reach backend:",
+      error,
+    );
     return errorResponse(503, "Service Unavailable", "Backend unreachable");
   }
 }

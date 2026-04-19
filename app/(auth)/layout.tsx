@@ -1,16 +1,6 @@
 import AuthLayout from "@/components/templates/AuthLayout";
 import type { Metadata } from "next";
-import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  subsets: ["latin"],
-});
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Signtify",
@@ -23,13 +13,8 @@ export default function Auth({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${plusJakarta.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <AuthLayout>{children}</AuthLayout>
-      </body>
-    </html>
+    <Providers>
+      <AuthLayout>{children}</AuthLayout>
+    </Providers>
   );
 }

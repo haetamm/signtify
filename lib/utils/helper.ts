@@ -1,18 +1,16 @@
 import { clsx, type ClassValue } from "clsx";
-import { IoIosFolderOpen } from "react-icons/io";
-import { IoNotifications, IoSettings } from "react-icons/io5";
-import { RiDashboardFill } from "react-icons/ri";
+
 import { twMerge } from "tailwind-merge";
 import {
   CONTRIBUTOR_STATUS_COLOR,
   FALLBACK_COLOR,
   PERMISSION_COLOR,
-  urlPage,
 } from "./constans";
-import { NavItem } from "./interface";
 import {
   ActivityStyleInfo,
   Contributor,
+  ErrorResponse,
+  FieldErrors,
   SetErrorFn,
   StatusBadgeInfo,
 } from "./types";
@@ -20,33 +18,6 @@ import {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-
-export const settingNavItems: NavItem[] = [
-  { label: "Profile", href: "/setting/profile", icon: "user" },
-  { label: "Users", href: "/setting/user", icon: "users" },
-  { label: "Roles", href: "/setting/role", icon: "role" },
-];
-
-export const documentNavItems: NavItem[] = [
-  { label: "Public", href: "/document", icon: "public" },
-  { label: "Devision", href: "/document/devision", icon: "department" },
-  { label: "Trash", href: "/document/trash", icon: "trash" },
-];
-
-export const navItems = {
-  left: [
-    { label: "Dashboard", icon: <RiDashboardFill />, href: urlPage.DASHBOARD },
-    { label: "Document", icon: <IoIosFolderOpen />, href: urlPage.DOCUMENT },
-  ],
-  right: [
-    {
-      label: "Notifications",
-      icon: <IoNotifications />,
-      href: urlPage.NOTIFICATION,
-    },
-    { label: "Settings", icon: <IoSettings />, href: urlPage.SETTING },
-  ],
-};
 
 export const isActivePath = (pathname: string, href: string) =>
   pathname.startsWith(href);
@@ -190,4 +161,39 @@ export function handleFormError<T extends Record<string, unknown>>(
   } else {
     setServerError("Permintaan gagal, coba lagi");
   }
+}
+
+export function apiRequest(
+  url: string,
+  method: string,
+  body?: unknown,
+): Promise<Response> {
+  return fetch(url, {
+    method,
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+    body: JSON.stringify(body),
+  });
+}
+
+export function parseErrors(
+  data: ErrorResponse | unknown,
+  fallback: string,
+): never {
+  const errors: FieldErrors = {};
+
+  if (data && typeof data === "object" && "messages" in data) {
+    const { messages } = data as ErrorResponse;
+    if (Array.isArray(messages)) {
+      messages.forEach((err) => (errors[err.path] = err.message));
+    } else if (typeof messages === "string") {
+      errors.general = messages;
+    }
+  }
+
+  if (Object.keys(errors).length === 0) {
+    errors.general = fallback;
+  }
+
+  throw errors;
 }

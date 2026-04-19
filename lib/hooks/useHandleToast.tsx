@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { FiAlertCircle, FiCheckCircle, FiX } from "react-icons/fi";
+import { HiChevronRight } from "react-icons/hi";
 
 interface ErrorResponse {
   status?: string;
@@ -82,34 +83,48 @@ export const showSuccessToast = (
     (t) => (
       <div
         className={`${
-          t.visible ? "animate-[slide-down_0.3s]" : ""
-        } max-w-md w-full bg-green-50 shadow-lg rounded-lg pointer-events-auto flex items-start border-l-4 border-green-500`}
+          t.visible
+            ? "animate-in slide-in-from-right-2 fade-in duration-300"
+            : "animate-out fade-out duration-200"
+        } max-w-sm w-full bg-card border border-border rounded-xl shadow-lg pointer-events-auto relative overflow-hidden`}
         role="alert"
       >
-        <div className="flex-shrink-0 p-3 pl-4 text-green-600">
-          <FiCheckCircle className="w-5 h-5" />
+        {/* Accent bar top */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 to-green-400" />
+
+        <div className="p-4">
+          <div className="flex items-start gap-3">
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-green-500/15 flex items-center justify-center">
+                <FiCheckCircle className="w-4 h-4 text-green-600 dark:text-green-500" />
+              </div>
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-foreground">Success</p>
+              <p className="text-sm text-muted-foreground mt-0.5 break-words">
+                {message}
+              </p>
+              {linkHref && (
+                <Link
+                  onClick={() => toast.dismiss(t.id)}
+                  href={linkHref}
+                  className="inline-flex items-center gap-1 mt-2 text-xs font-medium text-green-600 dark:text-green-500 hover:text-green-700 transition-colors"
+                >
+                  {linkLabel}
+                  <HiChevronRight className="w-3 h-3" />
+                </Link>
+              )}
+            </div>
+
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="flex-shrink-0 -mt-1 -mr-1 p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-accent transition-colors"
+            >
+              <FiX className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
-        <div className="flex-1 py-2 pr-3 text-sm text-green-800">
-          <p className="font-medium">Success</p>
-          <p className="mt-1">
-            {message}{" "}
-            {linkHref && (
-              <Link
-                onClick={() => toast.dismiss(t.id)}
-                href={linkHref}
-                className="underline font-semibold text-green-700 hover:text-green-900"
-              >
-                {linkLabel}
-              </Link>
-            )}
-          </p>
-        </div>
-        <button
-          onClick={() => toast.dismiss(t.id)}
-          className="p-2 mr-2 text-green-600 rounded-md hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-        >
-          <FiX className="w-4 h-4" />
-        </button>
       </div>
     ),
     { duration: 10000 },

@@ -1,6 +1,6 @@
 "use client";
 
-import { navItems } from "@/lib/utils/helper";
+import { navItems } from "@/lib/utils/link";
 import NavButton from "../atoms/NavButton";
 
 export function Navbar() {

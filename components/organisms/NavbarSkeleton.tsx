@@ -1,4 +1,4 @@
-import { navItems } from "@/lib/utils/helper";
+import { navItems } from "@/lib/utils/link";
 import Link from "next/link";
 
 export default function NavbarSkeleton() {

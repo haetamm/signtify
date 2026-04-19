@@ -4,12 +4,14 @@ export async function backendFetch(
   path: string,
   body?: unknown,
   request?: NextRequest,
+  method?: string,
 ) {
   // Ambil token dari cookie, pasang sebagai Authorization header
   const token = request?.cookies.get("token")?.value;
+  const httpMethod = method ? method : "POST";
 
   return fetch(`${process.env.BACKEND_API_URL}${path}`, {
-    method: "POST",
+    method: httpMethod,
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

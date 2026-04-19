@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     const data = await backendRes.json();
     return NextResponse.json(data, { status: backendRes.status });
   } catch (error) {
-    console.error("[route/refresh] Failed to reach backend:", error);
+    console.error("[route/auth/refresh] Failed to reach backend:", error);
     return errorResponse(503, "Service Unavailable", "Backend unreachable");
   }
 }

@@ -1,3 +1,5 @@
+export type FieldErrors = Record<string, string>;
+
 export type StatusBadgeInfo = {
   label: string;
   color: string;

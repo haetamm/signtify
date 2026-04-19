@@ -1,7 +1,4 @@
-export interface BaseResponse {
-  code: number;
-  status: string;
-}
+import { BaseResponse } from "../utils/interface";
 
 export interface ForgotPassPayload {
   email: string;
