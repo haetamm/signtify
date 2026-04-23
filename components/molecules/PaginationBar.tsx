@@ -50,7 +50,7 @@ export default function PaginationBar({
   const endItem = Math.min(currentPage * pageSize, totalElements);
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-3 border-t bg-background  py-3 mt-6 pb-6 mx-4 md:mx-0">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-3 border-t bg-background py-3 mt-6 pb-6 mx-4 md:mx-0">
       <div className="justify-center sm:justify-start sm:flex items-center space-y-3 sm:space-y-0 gap-3 order-2 md:order-1">
         {/* Page size selector */}
         <div className="flex justify-center items-center">
@@ -58,7 +58,6 @@ export default function PaginationBar({
             value={String(pageSize)}
             onValueChange={(val) => {
               onPageSizeChange(Number(val));
-              onPageChange(1); // reset ke halaman pertama
             }}
           >
             <SelectTrigger className="h-8 w-16 text-xs">
@@ -74,8 +73,7 @@ export default function PaginationBar({
           </Select>
         </div>
 
-        {/* Kiri: info + page size selector */}
-        <div className="space-y-2 sm:flex items-center justify-center gap-3 ">
+        <div className="space-y-2 sm:flex items-center justify-center gap-3">
           <div className="text-sm text-muted-foreground whitespace-nowrap">
             {totalElements === 0 ? (
               "Tidak ada data"
@@ -96,7 +94,6 @@ export default function PaginationBar({
         </div>
       </div>
 
-      {/* Kanan: pagination links */}
       <Pagination className="order-1 md:order-2 w-auto mx-0">
         <PaginationContent>
           <PaginationItem>
@@ -111,17 +108,18 @@ export default function PaginationBar({
             />
           </PaginationItem>
 
-          {getPageNumbers().map((pageNum) => (
-            <PaginationItem key={pageNum}>
-              <PaginationLink
-                onClick={() => onPageChange(pageNum)}
-                isActive={currentPage === pageNum}
-                className="cursor-pointer text-primary"
-              >
-                {pageNum}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+          {totalPages > 1 &&
+            getPageNumbers().map((pageNum) => (
+              <PaginationItem key={pageNum}>
+                <PaginationLink
+                  onClick={() => onPageChange(pageNum)}
+                  isActive={currentPage === pageNum}
+                  className="cursor-pointer text-primary"
+                >
+                  {pageNum}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
 
           <PaginationItem>
             <PaginationNext

@@ -1,6 +1,7 @@
-import { Notification } from "@/lib/utils/interface";
+import { Notification } from "@/lib/types/notification";
 import { IoDocumentText } from "react-icons/io5";
 import NotificationItem from "../molecules/NotificationItem";
+import NotificationItemSkeleton from "./NotificationItemSkeleton";
 
 type FilterOption = "all" | "unread" | "read";
 
@@ -25,8 +26,10 @@ export default function NotificationList({
 }: NotificationListProps) {
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      <div className="px-4 md:px-2 space-y-3">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <NotificationItemSkeleton key={i} />
+        ))}
       </div>
     );
   }
@@ -44,7 +47,7 @@ export default function NotificationList({
   }
 
   return (
-    <div className="space-y-3  px-4 md:px-2">
+    <div className="space-y-3 px-4 md:px-2">
       {notifications.map((notification) => (
         <NotificationItem
           key={notification.id}

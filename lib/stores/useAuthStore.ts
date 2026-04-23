@@ -10,6 +10,7 @@ interface AuthActions {
   }) => void;
   setTokens: (accessToken: string, refreshToken: string) => void;
   logout: () => void;
+  hydrate: () => void;
 }
 
 type AuthStore = AuthState & AuthActions;
@@ -71,6 +72,19 @@ export const useAuthStore = create<AuthStore>()(
           false,
           "auth/logout",
         );
+      },
+
+      hydrate: () => {
+        if (typeof window === "undefined") return;
+        const accessToken = sessionStorage.getItem("accessToken");
+        const refreshToken = sessionStorage.getItem("refreshToken");
+        if (accessToken && refreshToken) {
+          set(
+            { accessToken, refreshToken, isAuthenticated: true },
+            false,
+            "auth/hydrate",
+          );
+        }
       },
     }),
     { name: "AuthStore" },

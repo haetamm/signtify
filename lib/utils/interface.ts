@@ -11,16 +11,6 @@ export interface NavItem {
   icon: IconKey;
 }
 
-export interface Notification {
-  id: string;
-  title: string;
-  message: string;
-  type: string;
-  referenceId: string;
-  isRead: boolean;
-  createdAt: string;
-}
-
 export interface PaginationResponse {
   totalPages: number;
   totalElements: number;
@@ -28,13 +18,6 @@ export interface PaginationResponse {
   size: number;
   hasNext: boolean;
   hasPrevious: boolean;
-}
-
-export interface ApiResponse {
-  code: number;
-  status: string;
-  data: Notification[];
-  paginationResponse: PaginationResponse;
 }
 
 export interface DetailResponse {

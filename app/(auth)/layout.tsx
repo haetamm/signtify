@@ -1,3 +1,4 @@
+import SocketProvider from "@/components/providers/SocketProvider";
 import AuthLayout from "@/components/templates/AuthLayout";
 import type { Metadata } from "next";
 import Providers from "./providers";
@@ -15,6 +16,7 @@ export default function Auth({
   return (
     <Providers>
       <AuthLayout>{children}</AuthLayout>
+      <SocketProvider />
     </Providers>
   );
 }
