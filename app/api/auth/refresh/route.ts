@@ -8,27 +8,36 @@ export async function POST(request: NextRequest) {
   if (!originCheck.valid)
     return errorResponse(403, "Forbidden", originCheck.reason);
 
-  let refreshToken: string;
-  try {
-    const body = await request.json();
-    if (!body?.refreshToken || typeof body.refreshToken !== "string") {
-      return errorResponse(400, "Bad Request", "refreshToken is required");
-    }
-    refreshToken = body.refreshToken;
-  } catch {
-    return errorResponse(400, "Bad Request", "Invalid JSON body");
-  }
-
-  if (!process.env.BACKEND_API_URL) {
-    return errorResponse(500, "Internal Server Error");
+  // Baca dari cookie, bukan body
+  const refreshToken = request.cookies.get("refreshToken")?.value;
+  if (!refreshToken) {
+    return errorResponse(401, "Unauthorized", "No refresh token");
   }
 
   try {
-    const backendRes = await backendFetch("/api/auth/refresh", {
+    const backendRes = await backendFetch("/api/auth/refresh-token", {
       refreshToken,
     });
     const data = await backendRes.json();
-    return NextResponse.json(data, { status: backendRes.status });
+
+    const response = NextResponse.json(data, { status: backendRes.status });
+
+    if (backendRes.ok) {
+      response.cookies.set("token", data.data.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+      response.cookies.set("refreshToken", data.data.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
+    }
+
+    return response;
   } catch (error) {
     console.error("[route/auth/refresh] Failed to reach backend:", error);
     return errorResponse(503, "Service Unavailable", "Backend unreachable");

@@ -1,12 +1,12 @@
 import { NotificationResponse } from "../types/notification";
-import { apiRequest, parseErrors } from "../utils/helper";
 import { ErrorResponse } from "../utils/types";
+import { clientRequest, parseErrors } from "./clientRequest";
 
 export async function getNotification(
   page: string,
   size: string,
 ): Promise<NotificationResponse> {
-  const res = await apiRequest(
+  const res = await clientRequest(
     `/api/notification?page=${page}&size=${size}`,
     "GET",
   );
@@ -18,7 +18,7 @@ export async function getNotification(
 export async function markNotificationAsRead(
   id: string,
 ): Promise<NotificationResponse> {
-  const res = await apiRequest(`/api/notification/${id}/read`, "PATCH");
+  const res = await clientRequest(`/api/notification/${id}/read`, "PATCH");
   const data: ErrorResponse | NotificationResponse = await res.json();
   if (!res.ok) parseErrors(data, "Gagal menandai notifikasi sebagai dibaca");
   return data as NotificationResponse;

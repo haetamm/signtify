@@ -13,17 +13,31 @@ interface NotificationsPageProps {
 
 async function NotificationsContent({ searchParams }: NotificationsPageProps) {
   const params = await searchParams;
-
   const page = params.page ?? "1";
   const size = params.size ?? "5";
   const filter = (params.filter as "all" | "unread" | "read") ?? "all";
 
-  const data = await getNotificationServer(page, size);
+  let data;
+
+  try {
+    data = await getNotificationServer(page, size);
+  } catch (err: unknown) {
+    throw new Error(JSON.stringify(err));
+  }
+
+  const paginationDefault = {
+    totalPages: 0,
+    totalElements: 0,
+    page: 1,
+    size: 10,
+    hasNext: false,
+    hasPrevious: false,
+  };
 
   return (
     <NotificationsClient
-      initialNotifications={data.data}
-      initialPagination={data.paginationResponse}
+      initialNotifications={data?.data || []}
+      initialPagination={data?.paginationResponse || paginationDefault}
       initialPage={Number(page)}
       initialSize={Number(size)}
       initialFilter={filter}

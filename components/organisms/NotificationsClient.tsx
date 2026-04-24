@@ -17,7 +17,7 @@ import NotificationsSkeleton from "./NotificationSkeleton";
 type FilterOption = "all" | "unread" | "read";
 
 interface NotificationsClientProps {
-  initialNotifications: Notification[];
+  initialNotifications: Notification[] | [];
   initialPagination: PaginationResponse;
   initialPage: number;
   initialSize: number;
@@ -46,11 +46,37 @@ export default function NotificationsClient({
   const prevSizeRef = useRef(String(initialSize));
   const isFirstRender = useRef(true);
 
-  // Hydrate store dengan SSR data saat pertama kali mount
   useEffect(() => {
-    setNotifications(initialNotifications, initialPagination);
+    const storeIsEmpty =
+      useNotificationStore.getState().notifications.length === 0;
+
     setFilter(initialFilter);
-    setIsInitialLoad(false);
+
+    if (!storeIsEmpty) {
+      // Store sudah ada data dari sesi sebelumnya → seed langsung, tidak perlu fetch
+      setNotifications(
+        useNotificationStore.getState().notifications,
+        useNotificationStore.getState().pagination!,
+      );
+      setIsInitialLoad(false);
+      return;
+    }
+
+    // Store kosong: coba pakai SSR data dulu,
+    // tapi tetap fetch untuk memastikan data fresh / handle kasus 401
+    if (initialNotifications.length > 0) {
+      setNotifications(initialNotifications, initialPagination);
+      setIsInitialLoad(false);
+    } else {
+      // SSR tidak punya data (error 401 / empty) → fetch langsung dari client
+      setIsFetching(true);
+      fetchNotifications(String(initialPage), String(initialSize)).finally(
+        () => {
+          setIsFetching(false);
+          setIsInitialLoad(false);
+        },
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -6,13 +6,12 @@ export async function serverRequest(
   body?: unknown,
 ): Promise<Response> {
   const cookieStore = await cookies();
-
   const cookieHeader = cookieStore
     .getAll()
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:4000";
 
   return fetch(`${baseUrl}${path}`, {
     method,

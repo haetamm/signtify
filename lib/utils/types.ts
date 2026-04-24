@@ -1,4 +1,8 @@
-export type FieldErrors = Record<string, string>;
+export type FieldErrors = {
+  code?: number;
+  general?: string;
+  [key: string]: string | number | undefined;
+};
 
 export type StatusBadgeInfo = {
   label: string;

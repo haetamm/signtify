@@ -6,11 +6,20 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
   const queryClient = new QueryClient();
-  const response = await getDashboardServer(); // ← ini
-  const data = response.data;
-  queryClient.setQueryData(["dashboard"], data);
+
+  try {
+    const response = await getDashboardServer();
+    if (response) {
+      queryClient.setQueryData(["dashboard"], response.data);
+    }
+  } catch (err: unknown) {
+    throw new Error(JSON.stringify(err));
+  }
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <DashboardClient />

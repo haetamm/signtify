@@ -9,8 +9,6 @@ import {
 import {
   ActivityStyleInfo,
   Contributor,
-  ErrorResponse,
-  FieldErrors,
   SetErrorFn,
   StatusBadgeInfo,
 } from "./types";
@@ -161,39 +159,4 @@ export function handleFormError<T extends Record<string, unknown>>(
   } else {
     setServerError("Permintaan gagal, coba lagi");
   }
-}
-
-export function apiRequest(
-  url: string,
-  method: string,
-  body?: unknown,
-): Promise<Response> {
-  return fetch(url, {
-    method,
-    headers: { "Content-Type": "application/json" },
-    credentials: "same-origin",
-    body: JSON.stringify(body),
-  });
-}
-
-export function parseErrors(
-  data: ErrorResponse | unknown,
-  fallback: string,
-): never {
-  const errors: FieldErrors = {};
-
-  if (data && typeof data === "object" && "messages" in data) {
-    const { messages } = data as ErrorResponse;
-    if (Array.isArray(messages)) {
-      messages.forEach((err) => (errors[err.path] = err.message));
-    } else if (typeof messages === "string") {
-      errors.general = messages;
-    }
-  }
-
-  if (Object.keys(errors).length === 0) {
-    errors.general = fallback;
-  }
-
-  throw errors;
 }

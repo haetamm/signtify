@@ -48,6 +48,12 @@ export async function POST(request: NextRequest) {
         sameSite: "strict",
         path: "/",
       });
+      response.cookies.set("refreshToken", data.data.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        path: "/",
+      });
       response.cookies.set("isAuthenticated", "true", {
         httpOnly: false, // boleh dibaca JS karena hanya flag UI
         secure: process.env.NODE_ENV === "production",

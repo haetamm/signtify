@@ -20,7 +20,6 @@ export function useNotificationSocket(token: string | null) {
       connectHeaders: { Authorization: `Bearer ${token}` },
       heartbeatIncoming: 0,
       heartbeatOutgoing: 0,
-      debug: (str) => console.log("STOMP debug:", str), // ← tambah ini
       onConnect: () => {
         console.log("STOMP connected");
 
