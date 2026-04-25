@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { FiLoader } from "react-icons/fi";
 import { IoWarning } from "react-icons/io5";
 import ErrorAllert from "../atoms/ErrorAllert";
+import { ErrorLabel } from "../atoms/ErrorLable";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
@@ -69,22 +70,14 @@ export default function ResetPassForm() {
           placeholder="New Password"
           {...register("password")}
         />
-        {errors.password && (
-          <p className="text-xs px-3 text-red-500 px-1">
-            {errors.password.message}
-          </p>
-        )}
+        <ErrorLabel message={errors.password?.message} />
         <Input
           type="password"
           className="border text-secondary-foreground"
           placeholder="Confirm Password"
           {...register("confirmPassword")}
         />
-        {errors.confirmPassword && (
-          <p className="text-xs px-3 text-red-500 px-1">
-            {errors.confirmPassword.message}
-          </p>
-        )}
+        <ErrorLabel message={errors.confirmPassword?.message} />
       </div>
       {serverError && <ErrorAllert message={serverError} />}
       <Button

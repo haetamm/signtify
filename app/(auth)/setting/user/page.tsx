@@ -5,7 +5,6 @@ import PaginationBar from "@/components/molecules/PaginationBar";
 import UserFilterBar from "@/components/molecules/UserFilterBar";
 import UserCardList from "@/components/organisms/UserCardList";
 import UserTable from "@/components/organisms/UserTable";
-import { handleBack } from "@/lib/utils/helper";
 import {
   PaginationResponse,
   User,
@@ -75,7 +74,7 @@ const DEFAULT_FILTERS: UserFilterParams = {
   sortBy: "",
 };
 
-// ─── Page Component ────────────────────────────────────────────────────────────
+//  Page Component
 export default function UserListPage() {
   const [filters, setFilters] = useState<UserFilterParams>(DEFAULT_FILTERS);
   const pageSizeOption = [5, 10, 15, 20, 25];
@@ -125,11 +124,7 @@ export default function UserListPage() {
     <div className="min-h-screen bg-background">
       <div className="w-full mx-auto px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-4">
         <div className="sm:hidden  sticky z-0 top-0 z-12 bg-background ">
-          <PageHeader
-            title="User Management"
-            onBack={handleBack}
-            onAction={handleAdd}
-          >
+          <PageHeader title="User Management" onAction={handleAdd}>
             <FaPlus className="w-3.5 h-3.5" />
             Tambah User
           </PageHeader>

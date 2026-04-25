@@ -2,7 +2,9 @@ import { create } from "zustand";
 
 export type ModalConfig =
   | { type: "logout"; onConfirm: () => Promise<void> }
-  | { type: "delete"; desc: string; onConfirm: () => Promise<void> };
+  | { type: "delete"; desc: string; onConfirm: () => Promise<void> }
+  | { type: "updateProfile" }
+  | { type: "changePassword" };
 
 interface ModalState {
   modal: ModalConfig | null; // null = modal tutup

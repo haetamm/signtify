@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Toaster } from "react-hot-toast";
 import Modal from "../organisms/Modal";
 import { Navbar } from "../organisms/Navbar";
 import NavbarSkeleton from "../organisms/NavbarSkeleton";
@@ -27,6 +28,7 @@ export default function AuthLayout({
           </div>
         </div>
         <Modal />
+        <Toaster position="bottom-right" reverseOrder={false} />
       </div>
     </>
   );

@@ -58,25 +58,36 @@ export async function clientRequest(
   body?: unknown,
   isRetry = false,
 ): Promise<Response> {
+  const { accessToken } = useAuthStore.getState();
+
   const res = await fetch(url, {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      // Tambahkan Authorization jika ada accessToken
+      ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    },
     credentials: "same-origin",
     body: body ? JSON.stringify(body) : undefined,
   });
 
   if (res.status === 401 && !isRetry) {
-    const { ok, accessToken, refreshToken } = await tryRefresh();
+    const {
+      ok,
+      accessToken: newAccess,
+      refreshToken: newRefresh,
+    } = await tryRefresh();
 
     if (!ok) {
       useAuthStore.getState().logout();
-      window.location.href = "/";
+      if (accessToken) {
+        window.location.href = "/";
+      }
       return res;
     }
 
-    // Update store dan sessionStorage dengan token baru
-    if (accessToken && refreshToken) {
-      useAuthStore.getState().setTokens(accessToken, refreshToken);
+    if (newAccess && newRefresh) {
+      useAuthStore.getState().setTokens(newAccess, newRefresh);
     }
 
     return clientRequest(url, method, body, true);
@@ -102,6 +113,14 @@ export function parseErrors(
       } else if (typeof messages === "string") {
         errors.general = messages;
       }
+    }
+    if ("errors" in data) {
+      const { errors: fieldErrors } = data as {
+        errors: Record<string, string[]>;
+      };
+      Object.entries(fieldErrors).forEach(([field, messages]) => {
+        errors[field] = Array.isArray(messages) ? messages[0] : messages;
+      });
     }
   }
 

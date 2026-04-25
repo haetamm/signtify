@@ -2,16 +2,19 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/hooks/useAuth";
+import { useProfileStore } from "@/lib/stores/useProfileStore";
 import { cn } from "@/lib/utils/helper";
 import { settingNavItems } from "@/lib/utils/link";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiChevronRight, FiLogOut, FiUser } from "react-icons/fi";
 import { Button } from "../ui/button";
+import { Skeleton } from "../ui/skeleton";
 import { iconMap } from "./Sidebar";
 
 export default function SidebarMobile() {
   const pathname = usePathname();
+  const profile = useProfileStore((state) => state.profile);
   const { logout } = useAuth();
 
   return (
@@ -35,13 +38,21 @@ export default function SidebarMobile() {
               <FiUser size={24} className="text-primary" />
             </AvatarFallback>
           </Avatar>
-          <div>
-            <p className="font-semibold text-gray-900 dark:text-white">
-              User Name
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              user@example.com
-            </p>
+          <div className="min-w-0">
+            {profile?.name ? (
+              <p className="font-semibold text-gray-900 dark:text-white">
+                {profile.name}
+              </p>
+            ) : (
+              <Skeleton className="h-4 w-32 rounded-md mb-2" />
+            )}
+            {profile?.email ? (
+              <p className="text-sm text-gray-500 dark:text-gray-400 break-words">
+                {profile.email}
+              </p>
+            ) : (
+              <Skeleton className="h-3.5 w-44 rounded-md" />
+            )}
           </div>
         </div>
 

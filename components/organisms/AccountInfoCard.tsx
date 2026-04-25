@@ -1,20 +1,15 @@
+"use client";
+
 import InfoField from "@/components/molecules/InfoField";
+import { useProfileStore } from "@/lib/stores/useProfileStore";
 import { formatDate } from "@/lib/utils/helper";
-import React from "react";
 
-interface AccountInfoCardProps {
-  username: string;
-  email: string;
-  createdAt: string;
-  updatedAt: string;
-}
+const AccountInfoCard = () => {
+  const profile = useProfileStore((s) => s.profile);
+  const isLoading = useProfileStore((s) => s.isLoading);
 
-const AccountInfoCard: React.FC<AccountInfoCardProps> = ({
-  username,
-  email,
-  createdAt,
-  updatedAt,
-}) => {
+  const { username, email, createdAt, updatedAt, phone } = profile || {};
+
   return (
     <div className=" py-2 rounded-xl">
       <div className="px-4 py-4 md:px-6 border-b">
@@ -27,12 +22,23 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({
         <InfoField
           label="Username"
           value={<>@{username}</>}
-          className="border-r"
+          isLoading={isLoading}
+          className="border-r border-b"
         />
         <InfoField
-          label="Email"
-          value={email}
+          label="No. Hp"
+          value={phone}
+          isLoading={isLoading}
           className="[&>div:last-child]:break-all"
+        />
+      </div>
+
+      <div className="grid grid-cols-2">
+        <InfoField
+          label="Email"
+          value={<>{email}</>}
+          isLoading={isLoading}
+          className=""
         />
       </div>
 
@@ -40,11 +46,13 @@ const AccountInfoCard: React.FC<AccountInfoCardProps> = ({
         <InfoField
           label="Terdaftar"
           value={formatDate(createdAt)}
+          isLoading={isLoading}
           className="border-r py-3.5"
         />
         <InfoField
           label="Diperbarui"
           value={formatDate(updatedAt)}
+          isLoading={isLoading}
           className="py-3.5"
         />
       </div>

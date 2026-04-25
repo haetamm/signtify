@@ -22,7 +22,7 @@ export async function forgotPassword(
 ): Promise<string> {
   const res = await clientRequest("/api/auth/forgot-password", "POST", payload);
   const data: ErrorResponse | ForgotPassResponse = await res.json();
-  if (!res.ok) parseErrors(data, "Login gagal, coba lagi");
+  if (!res.ok) parseErrors(data, "Request gagal, coba lagi");
   return (data as ForgotPassResponse).data;
 }
 

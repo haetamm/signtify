@@ -4,7 +4,6 @@ import PageHeader from "@/components/molecules/PageHeader";
 import PaginationBar from "@/components/molecules/PaginationBar";
 import RoleFilterBar from "@/components/molecules/RoleFilterBar";
 import RoleTable from "@/components/organisms/RoleTable";
-import { handleBack } from "@/lib/utils/helper";
 import {
   PaginationResponse,
   Role,
@@ -110,11 +109,7 @@ export default function RolePage() {
     <div className="min-h-screen bg-background">
       <div className="w-full mx-auto px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-4">
         <div className="sm:hidden sticky z-0 top-0 z-12 bg-background ">
-          <PageHeader
-            title="Role Management"
-            onBack={handleBack}
-            onAction={handleAdd}
-          >
+          <PageHeader title="Role Management" onAction={handleAdd}>
             <FaPlus className="w-3.5 h-3.5" />
             Tambah Role
           </PageHeader>

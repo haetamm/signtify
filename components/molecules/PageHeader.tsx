@@ -1,18 +1,19 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { handleBack } from "@/lib/utils/helper";
 import { ChevronLeft } from "lucide-react";
 import React from "react";
 
 interface PageHeaderProps {
   title: string;
   children: React.ReactNode;
-  onBack?: () => void;
   onAction?: () => void;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
   title,
   children,
-  onBack,
   onAction,
 }) => {
   return (
@@ -22,7 +23,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
         variant="default"
         size="icon"
         className="lg:hidden -ml-1"
-        onClick={onBack}
+        onClick={handleBack}
         aria-label="Kembali"
       >
         <ChevronLeft className="w-5 h-5" />

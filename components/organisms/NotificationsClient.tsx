@@ -8,7 +8,6 @@ import {
   markAsRead,
 } from "@/lib/action/notificationActions";
 import { useNotificationStore } from "@/lib/stores/useNotificationStore";
-import { Notification } from "@/lib/types/notification";
 import { PaginationResponse } from "@/lib/utils/interface";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -17,7 +16,6 @@ import NotificationsSkeleton from "./NotificationSkeleton";
 type FilterOption = "all" | "unread" | "read";
 
 interface NotificationsClientProps {
-  initialNotifications: Notification[] | [];
   initialPagination: PaginationResponse;
   initialPage: number;
   initialSize: number;
@@ -27,7 +25,6 @@ interface NotificationsClientProps {
 const PAGE_SIZE_OPTIONS = [5, 10, 20];
 
 export default function NotificationsClient({
-  initialNotifications,
   initialPagination,
   initialPage,
   initialSize,
@@ -36,8 +33,7 @@ export default function NotificationsClient({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { notifications, pagination, setNotifications, setFilter } =
-    useNotificationStore();
+  const { notifications, pagination, setFilter } = useNotificationStore();
 
   const [isFetching, setIsFetching] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -47,28 +43,22 @@ export default function NotificationsClient({
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    const storeIsEmpty =
-      useNotificationStore.getState().notifications.length === 0;
+    const store = useNotificationStore.getState();
+    const storeIsEmpty = store.notifications.length === 0;
+    const storeMatchesParams =
+      store.pagination?.page === initialPage &&
+      store.pagination?.size === initialSize;
 
     setFilter(initialFilter);
 
-    if (!storeIsEmpty) {
-      // Store sudah ada data dari sesi sebelumnya → seed langsung, tidak perlu fetch
-      setNotifications(
-        useNotificationStore.getState().notifications,
-        useNotificationStore.getState().pagination!,
-      );
+    if (!storeIsEmpty && storeMatchesParams) {
+      // Store sudah punya data yang sesuai → tidak perlu fetch sama sekali
       setIsInitialLoad(false);
       return;
     }
 
-    // Store kosong: coba pakai SSR data dulu,
-    // tapi tetap fetch untuk memastikan data fresh / handle kasus 401
-    if (initialNotifications.length > 0) {
-      setNotifications(initialNotifications, initialPagination);
-      setIsInitialLoad(false);
-    } else {
-      // SSR tidak punya data (error 401 / empty) → fetch langsung dari client
+    if (!storeIsEmpty && !storeMatchesParams) {
+      // Store ada tapi params beda (misal user langsung buka /notification?page=2)
       setIsFetching(true);
       fetchNotifications(String(initialPage), String(initialSize)).finally(
         () => {
@@ -76,8 +66,15 @@ export default function NotificationsClient({
           setIsInitialLoad(false);
         },
       );
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // Store kosong → fetch dari client
+    setIsFetching(true);
+    fetchNotifications(String(initialPage), String(initialSize)).finally(() => {
+      setIsFetching(false);
+      setIsInitialLoad(false);
+    });
   }, []);
 
   useEffect(() => {

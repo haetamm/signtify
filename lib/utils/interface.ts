@@ -31,6 +31,7 @@ export interface DetailResponse {
   username: string;
   email: string;
   profile_id: string;
+  roles: string[];
   createdAt: string;
   updatedAt: string;
 }

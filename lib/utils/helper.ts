@@ -20,8 +20,12 @@ export function cn(...inputs: ClassValue[]) {
 export const isActivePath = (pathname: string, href: string) =>
   pathname.startsWith(href);
 
-export const formatDate = (dateString: string): string => {
+export const formatDate = (dateString?: string | null): string => {
+  if (!dateString || dateString === "-") return "-";
+
   const date = new Date(dateString);
+  if (isNaN(date.getTime())) return "-";
+
   return date.toLocaleDateString("id-ID", {
     day: "numeric",
     month: "long",
@@ -93,15 +97,22 @@ export const getActivityStyleInfo = (
   );
 };
 
-export const calculateAge = (birthDate: string) => {
-  const today = new Date();
+export const calculateAge = (birthDate?: string | null): string => {
+  if (!birthDate || birthDate === "-") return "";
+
   const birth = new Date(birthDate);
+  if (isNaN(birth.getTime())) return "";
+
+  const today = new Date();
+
   let age = today.getFullYear() - birth.getFullYear();
   const monthDiff = today.getMonth() - birth.getMonth();
+
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
     age--;
   }
-  return age;
+
+  return `${age} tahun`;
 };
 
 export const getInitials = (name: string) =>
@@ -146,9 +157,17 @@ export function handleFormError<T extends Record<string, unknown>>(
   setServerError: (msg: string) => void,
 ) {
   if (typeof error === "object" && error !== null) {
-    Object.entries(error).forEach(([field, message]) => {
-      if (field === "general") {
-        setServerError(message as string);
+    const entries = Object.entries(error);
+    const ignoredFields = ["code", "general"];
+    const hasFieldError = entries.some(
+      ([field]) => !ignoredFields.includes(field),
+    );
+
+    entries.forEach(([field, message]) => {
+      if (ignoredFields.includes(field)) {
+        if (field === "general" && !hasFieldError) {
+          setServerError(message as string);
+        }
       } else {
         setError(field as keyof T, {
           type: "server",

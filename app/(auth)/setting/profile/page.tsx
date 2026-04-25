@@ -1,22 +1,18 @@
 "use client";
 
-import { profileData } from "@/lib/utils/resource";
 import React from "react";
 
 import PageHeader from "@/components/molecules/PageHeader";
 import AccountInfoCard from "@/components/organisms/AccountInfoCard";
 import PersonalInfoCard from "@/components/organisms/PersonalInfoCard";
 import SecurityCard from "@/components/organisms/SecurityCard";
-import { handleBack } from "@/lib/utils/helper";
+import { useModalStore } from "@/lib/stores/useModalStore";
 import { Pencil } from "lucide-react";
 
 const ProfilePage: React.FC = () => {
+  const { open } = useModalStore();
   const handleEdit = () => {
-    console.log("Edit profile clicked");
-  };
-
-  const handleChangePassword = () => {
-    console.log("Change password clicked");
+    open({ type: "updateProfile" });
   };
 
   return (
@@ -25,37 +21,19 @@ const ProfilePage: React.FC = () => {
         {/* CONTENT */}
         <main className="px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-2 dark:gap-3">
           {/* HEADER */}
-          <PageHeader
-            title="Profile Saya"
-            onBack={handleBack}
-            onAction={handleEdit}
-          >
+          <PageHeader title="Profile Saya" onAction={handleEdit}>
             <Pencil className="w-3.5 h-3.5" />
             Edit Profile
           </PageHeader>
 
           {/* Personal Information + Address */}
-          <PersonalInfoCard
-            name={profileData.name}
-            username={profileData.username}
-            avatar={profileData.avatar}
-            gender={profileData.gender}
-            religion={profileData.religion}
-            birthPlace={profileData.birthPlace}
-            birthDate={profileData.birthDate}
-            address={profileData.address}
-          />
+          <PersonalInfoCard />
 
           {/* Account Information */}
-          <AccountInfoCard
-            username={profileData.username}
-            email={profileData.email}
-            createdAt={profileData.createdAt}
-            updatedAt={profileData.updatedAt}
-          />
+          <AccountInfoCard />
 
           {/* Security */}
-          <SecurityCard onChangePassword={handleChangePassword} />
+          <SecurityCard />
         </main>
       </div>
     </div>

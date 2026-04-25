@@ -1,6 +1,5 @@
 import NotificationsClient from "@/components/organisms/NotificationsClient";
 import NotificationsSkeleton from "@/components/organisms/NotificationSkeleton";
-import { getNotificationServer } from "@/lib/api/notificationApi.server";
 import { Suspense } from "react";
 
 interface NotificationsPageProps {
@@ -17,14 +16,6 @@ async function NotificationsContent({ searchParams }: NotificationsPageProps) {
   const size = params.size ?? "5";
   const filter = (params.filter as "all" | "unread" | "read") ?? "all";
 
-  let data;
-
-  try {
-    data = await getNotificationServer(page, size);
-  } catch (err: unknown) {
-    throw new Error(JSON.stringify(err));
-  }
-
   const paginationDefault = {
     totalPages: 0,
     totalElements: 0,
@@ -36,8 +27,7 @@ async function NotificationsContent({ searchParams }: NotificationsPageProps) {
 
   return (
     <NotificationsClient
-      initialNotifications={data?.data || []}
-      initialPagination={data?.paginationResponse || paginationDefault}
+      initialPagination={paginationDefault}
       initialPage={Number(page)}
       initialSize={Number(size)}
       initialFilter={filter}

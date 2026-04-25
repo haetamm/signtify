@@ -15,8 +15,8 @@ export function useAuth() {
   const accessToken = useAuthStore((s) => s.accessToken);
 
   const handleLogin = async (payload: LoginPayload) => {
-    await login(payload);
-    showSuccessToast("Selamat jumpa lagi", "");
+    const response = await login(payload);
+    showSuccessToast(`Selamat jumpa ${response.username}`, "");
     window.location.assign(urlPage.DASHBOARD);
   };
 

@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { FiLoader } from "react-icons/fi";
 import { GrGoogle } from "react-icons/gr";
 import ErrorAllert from "../atoms/ErrorAllert";
+import { ErrorLabel } from "../atoms/ErrorLable";
 
 export default function LoginForm() {
   const { login } = useAuth();
@@ -34,7 +35,6 @@ export default function LoginForm() {
     try {
       await login(values);
     } catch (error) {
-      console.log(error);
       handleFormError<LoginFormValues>(error, setError, setServerError);
     }
   };
@@ -49,11 +49,7 @@ export default function LoginForm() {
             placeholder="Username"
             {...register("username")}
           />
-          {errors.username && (
-            <p className="text-xs px-3 text-red-500 px-1">
-              {errors.username.message}
-            </p>
-          )}
+          <ErrorLabel message={errors.username?.message} />
         </div>
 
         <div className="flex flex-col gap-1">
@@ -63,11 +59,7 @@ export default function LoginForm() {
             placeholder="Password"
             {...register("password")}
           />
-          {errors.password && (
-            <p className="text-xs px-3 text-red-500 px-1">
-              {errors.password.message}
-            </p>
-          )}
+          <ErrorLabel message={errors.password?.message} />
         </div>
       </div>
 

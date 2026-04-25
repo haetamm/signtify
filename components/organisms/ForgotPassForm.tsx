@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FiLoader } from "react-icons/fi";
 import ErrorAllert from "../atoms/ErrorAllert";
+import { ErrorLabel } from "../atoms/ErrorLable";
 import AuthFooterLink from "../molecules/AuthFooterLink";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -35,10 +36,8 @@ export default function ForgotPassForm() {
     try {
       const response = await forgotPass(values);
       showSuccessToast(response, "");
-      console.log(response);
       reset();
     } catch (error: unknown) {
-      console.log(error);
       handleFormError<ForgotPassFormValues>(error, setError, setServerError);
     }
   };
@@ -53,11 +52,7 @@ export default function ForgotPassForm() {
             placeholder="Email"
             {...register("email")}
           />
-          {errors.email && (
-            <p className="text-xs px-3 text-red-500 px-1">
-              {errors.email.message}
-            </p>
-          )}
+          <ErrorLabel message={errors.email?.message} />
         </div>
 
         {serverError && <ErrorAllert message={serverError} />}
