@@ -1,10 +1,9 @@
 import { ProfileFormValues, profileSchema } from "@/lib/schemas/profileSchema";
 import { useModalStore } from "@/lib/stores/useModalStore";
-import { useProfileStore } from "@/lib/stores/useProfileStore";
 import { ProfilePayload } from "@/lib/types/profile";
 import { handleFormError } from "@/lib/utils/helper";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { FiLoader } from "react-icons/fi";
 import ErrorAllert from "../atoms/ErrorAllert";
@@ -20,45 +19,35 @@ import {
 import TemplateModal from "./TemplateModal";
 
 import { useProfile } from "@/lib/hooks/useProfile";
-import { useRef } from "react";
 import { ErrorLabel } from "../atoms/ErrorLable";
 
 export default function ProfileModal() {
   const { close } = useModalStore();
-  const profile = useProfileStore((s) => s.profile);
   const [serverError, setServerError] = useState<string | null>(null);
-  const hasReset = useRef(false);
-  const { update } = useProfile();
+  const { update, profile } = useProfile();
 
   const {
     register,
     handleSubmit,
     setError,
     setValue,
-    reset,
     control,
     formState: { errors, isSubmitting },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     mode: "onChange",
+    defaultValues: {
+      name: profile?.name ?? "",
+      username: profile?.username ?? "",
+      email: profile?.email ?? "",
+      phone: profile?.phone ?? "",
+      address: profile?.address ?? "",
+      birthPlace: profile?.birthPlace ?? "",
+      birthDate: profile?.birthDate ?? "",
+      religion: profile?.religion ?? "",
+      gender: profile?.gender ?? "",
+    },
   });
-
-  useEffect(() => {
-    if (profile && !hasReset.current) {
-      reset({
-        name: profile.name ?? "",
-        username: profile.username ?? "",
-        email: profile.email ?? "",
-        phone: profile.phone ?? "",
-        address: profile.address ?? "",
-        birthPlace: profile.birthPlace ?? "",
-        birthDate: profile.birthDate ?? "",
-        religion: profile.religion ?? "",
-        gender: profile.gender ?? "",
-      });
-      hasReset.current = true;
-    }
-  }, [profile, reset]);
 
   const gender = useWatch({
     control,
