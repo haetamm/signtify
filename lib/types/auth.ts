@@ -4,17 +4,9 @@ export interface ForgotPassPayload {
   email: string;
 }
 
-export interface ForgotPassResponse extends BaseResponse {
-  data: string;
-}
-
 export interface ResetPassPayload {
   password: string;
   confirmPassword: string;
-}
-
-export interface ResetPassResponse extends BaseResponse {
-  data: string;
 }
 
 export interface LoginPayload {
@@ -28,10 +20,6 @@ export interface AuthResponse extends BaseResponse {
     token: string;
     refreshToken: string;
   };
-}
-
-export interface LogoutResponse extends BaseResponse {
-  data: string;
 }
 
 export interface AuthUser {

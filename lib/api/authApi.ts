@@ -1,12 +1,10 @@
 import {
   AuthResponse,
   ForgotPassPayload,
-  ForgotPassResponse,
   LoginPayload,
-  LogoutResponse,
   ResetPassPayload,
-  ResetPassResponse,
 } from "../types/auth";
+import { GeneralResponse } from "../utils/interface";
 import { ErrorResponse } from "../utils/types";
 import { clientRequest, parseErrors } from "./clientRequest";
 
@@ -21,9 +19,9 @@ export async function forgotPassword(
   payload: ForgotPassPayload,
 ): Promise<string> {
   const res = await clientRequest("/api/auth/forgot-password", "POST", payload);
-  const data: ErrorResponse | ForgotPassResponse = await res.json();
+  const data: ErrorResponse | GeneralResponse = await res.json();
   if (!res.ok) parseErrors(data, "Request gagal, coba lagi");
-  return (data as ForgotPassResponse).data;
+  return (data as GeneralResponse).data;
 }
 
 export async function refreshAccessToken(refreshToken: string) {
@@ -44,14 +42,14 @@ export async function resetPassword(
     "POST",
     payload,
   );
-  const data: ErrorResponse | ResetPassResponse = await res.json();
+  const data: ErrorResponse | GeneralResponse = await res.json();
   if (!res.ok) parseErrors(data, "Reset password gagal, coba lagi");
-  return (data as ResetPassResponse).data;
+  return (data as GeneralResponse).data;
 }
 
 export async function logoutUser(): Promise<string> {
   const res = await clientRequest(`/api/auth/logout`, "POST");
-  const data: ErrorResponse | LogoutResponse = await res.json();
+  const data: ErrorResponse | GeneralResponse = await res.json();
   if (!res.ok) parseErrors(data, "Logout gagal, coba lagi");
-  return (data as LogoutResponse).data;
+  return (data as GeneralResponse).data;
 }

@@ -1,4 +1,5 @@
 import { validateOrigin } from "@/lib/middleware/validateOrigin";
+import { AuthResponse } from "@/lib/types/auth";
 import { backendFetch } from "@/lib/utils/backendFetch";
 import { errorResponse } from "@/lib/utils/errorResponse";
 import { NextRequest, NextResponse } from "next/server";
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
     const backendRes = await backendFetch("/api/auth/refresh-token", {
       refreshToken,
     });
-    const data = await backendRes.json();
+    const data: AuthResponse = await backendRes.json();
 
     const response = NextResponse.json(data, { status: backendRes.status });
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { handleBack } from "@/lib/utils/helper";
 import { ChevronLeft } from "lucide-react";
@@ -17,7 +15,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
   onAction,
 }) => {
   return (
-    <div className="flex items-center sticky z-0 top-0 z-23 bg-background justify-between px-3 sm:px-4 lg:px-8 py-3 border-b md:border-none">
+    <div className="flex items-center sticky z-0 top-0 z-23 bg-background justify-between px-2 lg:px-8 py-3 border-b md:border-none">
       {/* Back button — mobile only */}
       <Button
         variant="default"

@@ -4,7 +4,8 @@ export type ModalConfig =
   | { type: "logout"; onConfirm: () => Promise<void> }
   | { type: "delete"; desc: string; onConfirm: () => Promise<void> }
   | { type: "updateProfile" }
-  | { type: "changePassword" };
+  | { type: "changePassword" }
+  | { type: "uploadAvatar" };
 
 interface ModalState {
   modal: ModalConfig | null; // null = modal tutup

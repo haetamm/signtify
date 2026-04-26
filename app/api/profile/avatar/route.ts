@@ -10,29 +10,29 @@ export async function POST(request: NextRequest) {
     return errorResponse(403, "Forbidden", originCheck.reason);
 
   if (!process.env.BACKEND_API_URL) {
-    console.error("[rauth/oute/logout] BACKEND_API_URL is not set");
+    console.error("[route/profile/avatar] BACKEND_API_URL is not set");
     return errorResponse(500, "Internal Server Error");
   }
 
   try {
+    const formData = await request.formData();
+
     const backendRes = await backendFetch(
-      "/api/profile/logout",
-      undefined,
+      `/api/profile/avatar`,
+      formData,
       request,
+      "POST",
     );
-    const data: GeneralResponse = await backendRes.json();
 
-    const response = NextResponse.json(data, { status: backendRes.status });
-
-    if (backendRes.ok) {
-      response.cookies.delete("token");
-      response.cookies.delete("isAuthenticated");
-      response.cookies.delete("refreshToken");
+    if (!backendRes.ok) {
+      const data = await backendRes.json();
+      return NextResponse.json(data, { status: backendRes.status });
     }
 
-    return response;
+    const data: GeneralResponse = await backendRes.json();
+    return NextResponse.json(data, { status: backendRes.status });
   } catch (error) {
-    console.error("[route/auth/logout] Failed to reach backend:", error);
+    console.error("[route/profile/avatar] Failed to reach backend:", error);
     return errorResponse(503, "Service Unavailable", "Backend unreachable");
   }
 }

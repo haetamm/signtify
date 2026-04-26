@@ -59,16 +59,17 @@ export async function clientRequest(
   isRetry = false,
 ): Promise<Response> {
   const { accessToken } = useAuthStore.getState();
+  const isFormData = body instanceof FormData;
 
   const res = await fetch(url, {
     method,
     headers: {
-      "Content-Type": "application/json",
-      // Tambahkan Authorization jika ada accessToken
+      // Jangan set Content-Type kalau FormData, biar browser set multipart + boundary otomatis
+      ...(!isFormData && { "Content-Type": "application/json" }),
       ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
     },
     credentials: "same-origin",
-    body: body ? JSON.stringify(body) : undefined,
+    body: isFormData ? body : body ? JSON.stringify(body) : undefined,
   });
 
   if (res.status === 401 && !isRetry) {

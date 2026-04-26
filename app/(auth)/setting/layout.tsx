@@ -4,6 +4,7 @@ import ProfileStoreHydrator from "@/components/providers/ProfileStoreHydrator";
 import { getProfileServer } from "@/lib/api/profileApi.server";
 import { Profile } from "@/lib/types/profile";
 import { settingNavItems } from "@/lib/utils/link";
+import { cookies } from "next/headers";
 import { Suspense } from "react";
 
 export default async function SettingLayout({
@@ -13,11 +14,15 @@ export default async function SettingLayout({
 }) {
   let initialProfile: Profile | null = null;
 
-  try {
-    const data = await getProfileServer();
-    console.log(data);
-    initialProfile = data?.data ?? null;
-  } catch {}
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  if (token) {
+    try {
+      const data = await getProfileServer();
+      initialProfile = data?.data ?? null;
+    } catch {}
+  }
 
   return (
     <>

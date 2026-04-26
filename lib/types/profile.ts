@@ -36,7 +36,3 @@ export interface Profile {
 export interface ProfileResponse extends BaseResponse {
   data: Profile;
 }
-
-export interface ChangePassResponse extends BaseResponse {
-  data: string;
-}

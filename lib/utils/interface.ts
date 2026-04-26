@@ -5,6 +5,10 @@ export interface BaseResponse {
   status: string;
 }
 
+export interface GeneralResponse extends BaseResponse {
+  data: string;
+}
+
 export interface NavItem {
   label: string;
   href: string;

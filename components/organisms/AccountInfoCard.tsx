@@ -1,12 +1,11 @@
 "use client";
 
 import InfoField from "@/components/molecules/InfoField";
-import { useProfileStore } from "@/lib/stores/useProfileStore";
+import { useProfile } from "@/lib/hooks/useProfile";
 import { formatDate } from "@/lib/utils/helper";
 
 const AccountInfoCard = () => {
-  const profile = useProfileStore((s) => s.profile);
-  const isLoading = useProfileStore((s) => s.isLoading);
+  const { profile, isLoading } = useProfile();
 
   const { username, email, createdAt, updatedAt, phone } = profile || {};
 

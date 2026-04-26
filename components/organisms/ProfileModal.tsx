@@ -1,4 +1,3 @@
-import { editProfile } from "@/lib/action/profileAction";
 import { ProfileFormValues, profileSchema } from "@/lib/schemas/profileSchema";
 import { useModalStore } from "@/lib/stores/useModalStore";
 import { useProfileStore } from "@/lib/stores/useProfileStore";
@@ -20,7 +19,7 @@ import {
 } from "../ui/select";
 import TemplateModal from "./TemplateModal";
 
-import { showSuccessToast } from "@/lib/hooks/useHandleToast";
+import { useProfile } from "@/lib/hooks/useProfile";
 import { useRef } from "react";
 import { ErrorLabel } from "../atoms/ErrorLable";
 
@@ -28,7 +27,8 @@ export default function ProfileModal() {
   const { close } = useModalStore();
   const profile = useProfileStore((s) => s.profile);
   const [serverError, setServerError] = useState<string | null>(null);
-  const hasReset = useRef(false); // ← tambah ini
+  const hasReset = useRef(false);
+  const { update } = useProfile();
 
   const {
     register,
@@ -67,7 +67,7 @@ export default function ProfileModal() {
   });
 
   const inputStyle =
-    "w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary transition-all outline-none";
+    "w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary text-muted-foreground transition-all outline-none";
 
   const onSubmit = async (values: ProfileFormValues) => {
     setServerError(null);
@@ -82,9 +82,7 @@ export default function ProfileModal() {
     };
 
     try {
-      const response = await editProfile(payload);
-      showSuccessToast(response, "");
-      close();
+      await update(payload);
     } catch (error: unknown) {
       handleFormError<ProfileFormValues>(error, setError, setServerError);
     }

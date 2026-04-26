@@ -1,5 +1,4 @@
-import { changePass } from "@/lib/action/profileAction";
-import { showSuccessToast } from "@/lib/hooks/useHandleToast";
+import { useProfile } from "@/lib/hooks/useProfile";
 import {
   ChangePassFormValues,
   changePassSchema,
@@ -19,6 +18,7 @@ import TemplateModal from "./TemplateModal";
 export default function ChangePassModal() {
   const { close } = useModalStore();
   const [serverError, setServerError] = useState<string | null>(null);
+  const { change } = useProfile();
 
   const {
     register,
@@ -33,15 +33,14 @@ export default function ChangePassModal() {
   const onSubmit = async (values: ChangePassFormValues) => {
     setServerError(null);
     try {
-      const response = await changePass(values);
-      showSuccessToast(response, "");
+      await change(values);
     } catch (error) {
       handleFormError<ChangePassFormValues>(error, setError, setServerError);
     }
   };
 
   const inputStyle =
-    "w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-primary transition-all outline-none";
+    "w-full px-4 py-2.5 rounded-lg border text-muted-foreground border-gray-300 focus:border-primary transition-all outline-none";
 
   return (
     <TemplateModal

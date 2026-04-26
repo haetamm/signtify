@@ -2,7 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/hooks/useAuth";
-import { useProfileStore } from "@/lib/stores/useProfileStore";
+import { useProfile } from "@/lib/hooks/useProfile";
 import { cn } from "@/lib/utils/helper";
 import { settingNavItems } from "@/lib/utils/link";
 import Link from "next/link";
@@ -14,8 +14,10 @@ import { iconMap } from "./Sidebar";
 
 export default function SidebarMobile() {
   const pathname = usePathname();
-  const profile = useProfileStore((state) => state.profile);
+  const { profile, avatarUrl } = useProfile();
   const { logout } = useAuth();
+
+  const { name, email } = profile || {};
 
   return (
     <div className="flex lg:hidden w-full flex-col h-[calc(100vh-85px)] bg-gray-50 dark:bg-background">
@@ -32,23 +34,23 @@ export default function SidebarMobile() {
       <div className="flex-1 px-4 py-3 space-y-6">
         <div className="flex items-center gap-4 p-3 bg-white dark:bg-card rounded-2xl shadow-sm">
           <Avatar className="w-12 h-12">
-            <AvatarImage src="/images/avatar.png" alt="User" />
+            <AvatarImage src={avatarUrl ?? undefined} alt="User" />
             <AvatarFallback>
               {" "}
               <FiUser size={24} className="text-primary" />
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0">
-            {profile?.name ? (
+            {name ? (
               <p className="font-semibold text-gray-900 dark:text-white">
-                {profile.name}
+                {name}
               </p>
             ) : (
               <Skeleton className="h-4 w-32 rounded-md mb-2" />
             )}
-            {profile?.email ? (
+            {email ? (
               <p className="text-sm text-gray-500 dark:text-gray-400 break-words">
-                {profile.email}
+                {email}
               </p>
             ) : (
               <Skeleton className="h-3.5 w-44 rounded-md" />

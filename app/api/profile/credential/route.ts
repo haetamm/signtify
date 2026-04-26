@@ -1,8 +1,8 @@
 import { validateOrigin } from "@/lib/middleware/validateOrigin";
 import { changePassSchema } from "@/lib/schemas/profileSchema";
-import { ChangePassResponse } from "@/lib/types/profile";
 import { backendFetch } from "@/lib/utils/backendFetch";
 import { errorResponse } from "@/lib/utils/errorResponse";
+import { GeneralResponse } from "@/lib/utils/interface";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       parsed.data,
       request,
     );
-    const data: ChangePassResponse = await backendRes.json();
+    const data: GeneralResponse = await backendRes.json();
 
     const response = NextResponse.json(data, { status: backendRes.status });
 

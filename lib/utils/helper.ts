@@ -112,7 +112,7 @@ export const calculateAge = (birthDate?: string | null): string => {
     age--;
   }
 
-  return `${age} tahun`;
+  return `(${age} tahun)`;
 };
 
 export const getInitials = (name: string) =>

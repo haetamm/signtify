@@ -4,34 +4,34 @@ import IconBox from "@/components/atoms/IconBox";
 import InfoField from "@/components/molecules/InfoField";
 import ProfileIdentity from "@/components/molecules/ProfileIdentity";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useProfileStore } from "@/lib/stores/useProfileStore";
+import { useProfile } from "@/lib/hooks/useProfile";
+import { useModalStore } from "@/lib/stores/useModalStore";
 import { calculateAge, formatDate, getInitials } from "@/lib/utils/helper";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 const PersonalInfoCard = () => {
-  const profile = useProfileStore((s) => s.profile);
-  const isLoading = useProfileStore((s) => s.isLoading);
+  const { profile, isLoading, avatarUrl } = useProfile();
+  const { open } = useModalStore();
 
-  const {
-    name,
-    username,
-    profile_id: avatar,
-    gender,
-    religion,
-    birthPlace,
-    birthDate,
-    address,
-  } = profile || {};
+  const { name, username, gender, religion, birthPlace, birthDate, address } =
+    profile || {};
 
   const age = calculateAge(birthDate);
+
+  const openUploadAvatar = () => {
+    open({ type: "uploadAvatar" });
+  };
 
   return (
     <>
       <div className=" md:flex md:gap-4 pt-3">
         {/* Avatar + Identity (mobile) */}
         <div className="flex md:flex-col items-center gap-x-4 pb-6 px-3 border-b md:border-b-0">
-          <Avatar className="w-30 h-30 md:w-50 md:h-50 border-4 border-background shadow-sm">
-            <AvatarImage src={avatar || undefined} alt={name ?? ""} />
+          <Avatar
+            onClick={openUploadAvatar}
+            className="w-30 h-30 md:w-50 cursor-pointer md:h-50 border-4 border-background shadow-sm"
+          >
+            <AvatarImage src={avatarUrl ?? undefined} alt={name ?? ""} />
             <AvatarFallback className="text-5xl font-semibold bg-primary-gradient">
               {getInitials(name ?? "")}
             </AvatarFallback>
@@ -71,10 +71,10 @@ const PersonalInfoCard = () => {
           <InfoField
             label="Tanggal Lahir"
             value={
-              <>
+              <div className="sm:flex items-center gap-2 gap-y-2">
                 {formatDate(birthDate)}
-                <span className="ml-1">{age}</span>
-              </>
+                <div className="text-xs">{age}</div>
+              </div>
             }
             isLoading={isLoading}
             className="col-span-2"

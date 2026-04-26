@@ -1,4 +1,5 @@
 import { validateOrigin } from "@/lib/middleware/validateOrigin";
+import { NotificationResponse } from "@/lib/types/notification";
 import { backendFetch } from "@/lib/utils/backendFetch";
 import { errorResponse } from "@/lib/utils/errorResponse";
 import { NextRequest, NextResponse } from "next/server";
@@ -30,7 +31,7 @@ export async function PATCH(
       "PATCH",
     );
 
-    const data = await backendRes.json();
+    const data: NotificationResponse = await backendRes.json();
     return NextResponse.json(data, { status: backendRes.status });
   } catch (error) {
     console.error("[route/notification/read] Failed to reach backend:", error);

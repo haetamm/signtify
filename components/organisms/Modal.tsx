@@ -5,6 +5,7 @@ import DeleteModal from "../molecules/DeleteModal";
 import LogoutModal from "../molecules/LogoutModal";
 import ChangePassModal from "./ChangePassModal";
 import ProfileModal from "./ProfileModal";
+import UploadAvatarModal from "./UploadAvatarModal";
 
 // Registry: tambah modal baru = tambah 1 baris saja
 const MODALS: { [K in ModalConfig["type"]]: ComponentType } = {
@@ -12,6 +13,7 @@ const MODALS: { [K in ModalConfig["type"]]: ComponentType } = {
   delete: DeleteModal,
   updateProfile: ProfileModal,
   changePassword: ChangePassModal,
+  uploadAvatar: UploadAvatarModal,
 };
 
 export default function Modal() {
