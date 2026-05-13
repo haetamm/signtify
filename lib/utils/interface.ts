@@ -1,5 +1,3 @@
-import { IconKey } from "@/components/organisms/Sidebar";
-
 export interface BaseResponse {
   code: number;
   status: string;
@@ -12,7 +10,11 @@ export interface GeneralResponse extends BaseResponse {
 export interface NavItem {
   label: string;
   href: string;
-  icon: IconKey;
+  icon: React.ReactNode;
+  requiredPermission?: {
+    url: string;
+    action: string;
+  };
 }
 
 export interface PaginationResponse {

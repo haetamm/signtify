@@ -1,7 +1,8 @@
-import NotificationStoreHydrator from "@/components/providers/NotificationStoreHydrator";
 import SocketProvider from "@/components/providers/SocketProvider";
+import StoreHydrator from "@/components/providers/StoreHydrator";
 import AuthLayout from "@/components/templates/AuthLayout";
 import { getNotificationServer } from "@/lib/api/notificationApi.server";
+import { getProfilePermissionsServer } from "@/lib/api/profileApi.server";
 import { Notification } from "@/lib/types/notification";
 import { PaginationResponse } from "@/lib/utils/interface";
 import type { Metadata } from "next";
@@ -25,21 +26,35 @@ export default async function Auth({
     hasNext: false,
     hasPrevious: false,
   };
-
   let initialNotifications: Notification[] = [];
   let initialPagination: PaginationResponse = paginationDefault;
+  let initialRole = null;
 
   try {
-    const data = await getNotificationServer("1", "5");
+    const [data, dataRole] = await Promise.all([
+      getNotificationServer("1", "5"),
+      getProfilePermissionsServer(),
+    ]);
+    console.log(dataRole);
+
     initialNotifications = data?.data || [];
     initialPagination = data?.paginationResponse || paginationDefault;
+
+    if (dataRole?.data) {
+      initialRole = {
+        roleId: dataRole.data.id,
+        roleName: dataRole.data.name,
+        permissions: dataRole.data.permissions,
+      };
+    }
   } catch {}
 
   return (
     <Providers>
-      <NotificationStoreHydrator
+      <StoreHydrator
         notifications={initialNotifications}
         pagination={initialPagination}
+        role={initialRole}
       />
       <AuthLayout>{children}</AuthLayout>
       <SocketProvider />

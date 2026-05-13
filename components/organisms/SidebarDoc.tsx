@@ -1,5 +1,6 @@
 "use client";
 
+import { useFilteredNav } from "@/lib/hooks/useFilteredNav";
 import { useSidebarOpen, useSidebarStore } from "@/lib/stores/useSidebarStore";
 import { cn } from "@/lib/utils/helper";
 import { documentNavItems } from "@/lib/utils/link";
@@ -9,13 +10,12 @@ import { SidebarNavItem } from "../atoms/SidebarNavItems";
 export function SidebarDoc() {
   const isOpen = useSidebarOpen();
   const closeSidebar = useSidebarStore((s) => s.close);
+  const { visible, isLoading } = useFilteredNav(documentNavItems);
 
-  // Tutup sidebar saat route berubah (mobile)
   useEffect(() => {
     closeSidebar();
-  }, [closeSidebar]); // tambah dependency
+  }, [closeSidebar]);
 
-  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -23,9 +23,10 @@ export function SidebarDoc() {
     };
   }, [isOpen]);
 
+  // saat loading, tetap render struktur tapi nav kosong
+  // agar overlay & aside tidak hilang
   return (
     <>
-      {/* Overlay */}
       <div
         onClick={closeSidebar}
         className={cn(
@@ -38,7 +39,6 @@ export function SidebarDoc() {
         )}
       />
 
-      {/* Sidebar */}
       <aside
         className={cn(
           "fixed top-22 left-3.5 md:left-6 h-[calc(100vh-109px)] rounded-l-xl w-45",
@@ -49,18 +49,25 @@ export function SidebarDoc() {
           isOpen ? "block" : "hidden",
         )}
       >
-        <div className="relative px-5 pt-8 pb-6" />{" "}
-        {/* kosong jika tidak ada header */}
+        <div className="relative px-5 pt-8 pb-6" />
         <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1.5">
-          {documentNavItems.map(({ label, href, icon }) => (
-            <SidebarNavItem
-              key={href}
-              label={label}
-              href={href}
-              icon={icon}
-              onClick={closeSidebar}
-            />
-          ))}
+          {isLoading
+            ? // skeleton nav item
+              Array.from({ length: 3 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-12 rounded-lg bg-muted/50 animate-pulse"
+                />
+              ))
+            : visible.map(({ label, href, icon }) => (
+                <SidebarNavItem
+                  key={href}
+                  label={label}
+                  href={href}
+                  icon={icon}
+                  onClick={closeSidebar}
+                />
+              ))}
         </nav>
       </aside>
     </>

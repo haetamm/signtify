@@ -1,7 +1,8 @@
+import { decryptPermissions } from "@/lib/utils/permissionCookie";
 import { NextRequest, NextResponse } from "next/server";
 import { urlPage } from "./lib/utils/constans";
+import { pagePermissions } from "./lib/utils/pagePermissions";
 
-// Route yang harus dilindungi
 const PROTECTED_PREFIXES = [
   urlPage.DASHBOARD,
   urlPage.DOCUMENT,
@@ -9,42 +10,58 @@ const PROTECTED_PREFIXES = [
   urlPage.SETTING,
 ];
 
-// Route yang hanya boleh diakses jika BELUM login
 const GUEST_ONLY = [
   urlPage.LOGIN,
   urlPage.FORGOT_PASSWORD,
   urlPage.RESET_PASSWORD,
 ];
-
-export function middleware(request: NextRequest) {
+console.log("SECRET exists:", !!process.env.PERMISSION_SECRET);
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isAuthenticated =
-    request.cookies.get("isAuthenticated")?.value === "true";
-
-  // Proteksi route dashboard
-  const isProtected = PROTECTED_PREFIXES.some((prefix) =>
-    pathname.startsWith(prefix),
-  );
-
-  if (isProtected && !isAuthenticated) {
-    const loginUrl = new URL("/", request.url);
-    // Simpan URL tujuan agar setelah login bisa redirect kembali
-    loginUrl.searchParams.set("redirect", pathname);
-    return NextResponse.redirect(loginUrl);
+  if (GUEST_ONLY.some((p) => pathname === p)) {
+    if (request.cookies.get("isAuthenticated")?.value === "true") {
+      return NextResponse.redirect(new URL(urlPage.DASHBOARD, request.url));
+    }
+    return NextResponse.next();
   }
 
-  // Redirect dari login jika sudah login
-  const isGuestOnly = GUEST_ONLY.some((path) => pathname === path);
+  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
+  if (isProtected) {
+    if (request.cookies.get("isAuthenticated")?.value !== "true") {
+      const loginUrl = new URL("/", request.url);
+      loginUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
 
-  if (isGuestOnly && isAuthenticated) {
-    return NextResponse.redirect(new URL(urlPage.DASHBOARD, request.url));
+    // TARUH DI SINI
+    const required = pagePermissions[pathname];
+    console.log("[middleware] pathname:", pathname);
+    console.log("[middleware] required:", required);
+
+    if (required) {
+      const permCookie = request.cookies.get("permissions")?.value;
+      console.log("[middleware] permCookie exists:", !!permCookie);
+
+      const permissions = permCookie
+        ? await decryptPermissions(permCookie)
+        : null;
+      console.log("[middleware] decrypted permissions:", permissions);
+
+      const allowed = permissions?.some(
+        (p) => p.url === required.url && p.action === required.action,
+      );
+      console.log("[middleware] allowed:", allowed);
+
+      if (!allowed) {
+        return NextResponse.redirect(new URL("/403", request.url));
+      }
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  // Jalankan middleware hanya pada route berikut (skip static files, api)
   matcher: ["/((?!_next/static|_next/image|favicon.ico|img/|api/).*)"],
 };

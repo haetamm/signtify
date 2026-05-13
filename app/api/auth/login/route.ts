@@ -3,6 +3,7 @@ import { loginSchema } from "@/lib/schemas/authSchema";
 import { AuthResponse } from "@/lib/types/auth";
 import { backendFetch } from "@/lib/utils/backendFetch";
 import { errorResponse } from "@/lib/utils/errorResponse";
+import { encryptPermissions } from "@/lib/utils/permissionCookie";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -40,10 +41,9 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json(data, { status: backendRes.status });
 
-    // Simpan token di cookie setelah login berhasil
     if (backendRes.ok) {
       response.cookies.set("token", data.data.token, {
-        httpOnly: true, // tidak bisa diakses JS browser (aman dari XSS)
+        httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
@@ -55,13 +55,48 @@ export async function POST(request: NextRequest) {
         path: "/",
       });
       response.cookies.set("isAuthenticated", "true", {
-        httpOnly: false, // boleh dibaca JS karena hanya flag UI
+        httpOnly: false,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
       });
+
+      // fetch permissions langsung ke backend pakai token baru
+      try {
+        const permRes = await fetch(
+          `${process.env.BACKEND_API_URL}/api/profile/permission`,
+          {
+            headers: {
+              Authorization: `Bearer ${data.data.token}`,
+            },
+          },
+        );
+
+        if (permRes.ok) {
+          const permData = await permRes.json();
+          console.log("setelah login", permData);
+          const encrypted = await encryptPermissions(permData.data.permissions);
+          response.cookies.set("permissions", encrypted, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            path: "/",
+          });
+        } else {
+          console.warn(
+            "[route/auth/login] Failed to fetch permissions, status:",
+            permRes.status,
+          );
+        }
+      } catch (permError) {
+        console.error(
+          "[route/auth/login] Failed to fetch permissions:",
+          permError,
+        );
+      }
     }
 
+    console.log("[login] cookies being set:", response.cookies.getAll());
     return response;
   } catch (error) {
     console.error("[route/auth/login] Failed to reach backend:", error);

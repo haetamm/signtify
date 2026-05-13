@@ -1,25 +1,15 @@
 "use client";
 
 import { useAuth } from "@/lib/hooks/useAuth";
+import { useFilteredNav } from "@/lib/hooks/useFilteredNav";
 import { cn } from "@/lib/utils/helper";
 import { NavItem } from "@/lib/utils/interface";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaUsersGear, FaUsersLine } from "react-icons/fa6";
-import { FiLogOut, FiShield, FiUser, FiUsers } from "react-icons/fi";
-import { IoMdTrash } from "react-icons/io";
+import { FiLogOut } from "react-icons/fi";
+import ThemeToggle from "../atoms/ThemeToggle";
 import { Button } from "../ui/button";
-
-export const iconMap = {
-  user: FiUser,
-  users: FiUsers,
-  role: FiShield,
-  trash: IoMdTrash,
-  public: FaUsersLine,
-  department: FaUsersGear,
-} as const;
-
-export type IconKey = keyof typeof iconMap;
+import { SidebarSkeleton } from "./SidebarSkeleton";
 
 interface SidebarProps {
   navItems: NavItem[];
@@ -29,23 +19,24 @@ interface SidebarProps {
 export function Sidebar({ navItems, isLogout = true }: SidebarProps) {
   const pathname = usePathname();
   const { logout } = useAuth();
+  const { visible, isLoading } = useFilteredNav(navItems);
 
-  // Desktop sidebar
+  if (isLoading) return <SidebarSkeleton />;
+
   return (
     <aside className="w-38 xl:w-56 h-full bg-background border-r border-border hidden lg:flex flex-col py-4 px-3 gap-1">
-      <div className="px-3 py-2 mb-4 border-b border-border">
-        <span
+      <div className="px-3 py-2 mb-4 border-b border-border flex justify-between items-center">
+        <div
           className={`${isLogout ? "text-foreground" : "text-transparent"} text-base font-medium`}
         >
           Setting
-        </span>
+        </div>
+        {isLogout && <ThemeToggle />}
       </div>
 
       <nav className="flex flex-col gap-3 flex-1">
-        {navItems.map(({ label, href, icon }) => {
+        {visible.map(({ label, href, icon }) => {
           const isActive = pathname === href;
-          const Icon = iconMap[icon];
-
           return (
             <Link
               key={href}
@@ -57,7 +48,7 @@ export function Sidebar({ navItems, isLogout = true }: SidebarProps) {
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",
               )}
             >
-              <Icon size={16} />
+              <span className="text-base">{icon}</span>
               {label}
             </Link>
           );

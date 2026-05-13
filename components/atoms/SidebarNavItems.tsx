@@ -3,12 +3,12 @@
 import { cn } from "@/lib/utils/helper";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { iconMap } from "../organisms/Sidebar";
+import React from "react";
 
 interface SidebarNavItemProps {
   label: string;
   href: string;
-  icon: keyof typeof iconMap;
+  icon: React.ReactNode;
   onClick?: () => void;
 }
 
@@ -20,7 +20,6 @@ export function SidebarNavItem({
 }: SidebarNavItemProps) {
   const pathname = usePathname();
   const isActive = pathname === href;
-  const Icon = iconMap[icon];
 
   return (
     <Link
@@ -33,19 +32,19 @@ export function SidebarNavItem({
           : "",
       )}
     >
-      {/* Active indicator bar */}
       {isActive && (
         <div className="absolute left-0 w-1 h-8 bg-primary rounded-r-lg" />
       )}
 
-      <Icon
-        size={20}
+      <span
         className={cn(
-          "transition-all duration-200",
+          "text-xl transition-all duration-200",
           isActive && "text-primary scale-110",
           !isActive && "group-hover:scale-110 group-hover:text-white",
         )}
-      />
+      >
+        {icon}
+      </span>
 
       <span
         className={cn(
