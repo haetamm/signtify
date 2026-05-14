@@ -5,15 +5,19 @@ import ActiveFilterChips from "@/components/molecules/ActiveFilterChips";
 import PillSelector from "@/components/molecules/PillSelector";
 import SortSelect from "@/components/molecules/SortSelect";
 import UserSearchInputGroup from "@/components/molecules/UserSearchInputGroup";
-import { GENDER_OPTIONS, STATUS_OPTIONS } from "@/lib/utils/constans";
-import { UserFilterParams } from "@/lib/utils/interface";
+import { UserQueryParam } from "@/lib/types/user";
+import {
+  GENDER_OPTIONS,
+  STATUS_OPTIONS,
+  USER_SORT_OPTIONS,
+} from "@/lib/utils/constans";
 import { useState } from "react";
 import { FiX } from "react-icons/fi";
 import { Button } from "../ui/button";
 
 interface UserFilterBarProps {
-  filters: UserFilterParams;
-  onChange: (filters: Partial<UserFilterParams>) => void;
+  filters: UserQueryParam;
+  onChange: (filters: Partial<UserQueryParam>) => void;
   onReset: () => void;
 }
 
@@ -42,7 +46,7 @@ const UserFilterBar: React.FC<UserFilterBarProps> = ({
   ].filter(Boolean).length;
 
   return (
-    <div className="bg-card  md:sticky z-0 top-0 z-10 rounded-2xl border border-gray-100 dark:border-none shadow-sm">
+    <div className="bg-card md:sticky z-0 top-0 z-10 rounded-2xl border border-gray-100 dark:border-none shadow-sm">
       <div className="p-3">
         <div className="sm:flex space-y-2 sm:space-y-0 items-center gap-2">
           <UserSearchInputGroup filters={filters} onChange={onChange} />
@@ -71,23 +75,22 @@ const UserFilterBar: React.FC<UserFilterBarProps> = ({
             <PillSelector
               label="Gender"
               options={GENDER_OPTIONS}
-              value={filters.gender ?? ""}
+              value={filters.gender}
               onChange={(value) => onChange({ gender: value, page: 1 })}
             />
             <PillSelector
               label="Status Akun"
               options={STATUS_OPTIONS}
-              value={filters.isEnable === "" ? "" : String(filters.isEnable)}
-              onChange={(value) =>
-                onChange({
-                  isEnable: value === "" ? "" : value === "true",
-                  page: 1,
-                })
-              }
+              value={filters.isEnable}
+              onChange={(value) => onChange({ isEnable: value, page: 1 })}
             />
             <SortSelect
-              value={filters.sortBy ?? ""}
-              onChange={(value) => onChange({ sortBy: value, page: 1 })}
+              options={USER_SORT_OPTIONS}
+              sortBy={filters.sortBy}
+              direction={filters.direction}
+              onChange={(sortBy, direction) =>
+                onChange({ sortBy, direction, page: 1 })
+              }
             />
           </div>
         </div>

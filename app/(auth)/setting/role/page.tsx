@@ -1,142 +1,63 @@
-"use client";
+import RolesClient from "@/components/organisms/RolesClient";
+import RolesSkeleton from "@/components/organisms/RolesSkeleton";
+import RoleStoreHydrator from "@/components/providers/RoleStoreHydrator";
+import { getRoleServer } from "@/lib/api/roleApi.server";
+import { Role } from "@/lib/types/role";
+import { paginationDefault } from "@/lib/utils/helper";
+import { PaginationResponse } from "@/lib/utils/interface";
+import { Suspense } from "react";
 
-import PageHeader from "@/components/molecules/PageHeader";
-import PaginationBar from "@/components/molecules/PaginationBar";
-import RoleFilterBar from "@/components/molecules/RoleFilterBar";
-import RoleTable from "@/components/organisms/RoleTable";
-import {
-  PaginationResponse,
-  Role,
-  RoleFilterParams,
-} from "@/lib/utils/interface";
-import { roleData } from "@/lib/utils/resource";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaPlus } from "react-icons/fa";
-
-function applyFiltersAndPaginate(
-  data: Role[],
-  filters: RoleFilterParams,
-): { data: Role[]; pagination: PaginationResponse } {
-  let result = [...data];
-
-  if (filters.name)
-    result = result.filter((u) =>
-      u.name.toLowerCase().includes(filters.name!.toLowerCase()),
-    );
-
-  if (filters.isActive !== "" && filters.isActive !== undefined)
-    result = result.filter((u) => u.isActive === filters.isActive);
-
-  if (filters.sortBy) {
-    result.sort((a, b) => {
-      const key = filters.sortBy as keyof Role;
-      return String(a[key]).localeCompare(String(b[key]));
-    });
-  }
-
-  const totalElements = result.length;
-  const totalPages = Math.max(1, Math.ceil(totalElements / filters.size));
-  const safePage = Math.min(filters.page, totalPages);
-  const start = (safePage - 1) * filters.size;
-  const paged = result.slice(start, start + filters.size);
-
-  return {
-    data: paged,
-    pagination: {
-      totalPages,
-      totalElements,
-      page: safePage,
-      size: filters.size,
-      hasPrevious: safePage > 1,
-      hasNext: safePage < totalPages,
-    },
-  };
+interface RolesPageProps {
+  searchParams: Promise<{
+    page?: string;
+    size?: string;
+    name?: string;
+    isActive?: string;
+    sortBy?: string;
+    direction?: string;
+  }>;
 }
 
-const DEFAULT_FILTERS: RoleFilterParams = {
-  name: "",
-  isActive: "",
-  page: 1,
-  size: 5,
-  sortBy: "",
-};
+async function RolesContent({ searchParams }: RolesPageProps) {
+  const params = await searchParams;
+  const page = params.page ?? "1";
+  const size = params.size ?? "5";
 
-export default function RolePage() {
-  const [filters, setFilters] = useState<RoleFilterParams>(DEFAULT_FILTERS);
-  const pageSizeOption = [5, 10, 15, 20, 25];
+  let initialRoles: Role[] = [];
+  let initialPagination: PaginationResponse = paginationDefault;
 
-  const [displayFilters, setDisplayFilters] =
-    useState<RoleFilterParams>(DEFAULT_FILTERS);
+  try {
+    const data = await getRoleServer({
+      page: Number(page),
+      size: Number(size),
+      name: params.name ?? "",
+      isActive: params.isActive ?? "",
+      sortBy: params.sortBy ?? "",
+      direction: params.direction ?? "",
+    });
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDisplayFilters(filters);
-    }, 300);
-    return () => clearTimeout(timeout);
-  }, [filters]);
-
-  const isLoading = displayFilters !== filters;
-
-  const { data: roles, pagination } = useMemo(
-    () => applyFiltersAndPaginate(roleData, displayFilters),
-    [displayFilters],
-  );
-
-  const handleFilterChange = useCallback(
-    (updated: Partial<RoleFilterParams>) => {
-      setFilters((prev) => ({ ...prev, ...updated }));
-    },
-    [],
-  );
-
-  const handleReset = useCallback(() => {
-    setFilters(DEFAULT_FILTERS);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  }, []);
-
-  const handlePageSizeChange = useCallback((size: number) => {
-    setFilters((prev) => ({ ...prev, size, page: 1 }));
-  }, []);
-
-  const handleAdd = () => {
-    console.log("tambah role");
-  };
+    if (data) {
+      initialRoles = data.data ?? [];
+      initialPagination = data.paginationResponse ?? paginationDefault;
+    }
+  } catch {}
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="w-full mx-auto px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-4">
-        <div className="sm:hidden sticky z-0 top-0 z-12 bg-background ">
-          <PageHeader title="Role Management" onAction={handleAdd}>
-            <FaPlus className="w-3.5 h-3.5" />
-            Tambah Role
-          </PageHeader>
-        </div>
+    <>
+      <RoleStoreHydrator roles={initialRoles} pagination={initialPagination} />
+      <RolesClient
+        initialPagination={initialPagination}
+        initialPage={Number(page)}
+        initialSize={Number(size)}
+      />
+    </>
+  );
+}
 
-        {/* Filter bar */}
-        <RoleFilterBar
-          filters={filters}
-          onChange={handleFilterChange}
-          onReset={handleReset}
-        />
-
-        {/* Table */}
-        <div className="sm:px-2">
-          <RoleTable roles={roles} isLoading={isLoading} />
-        </div>
-
-        {/* Pagination */}
-        <PaginationBar
-          pagination={pagination}
-          currentPage={displayFilters.page}
-          pageSize={displayFilters.size}
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
-          pageSizeOption={pageSizeOption}
-        />
-      </div>
-    </div>
+export default function UsersPage(props: RolesPageProps) {
+  return (
+    <Suspense fallback={<RolesSkeleton />}>
+      <RolesContent {...props} />
+    </Suspense>
   );
 }

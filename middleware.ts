@@ -15,7 +15,6 @@ const GUEST_ONLY = [
   urlPage.FORGOT_PASSWORD,
   urlPage.RESET_PASSWORD,
 ];
-console.log("SECRET exists:", !!process.env.PERMISSION_SECRET);
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -36,8 +35,6 @@ export async function middleware(request: NextRequest) {
 
     // TARUH DI SINI
     const required = pagePermissions[pathname];
-    console.log("[middleware] pathname:", pathname);
-    console.log("[middleware] required:", required);
 
     if (required) {
       const permCookie = request.cookies.get("permissions")?.value;
@@ -46,12 +43,10 @@ export async function middleware(request: NextRequest) {
       const permissions = permCookie
         ? await decryptPermissions(permCookie)
         : null;
-      console.log("[middleware] decrypted permissions:", permissions);
 
       const allowed = permissions?.some(
         (p) => p.url === required.url && p.action === required.action,
       );
-      console.log("[middleware] allowed:", allowed);
 
       if (!allowed) {
         return NextResponse.redirect(new URL("/403", request.url));

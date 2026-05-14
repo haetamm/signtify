@@ -1,3 +1,5 @@
+import { SortOption } from "@/components/molecules/SortSelect";
+
 export const urlPage = {
   LOGIN: "/",
   DASHBOARD: "/dashboard",
@@ -10,7 +12,7 @@ export const urlPage = {
 
 export const GENDER_OPTIONS = [
   { value: "", label: "Semua" },
-  { value: "Laki-laki", label: "Pria" },
+  { value: "Laki laki", label: "Pria" },
   { value: "Perempuan", label: "Wanita" },
 ];
 
@@ -37,3 +39,61 @@ export const CONTRIBUTOR_STATUS_COLOR: Record<string, string> = {
 
 export const FALLBACK_COLOR =
   "bg-gradient-to-br from-teal-400 to-teal-500 text-white shadow-sm";
+
+export const USER_SORT_OPTIONS: SortOption[] = [
+  { value: "name_asc", label: "Nama (A-Z)", sortBy: "name", direction: "asc" },
+  {
+    value: "name_desc",
+    label: "Nama (Z-A)",
+    sortBy: "name",
+    direction: "desc",
+  },
+  {
+    value: "email_asc",
+    label: "Email (A-Z)",
+    sortBy: "email",
+    direction: "asc",
+  },
+  {
+    value: "email_desc",
+    label: "Email (Z-A)",
+    sortBy: "email",
+    direction: "desc",
+  },
+  {
+    value: "createdAt_desc",
+    label: "Terbaru",
+    sortBy: "createdAt",
+    direction: "desc",
+  },
+  {
+    value: "createdAt_asc",
+    label: "Terlama",
+    sortBy: "createdAt",
+    direction: "asc",
+  },
+];
+
+export const ROLE_SORT_OPTIONS: SortOption[] = [
+  { value: "name_asc", label: "Nama (A-Z)", sortBy: "name", direction: "asc" },
+  {
+    value: "name_desc",
+    label: "Nama (Z-A)",
+    sortBy: "name",
+    direction: "desc",
+  },
+  {
+    value: "createdAt_desc",
+    label: "Terbaru",
+    sortBy: "createdAt",
+    direction: "desc",
+  },
+  {
+    value: "createdAt_asc",
+    label: "Terlama",
+    sortBy: "createdAt",
+    direction: "asc",
+  },
+];
+
+export const PAGE_SIZE_OPTIONS = [5, 10, 15, 20, 25];

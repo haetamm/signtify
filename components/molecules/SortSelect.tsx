@@ -7,47 +7,62 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const SORT_OPTIONS = [
-  { value: "name_asc", label: "Nama (A-Z)" },
-  { value: "name_desc", label: "Nama (Z-A)" },
-  { value: "created_at_desc", label: "Terbaru" },
-  { value: "created_at_asc", label: "Terlama" },
-];
+export interface SortOption {
+  value: string;
+  label: string;
+  sortBy: string;
+  direction: string;
+}
 
 interface SortSelectProps {
-  value: string;
+  options: SortOption[];
+  sortBy: string;
+  direction: string;
   isLabel?: boolean;
-  onChange: (value: string) => void;
+  onChange: (sortBy: string, direction: string) => void;
 }
 
 const SortSelect: React.FC<SortSelectProps> = ({
-  value,
+  options,
+  sortBy,
+  direction,
   isLabel = true,
   onChange,
-}) => (
-  <div>
-    {isLabel && (
-      <Label className="block text-xs font-medium text-gray-500 mb-1.5">
-        Urutkan
-      </Label>
-    )}
-    <Select
-      value={value || "none"}
-      onValueChange={(val) => onChange(val === "none" ? "" : val)}
-    >
-      <SelectTrigger className="w-full rounded-xl bg-white dark:bg-primary/10 py-5">
-        <SelectValue placeholder="Tanpa urutan" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="none">Tanpa urutan</SelectItem>
-        {SORT_OPTIONS.map((opt) => (
-          <SelectItem key={opt.value} value={opt.value}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  </div>
-);
+}) => {
+  const compositeValue =
+    sortBy && direction ? `${sortBy}_${direction}` : "none";
+
+  const handleChange = (val: string) => {
+    if (val === "none") {
+      onChange("", "");
+      return;
+    }
+    const found = options.find((o) => o.value === val);
+    if (found) onChange(found.sortBy, found.direction);
+  };
+
+  return (
+    <div>
+      {isLabel && (
+        <Label className="block text-xs font-medium text-gray-500 mb-1.5">
+          Urutkan
+        </Label>
+      )}
+      <Select value={compositeValue} onValueChange={handleChange}>
+        <SelectTrigger className="w-full rounded-xl bg-white dark:bg-primary/10 py-5">
+          <SelectValue placeholder="Tanpa urutan" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="none">Tanpa urutan</SelectItem>
+          {options.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+};
 
 export default SortSelect;

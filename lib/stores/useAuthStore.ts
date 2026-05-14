@@ -15,7 +15,7 @@ interface AuthActions {
 
 type AuthStore = AuthState & AuthActions;
 
-function setCookie(name: string, value: string, days = 1) {
+function setCookie(name: string, value: string | boolean, days = 1) {
   if (typeof document === "undefined") return;
   const expires = new Date(Date.now() + days * 864e5).toUTCString();
   document.cookie = `${name}=${value}; expires=${expires}; path=/; SameSite=Strict`;
@@ -36,10 +36,9 @@ export const useAuthStore = create<AuthStore>()(
 
       setAuth: ({ user, accessToken, refreshToken }) => {
         if (typeof window !== "undefined") {
-          sessionStorage.setItem("accessToken", accessToken);
-          sessionStorage.setItem("refreshToken", refreshToken);
-          // Cookie flag untuk Next.js middleware (bukan token asli)
-          setCookie("isAuthenticated", "true");
+          setCookie("token", accessToken);
+          setCookie("refreshToken", refreshToken);
+          setCookie("isAuthenticated", true);
         }
         set(
           { user, accessToken, refreshToken, isAuthenticated: true },
@@ -50,16 +49,16 @@ export const useAuthStore = create<AuthStore>()(
 
       setTokens: (accessToken, refreshToken) => {
         if (typeof window !== "undefined") {
-          sessionStorage.setItem("accessToken", accessToken);
-          sessionStorage.setItem("refreshToken", refreshToken);
+          setCookie("token", accessToken);
+          setCookie("refreshToken", refreshToken);
         }
         set({ accessToken, refreshToken }, false, "auth/setTokens");
       },
 
       logout: () => {
         if (typeof window !== "undefined") {
-          sessionStorage.removeItem("accessToken");
-          sessionStorage.removeItem("refreshToken");
+          removeCookie("token");
+          removeCookie("refreshToken");
           removeCookie("isAuthenticated");
         }
         set(

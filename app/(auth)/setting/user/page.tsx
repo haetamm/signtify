@@ -1,157 +1,69 @@
-"use client";
+import UsersClient from "@/components/organisms/UsersClient";
+import UsersSkeleton from "@/components/organisms/UsersSkeleton";
+import UserStoreHydrator from "@/components/providers/UserStoreHydrator";
+import { getUserServer } from "@/lib/api/userApi.server";
+import { User } from "@/lib/types/user";
+import { paginationDefault } from "@/lib/utils/helper";
+import { PaginationResponse } from "@/lib/utils/interface";
+import { Suspense } from "react";
 
-import PageHeader from "@/components/molecules/PageHeader";
-import PaginationBar from "@/components/molecules/PaginationBar";
-import UserFilterBar from "@/components/molecules/UserFilterBar";
-import UserCardList from "@/components/organisms/UserCardList";
-import UserTable from "@/components/organisms/UserTable";
-import {
-  PaginationResponse,
-  User,
-  UserFilterParams,
-} from "@/lib/utils/interface";
-import { usersData } from "@/lib/utils/resource";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaPlus } from "react-icons/fa";
-
-// ─── helper: filter + sort + paginate dari mock data ──────────────────────────
-function applyFiltersAndPaginate(
-  data: User[],
-  filters: UserFilterParams,
-): { data: User[]; pagination: PaginationResponse } {
-  let result = [...data];
-
-  if (filters.name)
-    result = result.filter((u) =>
-      u.name.toLowerCase().includes(filters.name!.toLowerCase()),
-    );
-  if (filters.email)
-    result = result.filter((u) =>
-      u.email.toLowerCase().includes(filters.email!.toLowerCase()),
-    );
-  if (filters.phone)
-    result = result.filter((u) => u.phone.includes(filters.phone!));
-  if (filters.gender)
-    result = result.filter((u) => u.gender === filters.gender);
-  if (filters.isEnable !== "" && filters.isEnable !== undefined)
-    result = result.filter((u) => u.isEnable === filters.isEnable);
-
-  if (filters.sortBy) {
-    result.sort((a, b) => {
-      const key = filters.sortBy as keyof User;
-      return String(a[key]).localeCompare(String(b[key]));
-    });
-  }
-
-  const totalElements = result.length;
-  const totalPages = Math.max(1, Math.ceil(totalElements / filters.size));
-  const safePage = Math.min(filters.page, totalPages);
-  const start = (safePage - 1) * filters.size;
-  const paged = result.slice(start, start + filters.size);
-
-  return {
-    data: paged,
-    pagination: {
-      totalPages,
-      totalElements,
-      page: safePage,
-      size: filters.size,
-      hasPrevious: safePage > 1,
-      hasNext: safePage < totalPages,
-    },
-  };
+interface UsersPageProps {
+  searchParams: Promise<{
+    page?: string;
+    size?: string;
+    name?: string;
+    phone?: string;
+    gender?: string;
+    email?: string;
+    isEnable?: string;
+    sortBy?: string;
+    direction?: string;
+  }>;
 }
 
-// ─── Default filter ────────────────────────────────────────────────────────────
-const DEFAULT_FILTERS: UserFilterParams = {
-  name: "",
-  phone: "",
-  gender: "",
-  email: "",
-  isEnable: "",
-  page: 1,
-  size: 5,
-  sortBy: "",
-};
+async function UsersContent({ searchParams }: UsersPageProps) {
+  const params = await searchParams;
+  const page = params.page ?? "1";
+  const size = params.size ?? "5";
 
-//  Page Component
-export default function UserListPage() {
-  const [filters, setFilters] = useState<UserFilterParams>(DEFAULT_FILTERS);
-  const pageSizeOption = [5, 10, 15, 20, 25];
+  let initialUsers: User[] = [];
+  let initialPagination: PaginationResponse = paginationDefault;
 
-  // Simulate async fetch delay on filter change
-  const [displayFilters, setDisplayFilters] =
-    useState<UserFilterParams>(DEFAULT_FILTERS);
+  try {
+    const data = await getUserServer({
+      page: Number(page),
+      size: Number(size),
+      name: params.name ?? "",
+      phone: params.phone ?? "",
+      gender: params.gender ?? "",
+      email: params.email ?? "",
+      isEnable: params.isEnable ?? "",
+      sortBy: params.sortBy ?? "",
+      direction: params.direction ?? "",
+    });
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDisplayFilters(filters);
-    }, 300);
-    return () => clearTimeout(timeout);
-  }, [filters]);
-
-  const isLoading = displayFilters !== filters;
-
-  const { data: users, pagination } = useMemo(
-    () => applyFiltersAndPaginate(usersData, displayFilters),
-    [displayFilters],
-  );
-
-  const handleFilterChange = useCallback(
-    (updated: Partial<UserFilterParams>) => {
-      setFilters((prev) => ({ ...prev, ...updated }));
-    },
-    [],
-  );
-
-  const handleReset = useCallback(() => {
-    setFilters(DEFAULT_FILTERS);
-  }, []);
-
-  const handlePageChange = useCallback((page: number) => {
-    setFilters((prev) => ({ ...prev, page }));
-  }, []);
-
-  const handlePageSizeChange = useCallback((size: number) => {
-    setFilters((prev) => ({ ...prev, size, page: 1 }));
-  }, []);
-
-  const handleAdd = () => {
-    console.log("tambah user");
-  };
+    if (data) {
+      initialUsers = data.data ?? [];
+      initialPagination = data.paginationResponse ?? paginationDefault;
+    }
+  } catch {}
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="w-full mx-auto px-3 sm:px-4 lg:px-8 py-6 flex flex-col gap-4">
-        <div className="sm:hidden  sticky z-0 top-0 z-12 bg-background ">
-          <PageHeader title="User Management" onAction={handleAdd}>
-            <FaPlus className="w-3.5 h-3.5" />
-            Tambah User
-          </PageHeader>
-        </div>
-        {/* Filter bar */}
-        <UserFilterBar
-          filters={filters}
-          onChange={handleFilterChange}
-          onReset={handleReset}
-        />
+    <>
+      <UserStoreHydrator users={initialUsers} pagination={initialPagination} />
+      <UsersClient
+        initialPagination={initialPagination}
+        initialPage={Number(page)}
+        initialSize={Number(size)}
+      />
+    </>
+  );
+}
 
-        {/* Table */}
-        <div className="sm:px-2">
-          <UserTable users={users} isLoading={isLoading} />
-          <UserCardList users={users} isLoading={isLoading} />
-        </div>
-
-        {/* Pagination */}
-        <PaginationBar
-          pagination={pagination}
-          currentPage={displayFilters.page}
-          pageSize={displayFilters.size}
-          onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
-          pageSizeOption={pageSizeOption}
-        />
-      </div>
-    </div>
+export default function UsersPage(props: UsersPageProps) {
+  return (
+    <Suspense fallback={<UsersSkeleton />}>
+      <UsersContent {...props} />
+    </Suspense>
   );
 }

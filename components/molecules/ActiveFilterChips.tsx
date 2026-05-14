@@ -1,9 +1,9 @@
 import FilterChip from "@/components/atoms/FilterChip";
-import { UserFilterParams } from "@/lib/utils/interface";
+import { UserQueryParam } from "@/lib/types/user";
 
 interface ActiveFilterChipsProps {
-  filters: UserFilterParams;
-  onChange: (filters: Partial<UserFilterParams>) => void;
+  filters: UserQueryParam;
+  onChange: (filters: Partial<UserQueryParam>) => void;
 }
 
 const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
@@ -37,7 +37,7 @@ const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
     )}
     {filters.isEnable !== "" && (
       <FilterChip
-        label={filters.isEnable ? "Aktif" : "Nonaktif"}
+        label={filters.isEnable === "true" ? "Aktif" : "Nonaktif"}
         onRemove={() => onChange({ isEnable: "", page: 1 })}
       />
     )}

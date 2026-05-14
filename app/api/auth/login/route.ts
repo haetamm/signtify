@@ -47,18 +47,23 @@ export async function POST(request: NextRequest) {
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
+        maxAge: 60 * 60 * 24 * 7,
       });
+
       response.cookies.set("refreshToken", data.data.refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
+        maxAge: 60 * 60 * 24 * 30,
       });
+
       response.cookies.set("isAuthenticated", "true", {
-        httpOnly: false,
+        httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
+        maxAge: 60 * 60 * 24 * 7,
       });
 
       // fetch permissions langsung ke backend pakai token baru
@@ -74,13 +79,13 @@ export async function POST(request: NextRequest) {
 
         if (permRes.ok) {
           const permData = await permRes.json();
-          console.log("setelah login", permData);
           const encrypted = await encryptPermissions(permData.data.permissions);
           response.cookies.set("permissions", encrypted, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
             path: "/",
+            maxAge: 60 * 60 * 24 * 7,
           });
         } else {
           console.warn(

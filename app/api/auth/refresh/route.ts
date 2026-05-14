@@ -29,12 +29,14 @@ export async function POST(request: NextRequest) {
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
+        maxAge: 60 * 60 * 24 * 7,
       });
       response.cookies.set("refreshToken", data.data.refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
+        maxAge: 60 * 60 * 24 * 30,
       });
     }
 

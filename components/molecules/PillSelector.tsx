@@ -24,7 +24,7 @@ const PillSelector: React.FC<PillSelectorProps> = ({
         {label}
       </Label>
     )}
-    <div className="flex gap-1.5 bg-gray-100 dark:bg-primary/10 rounded-xl p-1">
+    <div className="flex gap-1.5 bg-gray-100 dark:bg-primary/10 rounded-xl p-2">
       {options.map((option) => (
         <button
           key={option.value}

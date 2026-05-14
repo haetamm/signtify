@@ -1,16 +1,16 @@
 "use client";
 
-import SortSelect from "@/components/molecules/SortSelect";
-import { STATUS_OPTIONS } from "@/lib/utils/constans";
-import { RoleFilterParams } from "@/lib/utils/interface";
+import { RoleQueryParam } from "@/lib/types/role";
+import { ROLE_SORT_OPTIONS, STATUS_OPTIONS } from "@/lib/utils/constans";
 import { FiX } from "react-icons/fi";
 import { Button } from "../ui/button";
 import PillSelector from "./PillSelector";
 import RoleSearchInputGroup from "./RoleSearchInputGroup";
+import SortSelect from "./SortSelect";
 
 interface RoleFilterBarProps {
-  filters: RoleFilterParams;
-  onChange: (filters: Partial<RoleFilterParams>) => void;
+  filters: RoleQueryParam;
+  onChange: (filters: Partial<RoleQueryParam>) => void;
   onReset: () => void;
 }
 
@@ -29,18 +29,17 @@ const RoleFilterBar: React.FC<RoleFilterBarProps> = ({
           <RoleSearchInputGroup filters={filters} onChange={onChange} />
           <PillSelector
             options={STATUS_OPTIONS}
-            value={filters.isActive === "" ? "" : String(filters.isActive)}
-            onChange={(value) =>
-              onChange({
-                isActive: value === "" ? "" : value === "true",
-                page: 1,
-              })
-            }
+            value={filters.isActive}
+            onChange={(value) => onChange({ isActive: value, page: 1 })}
           />
           <SortSelect
-            value={filters.sortBy ?? ""}
             isLabel={false}
-            onChange={(value) => onChange({ sortBy: value, page: 1 })}
+            options={ROLE_SORT_OPTIONS}
+            sortBy={filters.sortBy}
+            direction={filters.direction}
+            onChange={(sortBy, direction) =>
+              onChange({ sortBy, direction, page: 1 })
+            }
           />
           {hasActiveFilter && (
             <Button

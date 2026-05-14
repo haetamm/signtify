@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
       response.cookies.delete("token");
       response.cookies.delete("isAuthenticated");
       response.cookies.delete("refreshToken");
+      response.cookies.delete("permissions");
     }
 
     return response;

@@ -1,11 +1,14 @@
 import { clsx, type ClassValue } from "clsx";
 
 import { twMerge } from "tailwind-merge";
+import { RoleQueryParam } from "../types/role";
+import { UserQueryParam } from "../types/user";
 import {
   CONTRIBUTOR_STATUS_COLOR,
   FALLBACK_COLOR,
   PERMISSION_COLOR,
 } from "./constans";
+import { PaginationResponse } from "./interface";
 import {
   ActivityStyleInfo,
   Contributor,
@@ -179,3 +182,45 @@ export function handleFormError<T extends Record<string, unknown>>(
     setServerError("Permintaan gagal, coba lagi");
   }
 }
+
+export function buildQueryFromSearchParams(
+  searchParams: URLSearchParams,
+  initialPage: number,
+  initialSize: number,
+): UserQueryParam {
+  return {
+    page: Number(searchParams.get("page") ?? initialPage),
+    size: Number(searchParams.get("size") ?? initialSize),
+    name: searchParams.get("name") ?? "",
+    phone: searchParams.get("phone") ?? "",
+    gender: searchParams.get("gender") ?? "",
+    email: searchParams.get("email") ?? "",
+    isEnable: searchParams.get("isEnable") ?? "",
+    sortBy: searchParams.get("sortBy") ?? "",
+    direction: searchParams.get("direction") ?? "",
+  };
+}
+
+export function buildRoleQuerySearchParams(
+  searchParams: URLSearchParams,
+  initialPage: number,
+  initialSize: number,
+): RoleQueryParam {
+  return {
+    page: Number(searchParams.get("page") ?? initialPage),
+    size: Number(searchParams.get("size") ?? initialSize),
+    name: searchParams.get("name") ?? "",
+    isActive: searchParams.get("isActive") ?? "",
+    sortBy: searchParams.get("sortBy") ?? "",
+    direction: searchParams.get("direction") ?? "",
+  };
+}
+
+export const paginationDefault: PaginationResponse = {
+  totalPages: 0,
+  totalElements: 0,
+  page: 1,
+  size: 5,
+  hasNext: false,
+  hasPrevious: false,
+};

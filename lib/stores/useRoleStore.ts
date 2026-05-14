@@ -1,8 +1,11 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { Permissions } from "../types/role";
+import { Permissions, Role } from "../types/role";
+import { PaginationResponse } from "../utils/interface";
 
 interface RoleState {
+  roles: Role[];
+  pagination: PaginationResponse | null;
   roleId: string | null;
   roleName: string | null;
   permissions: Permissions[];
@@ -10,6 +13,7 @@ interface RoleState {
 }
 
 interface RoleActions {
+  setRoles: (roles: Role[], pagination: PaginationResponse) => void;
   setRole: (
     roleId: string,
     roleName: string,
@@ -22,10 +26,16 @@ interface RoleActions {
 export const useRoleStore = create<RoleState & RoleActions>()(
   devtools(
     (set, get) => ({
+      roles: [],
+      pagination: null,
       roleId: null,
       roleName: null,
       permissions: [],
       isHydrated: false,
+
+      setRoles: (roles, pagination) => {
+        set({ roles, pagination }, false, "role/setRoles");
+      },
 
       setRole: (roleId, roleName, permissions) => {
         set(
